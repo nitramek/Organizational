@@ -1,0 +1,1354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="organizational" default="all">
+  
+  
+  <property file="organizational.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.o/**"/>
+    <exclude name="**/*.obj/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_antlr:antlr:2.7.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_dom4j:dom4j:1.6.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_io.netty:netty-all:4.0.26.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/io/netty/netty-all/4.0.26.Final/netty-all-4.0.26.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.el:javax.el-api:3.0.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/el/javax.el-api/3.0.0/javax.el-api-3.0.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.enterprise:cdi-api:1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/enterprise/cdi-api/1.2/cdi-api-1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.inject:javax.inject:1.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/inject/javax.inject/1/javax.inject-1.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.interceptor:javax.interceptor-api:1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/interceptor/javax.interceptor-api/1.2/javax.interceptor-api-1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax:javaee-api:6.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/javaee-api/6.0/javaee-api-6.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_mysql:mysql-connector-java:5.1.35.classpath">
+    <pathelement location="${path.variable.maven_repository}/mysql/mysql-connector-java/5.1.35/mysql-connector-java-5.1.35.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/5.0.0.Final/hibernate-commons-annotations-5.0.0.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.1.Final/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/5.0.1.Final/hibernate-core-5.0.1.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-entitymanager/5.0.1.Final/hibernate-entitymanager-5.0.1.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hornetq:hornetq-commons:2.4.7.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hornetq/hornetq-commons/2.4.7.Final/hornetq-commons-2.4.7.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hornetq:hornetq-core-client:2.4.7.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hornetq/hornetq-core-client/2.4.7.Final/hornetq-core-client-2.4.7.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hornetq:hornetq-jms-client:2.4.7.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hornetq/hornetq-jms-client/2.4.7.Final/hornetq-jms-client-2.4.7.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hornetq:hornetq-journal:2.4.7.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hornetq/hornetq-journal/2.4.7.Final/hornetq-journal-2.4.7.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.hornetq:hornetq-native:2.4.7.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/hornetq/hornetq-native/2.4.7.Final/hornetq-native-2.4.7.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.javassist:javassist:3.18.1-ga.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.logging:jboss-logging:3.2.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.2.1.Final/jboss-logging-3.2.1.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.3.0.Final/jboss-logging-3.3.0.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.marshalling:jboss-marshalling-river:1.4.10.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/marshalling/jboss-marshalling-river/1.4.10.Final/jboss-marshalling-river-1.4.10.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.marshalling:jboss-marshalling:1.4.10.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/marshalling/jboss-marshalling/1.4.10.Final/jboss-marshalling-1.4.10.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.remoting:jboss-remoting:4.0.9.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/remoting/jboss-remoting/4.0.9.Final/jboss-remoting-4.0.9.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.sasl:jboss-sasl:1.0.5.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/sasl/jboss-sasl/1.0.5.Final/jboss-sasl-1.0.5.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec:1.0.2.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/ejb/jboss-ejb-api_3.1_spec/1.0.2.Final/jboss-ejb-api_3.1_spec-1.0.2.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.2_spec:1.0.0.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/ejb/jboss-ejb-api_3.2_spec/1.0.0.Final/jboss-ejb-api_3.2_spec-1.0.0.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.spec.javax.faces:jboss-jsf-api_2.1_spec:2.1.29.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/faces/jboss-jsf-api_2.1_spec/2.1.29.1.Final/jboss-jsf-api_2.1_spec-2.1.29.1.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.spec.javax.jms:jboss-jms-api_2.0_spec:1.0.0.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/jms/jboss-jms-api_2.0_spec/1.0.0.Final/jboss-jms-api_2.0_spec-1.0.0.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.0.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.xnio:xnio-api:3.3.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/xnio/xnio-api/3.3.1.Final/xnio-api-3.3.1.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss.xnio:xnio-nio:3.3.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/xnio/xnio-nio/3.3.1.Final/xnio-nio-3.3.1.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss:jandex:1.2.2.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.2.2.Final/jandex-1.2.2.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss:jboss-ejb-client:2.1.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jboss-ejb-client/2.1.1.Final/jboss-ejb-client-2.1.1.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jboss:jboss-remote-naming:2.0.4.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jboss-remote-naming/2.0.4.Final/jboss-remote-naming-2.0.4.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.jgroups:jgroups:3.3.4.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jgroups/jgroups/3.3.4.Final/jgroups-3.3.4.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.wildfly.checkstyle:wildfly-checkstyle-config:1.0.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/wildfly/checkstyle/wildfly-checkstyle-config/1.0.1.Final/wildfly-checkstyle-config-1.0.1.Final.jar"/>
+  </path>
+  
+  <path id="library.maven:_xml-apis:xml-apis:1.0.b2.classpath">
+    <pathelement location="${path.variable.maven_repository}/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar"/>
+  </path>
+  
+  
+  <!-- Global Libraries -->
+  
+  
+  <!-- Application Server Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module organizational -->
+  
+  <dirname property="module.organizational.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.organizational" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.organizational" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.organizational" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.organizational" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="organizational.output.dir" value="${module.organizational.basedir}/target/classes"/>
+  <property name="organizational.testoutput.dir" value="${module.organizational.basedir}/target/test-classes"/>
+  
+  <path id="organizational.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="organizational.module.production.classpath">
+    <path refid="${module.jdk.classpath.organizational}"/>
+  </path>
+  
+  <path id="organizational.runtime.production.module.classpath">
+    <pathelement location="${organizational.output.dir}"/>
+  </path>
+  
+  <path id="organizational.module.classpath">
+    <path refid="${module.jdk.classpath.organizational}"/>
+    <pathelement location="${organizational.output.dir}"/>
+  </path>
+  
+  <path id="organizational.runtime.module.classpath">
+    <pathelement location="${organizational.testoutput.dir}"/>
+    <pathelement location="${organizational.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.organizational">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.organizational">
+    <patternset refid="excluded.from.module.organizational"/>
+  </patternset>
+  
+  <path id="organizational.module.sourcepath">
+    <dirset dir="${module.organizational.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="organizational.module.test.sourcepath">
+    <dirset dir="${module.organizational.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.organizational" depends="compile.module.organizational.production,compile.module.organizational.tests" description="Compile module organizational"/>
+  
+  <target name="compile.module.organizational.production" depends="register.custom.compilers" description="Compile module organizational; production classes">
+    <mkdir dir="${organizational.output.dir}"/>
+    <javac2 destdir="${organizational.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.organizational}/javac">
+      <compilerarg line="${compiler.args.organizational}"/>
+      <bootclasspath refid="organizational.module.bootclasspath"/>
+      <classpath refid="organizational.module.production.classpath"/>
+      <src refid="organizational.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.organizational"/>
+    </javac2>
+    
+    <copy todir="${organizational.output.dir}">
+      <fileset dir="${module.organizational.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.organizational.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.organizational.tests" depends="register.custom.compilers,compile.module.organizational.production" description="compile module organizational; test classes" unless="skip.tests">
+    <mkdir dir="${organizational.testoutput.dir}"/>
+    <javac2 destdir="${organizational.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.organizational}/javac">
+      <compilerarg line="${compiler.args.organizational}"/>
+      <bootclasspath refid="organizational.module.bootclasspath"/>
+      <classpath refid="organizational.module.classpath"/>
+      <src refid="organizational.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.organizational"/>
+    </javac2>
+    
+    <copy todir="${organizational.testoutput.dir}">
+      <fileset dir="${module.organizational.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.organizational" description="cleanup module">
+    <delete dir="${organizational.output.dir}"/>
+    <delete dir="${organizational.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module organizational-domain-interface -->
+  
+  <dirname property="module.organizational-domain-interface.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.organizational-domain-interface" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.organizational-domain-interface" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.organizational-domain-interface" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.organizational-domain-interface" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="organizational-domain-interface.output.dir" value="${module.organizational-domain-interface.basedir}/organizational-domain-interface/target/classes"/>
+  <property name="organizational-domain-interface.testoutput.dir" value="${module.organizational-domain-interface.basedir}/organizational-domain-interface/target/test-classes"/>
+  
+  <path id="organizational-domain-interface.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="organizational-domain-interface.module.production.classpath">
+    <path refid="${module.jdk.classpath.organizational-domain-interface}"/>
+  </path>
+  
+  <path id="organizational-domain-interface.runtime.production.module.classpath">
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+  </path>
+  
+  <path id="organizational-domain-interface.module.classpath">
+    <path refid="${module.jdk.classpath.organizational-domain-interface}"/>
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+  </path>
+  
+  <path id="organizational-domain-interface.runtime.module.classpath">
+    <pathelement location="${organizational-domain-interface.testoutput.dir}"/>
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.organizational-domain-interface">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.organizational-domain-interface">
+    <patternset refid="excluded.from.module.organizational-domain-interface"/>
+  </patternset>
+  
+  <path id="organizational-domain-interface.module.sourcepath">
+    <dirset dir="${module.organizational-domain-interface.basedir}/organizational-domain-interface">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="organizational-domain-interface.module.test.sourcepath">
+    <dirset dir="${module.organizational-domain-interface.basedir}/organizational-domain-interface">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.organizational-domain-interface" depends="compile.module.organizational-domain-interface.production,compile.module.organizational-domain-interface.tests" description="Compile module organizational-domain-interface"/>
+  
+  <target name="compile.module.organizational-domain-interface.production" depends="register.custom.compilers" description="Compile module organizational-domain-interface; production classes">
+    <mkdir dir="${organizational-domain-interface.output.dir}"/>
+    <javac2 destdir="${organizational-domain-interface.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.organizational-domain-interface}/javac">
+      <compilerarg line="${compiler.args.organizational-domain-interface}"/>
+      <bootclasspath refid="organizational-domain-interface.module.bootclasspath"/>
+      <classpath refid="organizational-domain-interface.module.production.classpath"/>
+      <src refid="organizational-domain-interface.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.organizational-domain-interface"/>
+    </javac2>
+    
+    <copy todir="${organizational-domain-interface.output.dir}">
+      <fileset dir="${module.organizational-domain-interface.basedir}/organizational-domain-interface/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.organizational-domain-interface.basedir}/organizational-domain-interface/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.organizational-domain-interface.tests" depends="register.custom.compilers,compile.module.organizational-domain-interface.production" description="compile module organizational-domain-interface; test classes" unless="skip.tests">
+    <mkdir dir="${organizational-domain-interface.testoutput.dir}"/>
+    <javac2 destdir="${organizational-domain-interface.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.organizational-domain-interface}/javac">
+      <compilerarg line="${compiler.args.organizational-domain-interface}"/>
+      <bootclasspath refid="organizational-domain-interface.module.bootclasspath"/>
+      <classpath refid="organizational-domain-interface.module.classpath"/>
+      <src refid="organizational-domain-interface.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.organizational-domain-interface"/>
+    </javac2>
+    
+    <copy todir="${organizational-domain-interface.testoutput.dir}">
+      <fileset dir="${module.organizational-domain-interface.basedir}/organizational-domain-interface/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.organizational-domain-interface" description="cleanup module">
+    <delete dir="${organizational-domain-interface.output.dir}"/>
+    <delete dir="${organizational-domain-interface.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module organizational-data-layer -->
+  
+  <dirname property="module.organizational-data-layer.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.organizational-data-layer" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.organizational-data-layer" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.organizational-data-layer" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.organizational-data-layer" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="organizational-data-layer.output.dir" value="${module.organizational-data-layer.basedir}/organizational-data-layer/target/classes"/>
+  <property name="organizational-data-layer.testoutput.dir" value="${module.organizational-data-layer.basedir}/organizational-data-layer/target/test-classes"/>
+  
+  <path id="organizational-data-layer.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="organizational-data-layer.module.production.classpath">
+    <path refid="${module.jdk.classpath.organizational-data-layer}"/>
+    <pathelement location="${basedir}/organizational-data-layer/src/main/java/META-INF"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+  </path>
+  
+  <path id="organizational-data-layer.runtime.production.module.classpath">
+    <pathelement location="${organizational-data-layer.output.dir}"/>
+    <pathelement location="${basedir}/organizational-data-layer/src/main/java/META-INF"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <path refid="organizational-domain-interface.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="organizational-data-layer.module.classpath">
+    <path refid="${module.jdk.classpath.organizational-data-layer}"/>
+    <pathelement location="${organizational-data-layer.output.dir}"/>
+    <pathelement location="${basedir}/organizational-data-layer/src/main/java/META-INF"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <pathelement location="${organizational-domain-interface.testoutput.dir}"/>
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+  </path>
+  
+  <path id="organizational-data-layer.runtime.module.classpath">
+    <pathelement location="${organizational-data-layer.testoutput.dir}"/>
+    <pathelement location="${organizational-data-layer.output.dir}"/>
+    <pathelement location="${basedir}/organizational-data-layer/src/main/java/META-INF"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <path refid="organizational-domain-interface.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.organizational-data-layer">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.organizational-data-layer">
+    <patternset refid="excluded.from.module.organizational-data-layer"/>
+  </patternset>
+  
+  <path id="organizational-data-layer.module.sourcepath">
+    <dirset dir="${module.organizational-data-layer.basedir}/organizational-data-layer">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="organizational-data-layer.module.test.sourcepath">
+    <dirset dir="${module.organizational-data-layer.basedir}/organizational-data-layer">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.organizational-data-layer" depends="compile.module.organizational-data-layer.production,compile.module.organizational-data-layer.tests" description="Compile module organizational-data-layer"/>
+  
+  <target name="compile.module.organizational-data-layer.production" depends="register.custom.compilers,compile.module.organizational-domain-interface" description="Compile module organizational-data-layer; production classes">
+    <mkdir dir="${organizational-data-layer.output.dir}"/>
+    <javac2 destdir="${organizational-data-layer.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.organizational-data-layer}/javac">
+      <compilerarg line="${compiler.args.organizational-data-layer}"/>
+      <bootclasspath refid="organizational-data-layer.module.bootclasspath"/>
+      <classpath refid="organizational-data-layer.module.production.classpath"/>
+      <src refid="organizational-data-layer.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.organizational-data-layer"/>
+    </javac2>
+    
+    <copy todir="${organizational-data-layer.output.dir}">
+      <fileset dir="${module.organizational-data-layer.basedir}/organizational-data-layer/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.organizational-data-layer.basedir}/organizational-data-layer/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.organizational-data-layer.tests" depends="register.custom.compilers,compile.module.organizational-data-layer.production" description="compile module organizational-data-layer; test classes" unless="skip.tests">
+    <mkdir dir="${organizational-data-layer.testoutput.dir}"/>
+    <javac2 destdir="${organizational-data-layer.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.organizational-data-layer}/javac">
+      <compilerarg line="${compiler.args.organizational-data-layer}"/>
+      <bootclasspath refid="organizational-data-layer.module.bootclasspath"/>
+      <classpath refid="organizational-data-layer.module.classpath"/>
+      <src refid="organizational-data-layer.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.organizational-data-layer"/>
+    </javac2>
+    
+    <copy todir="${organizational-data-layer.testoutput.dir}">
+      <fileset dir="${module.organizational-data-layer.basedir}/organizational-data-layer/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.organizational-data-layer" description="cleanup module">
+    <delete dir="${organizational-data-layer.output.dir}"/>
+    <delete dir="${organizational-data-layer.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module organizational-domain -->
+  
+  <dirname property="module.organizational-domain.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.organizational-domain" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.organizational-domain" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.organizational-domain" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.organizational-domain" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="organizational-domain.output.dir" value="${module.organizational-domain.basedir}/organizational-domain/target/classes"/>
+  <property name="organizational-domain.testoutput.dir" value="${module.organizational-domain.basedir}/organizational-domain/target/test-classes"/>
+  
+  <path id="organizational-domain.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="organizational-domain.module.production.classpath">
+    <path refid="${module.jdk.classpath.organizational-domain}"/>
+    <pathelement location="${organizational-data-layer.output.dir}"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+    <path refid="library.maven:_javax:javaee-api:6.0.classpath"/>
+  </path>
+  
+  <path id="organizational-domain.runtime.production.module.classpath">
+    <pathelement location="${organizational-domain.output.dir}"/>
+    <path refid="organizational-data-layer.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <path refid="organizational-domain-interface.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="organizational-domain.module.classpath">
+    <path refid="${module.jdk.classpath.organizational-domain}"/>
+    <pathelement location="${organizational-domain.output.dir}"/>
+    <pathelement location="${organizational-data-layer.testoutput.dir}"/>
+    <pathelement location="${organizational-data-layer.output.dir}"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <pathelement location="${organizational-domain-interface.testoutput.dir}"/>
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+    <path refid="library.maven:_javax:javaee-api:6.0.classpath"/>
+  </path>
+  
+  <path id="organizational-domain.runtime.module.classpath">
+    <pathelement location="${organizational-domain.testoutput.dir}"/>
+    <pathelement location="${organizational-domain.output.dir}"/>
+    <path refid="organizational-data-layer.runtime.module.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <path refid="organizational-domain-interface.runtime.module.classpath"/>
+    <path refid="library.maven:_javax:javaee-api:6.0.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.organizational-domain">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.organizational-domain">
+    <patternset refid="excluded.from.module.organizational-domain"/>
+  </patternset>
+  
+  <path id="organizational-domain.module.sourcepath">
+    <dirset dir="${module.organizational-domain.basedir}/organizational-domain">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="organizational-domain.module.test.sourcepath">
+    <dirset dir="${module.organizational-domain.basedir}/organizational-domain">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.organizational-domain" depends="compile.module.organizational-domain.production,compile.module.organizational-domain.tests" description="Compile module organizational-domain"/>
+  
+  <target name="compile.module.organizational-domain.production" depends="register.custom.compilers,compile.module.organizational-data-layer,compile.module.organizational-domain-interface" description="Compile module organizational-domain; production classes">
+    <mkdir dir="${organizational-domain.output.dir}"/>
+    <javac2 destdir="${organizational-domain.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.organizational-domain}/javac">
+      <compilerarg line="${compiler.args.organizational-domain}"/>
+      <bootclasspath refid="organizational-domain.module.bootclasspath"/>
+      <classpath refid="organizational-domain.module.production.classpath"/>
+      <src refid="organizational-domain.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.organizational-domain"/>
+    </javac2>
+    
+    <copy todir="${organizational-domain.output.dir}">
+      <fileset dir="${module.organizational-domain.basedir}/organizational-domain/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.organizational-domain.basedir}/organizational-domain/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.organizational-domain.tests" depends="register.custom.compilers,compile.module.organizational-domain.production" description="compile module organizational-domain; test classes" unless="skip.tests">
+    <mkdir dir="${organizational-domain.testoutput.dir}"/>
+    <javac2 destdir="${organizational-domain.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.organizational-domain}/javac">
+      <compilerarg line="${compiler.args.organizational-domain}"/>
+      <bootclasspath refid="organizational-domain.module.bootclasspath"/>
+      <classpath refid="organizational-domain.module.classpath"/>
+      <src refid="organizational-domain.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.organizational-domain"/>
+    </javac2>
+    
+    <copy todir="${organizational-domain.testoutput.dir}">
+      <fileset dir="${module.organizational-domain.basedir}/organizational-domain/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.organizational-domain" description="cleanup module">
+    <delete dir="${organizational-domain.output.dir}"/>
+    <delete dir="${organizational-domain.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module console -->
+  
+  <dirname property="module.console.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.console" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.console" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.console" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.console" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="console.output.dir" value="${module.console.basedir}/console/target/classes"/>
+  <property name="console.testoutput.dir" value="${module.console.basedir}/console/target/test-classes"/>
+  
+  <path id="console.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="console.module.production.classpath">
+    <path refid="${module.jdk.classpath.console}"/>
+    <pathelement location="${organizational-domain.output.dir}"/>
+    <pathelement location="${organizational-data-layer.output.dir}"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+    <path refid="library.maven:_org.jboss:jboss-ejb-client:2.1.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss:jboss-remote-naming:2.0.4.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.2.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.marshalling:jboss-marshalling:1.4.10.final.classpath"/>
+    <path refid="library.maven:_org.jboss.marshalling:jboss-marshalling-river:1.4.10.final.classpath"/>
+    <path refid="library.maven:_org.jboss.remoting:jboss-remoting:4.0.9.final.classpath"/>
+    <path refid="library.maven:_org.jboss.sasl:jboss-sasl:1.0.5.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.xnio:xnio-api:3.3.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.xnio:xnio-nio:3.3.1.final.classpath"/>
+    <path refid="library.maven:_org.wildfly.checkstyle:wildfly-checkstyle-config:1.0.1.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-commons:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-core-client:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.jgroups:jgroups:3.3.4.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-journal:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-native:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-jms-client:2.4.7.final.classpath"/>
+    <path refid="library.maven:_javax.inject:javax.inject:1.classpath"/>
+    <path refid="library.maven:_io.netty:netty-all:4.0.26.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.jms:jboss-jms-api_2.0_spec:1.0.0.final.classpath"/>
+  </path>
+  
+  <path id="console.runtime.production.module.classpath">
+    <pathelement location="${console.output.dir}"/>
+    <path refid="organizational-domain.runtime.production.module.classpath"/>
+    <path refid="organizational-data-layer.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <path refid="organizational-domain-interface.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.jboss:jboss-ejb-client:2.1.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss:jboss-remote-naming:2.0.4.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.2.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.marshalling:jboss-marshalling:1.4.10.final.classpath"/>
+    <path refid="library.maven:_org.jboss.marshalling:jboss-marshalling-river:1.4.10.final.classpath"/>
+    <path refid="library.maven:_org.jboss.remoting:jboss-remoting:4.0.9.final.classpath"/>
+    <path refid="library.maven:_org.jboss.sasl:jboss-sasl:1.0.5.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.xnio:xnio-api:3.3.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.xnio:xnio-nio:3.3.1.final.classpath"/>
+    <path refid="library.maven:_org.wildfly.checkstyle:wildfly-checkstyle-config:1.0.1.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-commons:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-core-client:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.jgroups:jgroups:3.3.4.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-journal:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-native:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-jms-client:2.4.7.final.classpath"/>
+    <path refid="library.maven:_javax.inject:javax.inject:1.classpath"/>
+    <path refid="library.maven:_io.netty:netty-all:4.0.26.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.jms:jboss-jms-api_2.0_spec:1.0.0.final.classpath"/>
+  </path>
+  
+  <path id="console.module.classpath">
+    <path refid="${module.jdk.classpath.console}"/>
+    <pathelement location="${console.output.dir}"/>
+    <pathelement location="${organizational-domain.testoutput.dir}"/>
+    <pathelement location="${organizational-domain.output.dir}"/>
+    <pathelement location="${organizational-data-layer.testoutput.dir}"/>
+    <pathelement location="${organizational-data-layer.output.dir}"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <pathelement location="${organizational-domain-interface.testoutput.dir}"/>
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+    <path refid="library.maven:_org.jboss:jboss-ejb-client:2.1.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss:jboss-remote-naming:2.0.4.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.2.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.marshalling:jboss-marshalling:1.4.10.final.classpath"/>
+    <path refid="library.maven:_org.jboss.marshalling:jboss-marshalling-river:1.4.10.final.classpath"/>
+    <path refid="library.maven:_org.jboss.remoting:jboss-remoting:4.0.9.final.classpath"/>
+    <path refid="library.maven:_org.jboss.sasl:jboss-sasl:1.0.5.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.xnio:xnio-api:3.3.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.xnio:xnio-nio:3.3.1.final.classpath"/>
+    <path refid="library.maven:_org.wildfly.checkstyle:wildfly-checkstyle-config:1.0.1.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-commons:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-core-client:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.jgroups:jgroups:3.3.4.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-journal:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-native:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-jms-client:2.4.7.final.classpath"/>
+    <path refid="library.maven:_javax.inject:javax.inject:1.classpath"/>
+    <path refid="library.maven:_io.netty:netty-all:4.0.26.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.jms:jboss-jms-api_2.0_spec:1.0.0.final.classpath"/>
+  </path>
+  
+  <path id="console.runtime.module.classpath">
+    <pathelement location="${console.testoutput.dir}"/>
+    <pathelement location="${console.output.dir}"/>
+    <path refid="organizational-domain.runtime.module.classpath"/>
+    <path refid="organizational-data-layer.runtime.module.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <path refid="organizational-domain-interface.runtime.module.classpath"/>
+    <path refid="library.maven:_org.jboss:jboss-ejb-client:2.1.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss:jboss-remote-naming:2.0.4.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.2.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.marshalling:jboss-marshalling:1.4.10.final.classpath"/>
+    <path refid="library.maven:_org.jboss.marshalling:jboss-marshalling-river:1.4.10.final.classpath"/>
+    <path refid="library.maven:_org.jboss.remoting:jboss-remoting:4.0.9.final.classpath"/>
+    <path refid="library.maven:_org.jboss.sasl:jboss-sasl:1.0.5.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.2_spec:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.jboss.xnio:xnio-api:3.3.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.xnio:xnio-nio:3.3.1.final.classpath"/>
+    <path refid="library.maven:_org.wildfly.checkstyle:wildfly-checkstyle-config:1.0.1.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-commons:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-core-client:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.jgroups:jgroups:3.3.4.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-journal:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-native:2.4.7.final.classpath"/>
+    <path refid="library.maven:_org.hornetq:hornetq-jms-client:2.4.7.final.classpath"/>
+    <path refid="library.maven:_javax.inject:javax.inject:1.classpath"/>
+    <path refid="library.maven:_io.netty:netty-all:4.0.26.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.jms:jboss-jms-api_2.0_spec:1.0.0.final.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.console">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.console">
+    <patternset refid="excluded.from.module.console"/>
+  </patternset>
+  
+  <path id="console.module.sourcepath">
+    <dirset dir="${module.console.basedir}/console">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="console.module.test.sourcepath">
+    <dirset dir="${module.console.basedir}/console">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.console" depends="compile.module.console.production,compile.module.console.tests" description="Compile module console"/>
+  
+  <target name="compile.module.console.production" depends="register.custom.compilers,compile.module.organizational-domain,compile.module.organizational-data-layer,compile.module.organizational-domain-interface" description="Compile module console; production classes">
+    <mkdir dir="${console.output.dir}"/>
+    <javac2 destdir="${console.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.console}/javac">
+      <compilerarg line="${compiler.args.console}"/>
+      <bootclasspath refid="console.module.bootclasspath"/>
+      <classpath refid="console.module.production.classpath"/>
+      <src refid="console.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.console"/>
+    </javac2>
+    
+    <copy todir="${console.output.dir}">
+      <fileset dir="${module.console.basedir}/console/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.console.basedir}/console/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.console.tests" depends="register.custom.compilers,compile.module.console.production" description="compile module console; test classes" unless="skip.tests">
+    <mkdir dir="${console.testoutput.dir}"/>
+    <javac2 destdir="${console.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.console}/javac">
+      <compilerarg line="${compiler.args.console}"/>
+      <bootclasspath refid="console.module.bootclasspath"/>
+      <classpath refid="console.module.classpath"/>
+      <src refid="console.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.console"/>
+    </javac2>
+    
+    <copy todir="${console.testoutput.dir}">
+      <fileset dir="${module.console.basedir}/console/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.console" description="cleanup module">
+    <delete dir="${console.output.dir}"/>
+    <delete dir="${console.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module organizational-view-web -->
+  
+  <dirname property="module.organizational-view-web.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.organizational-view-web" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.organizational-view-web" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.organizational-view-web" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.organizational-view-web" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="organizational-view-web.output.dir" value="${module.organizational-view-web.basedir}/organizational-view-web/target/classes"/>
+  <property name="organizational-view-web.testoutput.dir" value="${module.organizational-view-web.basedir}/organizational-view-web/target/test-classes"/>
+  
+  <path id="organizational-view-web.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="organizational-view-web.module.production.classpath">
+    <path refid="${module.jdk.classpath.organizational-view-web}"/>
+    <pathelement location="${organizational-domain.output.dir}"/>
+    <pathelement location="${organizational-data-layer.output.dir}"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+    <path refid="library.maven:_org.jboss.spec.javax.faces:jboss-jsf-api_2.1_spec:2.1.29.1.final.classpath"/>
+    <path refid="library.maven:_javax.enterprise:cdi-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.el:javax.el-api:3.0.0.classpath"/>
+    <path refid="library.maven:_javax.interceptor:javax.interceptor-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.inject:javax.inject:1.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec:1.0.2.final.classpath"/>
+  </path>
+  
+  <path id="organizational-view-web.runtime.production.module.classpath">
+    <pathelement location="${organizational-view-web.output.dir}"/>
+    <path refid="organizational-domain.runtime.production.module.classpath"/>
+    <path refid="organizational-data-layer.runtime.production.module.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <path refid="organizational-domain-interface.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="organizational-view-web.module.classpath">
+    <path refid="${module.jdk.classpath.organizational-view-web}"/>
+    <pathelement location="${organizational-view-web.output.dir}"/>
+    <pathelement location="${organizational-domain.testoutput.dir}"/>
+    <pathelement location="${organizational-domain.output.dir}"/>
+    <pathelement location="${organizational-data-layer.testoutput.dir}"/>
+    <pathelement location="${organizational-data-layer.output.dir}"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <pathelement location="${organizational-domain-interface.testoutput.dir}"/>
+    <pathelement location="${organizational-domain-interface.output.dir}"/>
+    <path refid="library.maven:_org.jboss.spec.javax.faces:jboss-jsf-api_2.1_spec:2.1.29.1.final.classpath"/>
+    <path refid="library.maven:_javax.enterprise:cdi-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.el:javax.el-api:3.0.0.classpath"/>
+    <path refid="library.maven:_javax.interceptor:javax.interceptor-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.inject:javax.inject:1.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec:1.0.2.final.classpath"/>
+  </path>
+  
+  <path id="organizational-view-web.runtime.module.classpath">
+    <pathelement location="${organizational-view-web.testoutput.dir}"/>
+    <pathelement location="${organizational-view-web.output.dir}"/>
+    <path refid="organizational-domain.runtime.module.classpath"/>
+    <path refid="organizational-data-layer.runtime.module.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-entitymanager:5.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.maven:_org.hibernate:hibernate-core:5.0.1.final.classpath"/>
+    <path refid="library.maven:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.maven:_org.jboss:jandex:1.2.2.final.classpath"/>
+    <path refid="library.maven:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.maven:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.maven:_org.hibernate.common:hibernate-commons-annotations:5.0.0.final.classpath"/>
+    <path refid="library.maven:_org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:5.1.35.classpath"/>
+    <path refid="organizational-domain-interface.runtime.module.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.faces:jboss-jsf-api_2.1_spec:2.1.29.1.final.classpath"/>
+    <path refid="library.maven:_javax.enterprise:cdi-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.el:javax.el-api:3.0.0.classpath"/>
+    <path refid="library.maven:_javax.interceptor:javax.interceptor-api:1.2.classpath"/>
+    <path refid="library.maven:_javax.inject:javax.inject:1.classpath"/>
+    <path refid="library.maven:_org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.final.classpath"/>
+    <path refid="library.maven:_org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec:1.0.2.final.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.organizational-view-web">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.organizational-view-web">
+    <patternset refid="excluded.from.module.organizational-view-web"/>
+  </patternset>
+  
+  <path id="organizational-view-web.module.sourcepath">
+    <dirset dir="${module.organizational-view-web.basedir}/organizational-view-web">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+      <include name="src/main/webapp"/>
+    </dirset>
+  </path>
+  
+  <path id="organizational-view-web.module.test.sourcepath">
+    <dirset dir="${module.organizational-view-web.basedir}/organizational-view-web">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.organizational-view-web" depends="compile.module.organizational-view-web.production,compile.module.organizational-view-web.tests" description="Compile module organizational-view-web"/>
+  
+  <target name="compile.module.organizational-view-web.production" depends="register.custom.compilers,compile.module.organizational-domain,compile.module.organizational-data-layer,compile.module.organizational-domain-interface" description="Compile module organizational-view-web; production classes">
+    <mkdir dir="${organizational-view-web.output.dir}"/>
+    <javac2 destdir="${organizational-view-web.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.organizational-view-web}/javac">
+      <compilerarg line="${compiler.args.organizational-view-web}"/>
+      <bootclasspath refid="organizational-view-web.module.bootclasspath"/>
+      <classpath refid="organizational-view-web.module.production.classpath"/>
+      <src refid="organizational-view-web.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.organizational-view-web"/>
+    </javac2>
+    
+    <copy todir="${organizational-view-web.output.dir}">
+      <fileset dir="${module.organizational-view-web.basedir}/organizational-view-web/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.organizational-view-web.basedir}/organizational-view-web/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.organizational-view-web.basedir}/organizational-view-web/src/main/webapp">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.organizational-view-web.tests" depends="register.custom.compilers,compile.module.organizational-view-web.production" description="compile module organizational-view-web; test classes" unless="skip.tests">
+    <mkdir dir="${organizational-view-web.testoutput.dir}"/>
+    <javac2 destdir="${organizational-view-web.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.organizational-view-web}/javac">
+      <compilerarg line="${compiler.args.organizational-view-web}"/>
+      <bootclasspath refid="organizational-view-web.module.bootclasspath"/>
+      <classpath refid="organizational-view-web.module.classpath"/>
+      <src refid="organizational-view-web.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.organizational-view-web"/>
+    </javac2>
+    
+    <copy todir="${organizational-view-web.testoutput.dir}">
+      <fileset dir="${module.organizational-view-web.basedir}/organizational-view-web/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.organizational-view-web" description="cleanup module">
+    <delete dir="${organizational-view-web.output.dir}"/>
+    <delete dir="${organizational-view-web.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.organizational, clean.module.organizational-domain-interface, clean.module.organizational-data-layer, clean.module.organizational-domain, clean.module.console, clean.module.organizational-view-web, clean.artifact.organizational-view-web:war_exploded" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.organizational, compile.module.organizational-domain-interface, compile.module.organizational-data-layer, compile.module.organizational-domain, compile.module.console, compile.module.organizational-view-web" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.organizational-view-web:war" value="${basedir}/organizational-view-web/target"/>
+    <property name="artifact.output.organizational-view-web:war_exploded" value="${basedir}/organizational-view-web/target/organizational-view-web-0.0.1"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.organizational-view-web-0.0.1.war" value="${artifacts.temp.dir}/organizational-view-web-0.0.1.war"/>
+    <property name="temp.jar.path.organizational-domain-0.0.1.jar" value="${artifacts.temp.dir}/organizational-domain-0.0.1.jar"/>
+    <property name="temp.jar.path.organizational-data-layer-0.0.1.jar" value="${artifacts.temp.dir}/organizational-data-layer-0.0.1.jar"/>
+    <property name="temp.jar.path.organizational-domain-interface-0.0.1.jar" value="${artifacts.temp.dir}/organizational-domain-interface-0.0.1.jar"/>
+  </target>
+  
+  <target name="clean.artifact.organizational-view-web:war_exploded" description="clean organizational-view-web:war exploded artifact output">
+    <delete dir="${artifact.output.organizational-view-web:war_exploded}"/>
+  </target>
+  
+  <target name="artifact.organizational-view-web:war" depends="init.artifacts, artifact.organizational-view-web:war_exploded" description="Build &#39;organizational-view-web:war&#39; artifact">
+    <property name="artifact.temp.output.organizational-view-web:war" value="${artifacts.temp.dir}/organizational_view_web_war"/>
+    <mkdir dir="${artifact.temp.output.organizational-view-web:war}"/>
+    <zip destfile="${temp.jar.path.organizational-view-web-0.0.1.war}">
+      <zipfileset dir="${artifact.output.organizational-view-web:war_exploded}"/>
+    </zip>
+    <copy file="${temp.jar.path.organizational-view-web-0.0.1.war}" tofile="${artifact.temp.output.organizational-view-web:war}/organizational-view-web-0.0.1.war"/>
+  </target>
+  
+  <target name="artifact.organizational-view-web:war_exploded" depends="init.artifacts, compile.module.organizational-view-web, compile.module.organizational-domain, compile.module.organizational-data-layer, compile.module.organizational-domain-interface" description="Build &#39;organizational-view-web:war exploded&#39; artifact">
+    <mkdir dir="${artifact.output.organizational-view-web:war_exploded}"/>
+    <jar destfile="${temp.jar.path.organizational-domain-0.0.1.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${organizational-domain.output.dir}"/>
+    </jar>
+    <jar destfile="${temp.jar.path.organizational-data-layer-0.0.1.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${organizational-data-layer.output.dir}"/>
+    </jar>
+    <jar destfile="${temp.jar.path.organizational-domain-interface-0.0.1.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${organizational-domain-interface.output.dir}"/>
+    </jar>
+    <mkdir dir="${artifact.output.organizational-view-web:war_exploded}/WEB-INF"/>
+    <mkdir dir="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/classes"/>
+    <copy todir="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/classes">
+      <fileset dir="${organizational-view-web.output.dir}"/>
+    </copy>
+    <mkdir dir="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib"/>
+    <copy file="${temp.jar.path.organizational-domain-0.0.1.jar}" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/organizational-domain-0.0.1.jar"/>
+    <copy file="${temp.jar.path.organizational-data-layer-0.0.1.jar}" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/organizational-data-layer-0.0.1.jar"/>
+    <copy file="${path.variable.maven_repository}/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+    <copy file="${path.variable.maven_repository}/org/hibernate/hibernate-entitymanager/5.0.1.Final/hibernate-entitymanager-5.0.1.Final.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/hibernate-entitymanager-5.0.1.Final.jar"/>
+    <copy file="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.3.0.Final/jboss-logging-3.3.0.Final.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/jboss-logging-3.3.0.Final.jar"/>
+    <copy file="${path.variable.maven_repository}/org/hibernate/hibernate-core/5.0.1.Final/hibernate-core-5.0.1.Final.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/hibernate-core-5.0.1.Final.jar"/>
+    <copy file="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/antlr-2.7.7.jar"/>
+    <copy file="${path.variable.maven_repository}/org/jboss/jandex/1.2.2.Final/jandex-1.2.2.Final.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/jandex-1.2.2.Final.jar"/>
+    <copy file="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/dom4j-1.6.1.jar"/>
+    <copy file="${path.variable.maven_repository}/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/xml-apis-1.0.b2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/5.0.0.Final/hibernate-commons-annotations-5.0.0.Final.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/hibernate-commons-annotations-5.0.0.Final.jar"/>
+    <copy file="${path.variable.maven_repository}/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar"/>
+    <copy file="${path.variable.maven_repository}/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/javassist-3.18.1-GA.jar"/>
+    <copy file="${path.variable.maven_repository}/mysql/mysql-connector-java/5.1.35/mysql-connector-java-5.1.35.jar" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/mysql-connector-java-5.1.35.jar"/>
+    <copy file="${temp.jar.path.organizational-domain-interface-0.0.1.jar}" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/lib/organizational-domain-interface-0.0.1.jar"/>
+    <mkdir dir="${artifact.output.organizational-view-web:war_exploded}/META-INF"/>
+    <copy file="${basedir}/organizational-view-web/target/organizational-view-web-0.0.1/META-INF/MANIFEST.MF" tofile="${artifact.output.organizational-view-web:war_exploded}/META-INF/MANIFEST.MF"/>
+    <copy todir="${artifact.output.organizational-view-web:war_exploded}">
+      <fileset dir="${basedir}/organizational-view-web/src/main/webapp"/>
+    </copy>
+    <mkdir dir="${artifact.output.organizational-view-web:war_exploded}/WEB-INF"/>
+    <copy file="${basedir}/organizational-view-web/src/main/webapp/WEB-INF/web.xml" tofile="${artifact.output.organizational-view-web:war_exploded}/WEB-INF/web.xml"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.organizational-view-web:war, artifact.organizational-view-web:war_exploded" description="Build all artifacts">
+    <mkdir dir="${artifact.output.organizational-view-web:war}"/>
+    <copy todir="${artifact.output.organizational-view-web:war}">
+      <fileset dir="${artifact.temp.output.organizational-view-web:war}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
