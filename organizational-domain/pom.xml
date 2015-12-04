@@ -18,6 +18,16 @@
             <version>0.0.1</version>
         </dependency>
         <dependency>
+            <groupId>cz.nitramek</groupId>
+            <artifactId>organizational-data-layer-implementation</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>cz.nitramek</groupId>
+            <artifactId>organizational-domain-classes</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>6.0</version>
