@@ -1,4 +1,4 @@
-package cz.nitramek.organizational.data;
+package cz.nitramek.organizational.data.mapper;
 
 /**
  * Default mapper defining concrete mapper operations

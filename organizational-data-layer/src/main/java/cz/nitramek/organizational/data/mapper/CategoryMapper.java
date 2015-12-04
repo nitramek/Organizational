@@ -1,4 +1,4 @@
-package cz.nitramek.organizational.data;
+package cz.nitramek.organizational.data.mapper;
 
 
 import cz.nitramek.organizational.domain.classes.Category;
