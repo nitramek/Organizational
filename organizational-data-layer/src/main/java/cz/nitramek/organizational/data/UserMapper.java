@@ -1,5 +1,10 @@
 package cz.nitramek.organizational.data;
 
 
-public interface UserMapper {
+import cz.nitramek.organizational.domain.classes.User;
+
+import java.util.List;
+
+public interface UserMapper extends Mapper<User> {
+    List<User> select();
 }
