@@ -11,7 +11,7 @@ Data implementation setup:
 
 1.  cz.nitramek.organizational.data.util.DataImplementation package mark in package-info.java to easily find mappers implementation
   ```
-  @DataImplementation
+  @DataImplementation(implementations = {UserMapperImpl.class})
   package cz.nitramek.organizational.data.implementation.mappers;
   
   import cz.nitramek.organizational.data.util.DataImplementation;
@@ -29,7 +29,7 @@ public class UserMapperImpl implements UserMapper{
 
 3. mapper.properties with  
 ```
-mapper.implementation = cz.nitramek.organizational.data.implementation.util.ConcreteMapperFactory
+mapper.package = cz.nitramek.organizational.data.implementation.mappers
 ```
 
 
