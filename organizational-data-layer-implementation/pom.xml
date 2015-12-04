@@ -32,5 +32,11 @@
             <artifactId>organizational-domain-classes</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>cz.nitramek</groupId>
+            <artifactId>organizational-data-layer</artifactId>
+            <version>0.0.1</version>
+        </dependency>
 
-    </dependencies></project>
+    </dependencies>
+</project>
