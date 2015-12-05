@@ -1,9 +1,13 @@
 package cz.nitramek.organizational.domain.classes;
 
 
-public class Notifaction {
+public class Notifaction extends Message {
     private String triggeredValue;
     private Item triggredItem;
+
+    public Notifaction(String subject) {
+        super(subject);
+    }
 
     public String getTriggeredValue() {
         return triggeredValue;
