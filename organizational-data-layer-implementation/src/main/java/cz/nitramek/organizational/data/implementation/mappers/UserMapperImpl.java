@@ -1,5 +1,6 @@
 package cz.nitramek.organizational.data.implementation.mappers;
 
+import cz.nitramek.organizational.data.implementation.dto.RoleDTO;
 import cz.nitramek.organizational.data.implementation.dto.UserDTO;
 import cz.nitramek.organizational.data.implementation.util.Converters;
 import cz.nitramek.organizational.data.mapper.UserMapper;
@@ -33,7 +34,17 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public User insert(User user) {
+
         UserDTO userDTO = Converters.createUser(user);
+
+        List<RoleDTO> rolesToAdd = user.getRolesToAdd().stream()
+                                       .map(
+                                               rName -> this.em.createNamedQuery("Role.selectByName", RoleDTO.class)
+                                                               .setParameter("roleName", rName)
+                                                               .getSingleResult()
+                                           )
+                                       .collect(Collectors.toCollection(ArrayList<RoleDTO>::new));
+        userDTO.getRoles().addAll(rolesToAdd);
         this.em.persist(userDTO);
         userDTO.getRoles().stream().forEach(
                 roleDTO -> {
