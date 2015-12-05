@@ -1,17 +1,27 @@
 package cz.nitramek.organizational.data.implementation.dto;
 
+import cz.nitramek.organizational.domain.classes.Permission;
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity(name = "Permission")
+@Table(name = "Permission")
 public class PermissionDTO implements Identifiable {
-    enum Level {
-        GUEST, VISIBLE, ALL
+
+    @Id
+    @GeneratedValue
+    private long id;
+
+    private Permission.Level level;
+
+    public PermissionDTO() {
     }
 
-    private long id;
-    private Level level;
-
-    public PermissionDTO(Level level) {
+    public PermissionDTO(Permission.Level level) {
         this.level = level;
     }
 
@@ -23,11 +33,11 @@ public class PermissionDTO implements Identifiable {
         this.id = id;
     }
 
-    public Level getLevel() {
+    public Permission.Level getLevel() {
         return level;
     }
 
-    public void setLevel(Level level) {
+    public void setLevel(Permission.Level level) {
         this.level = level;
     }
 }

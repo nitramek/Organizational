@@ -3,7 +3,6 @@ package cz.nitramek.organizational.data.implementation.dto;
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity(name = "User")
@@ -29,14 +28,17 @@ public class UserDTO implements Identifiable {
 
     private boolean administrator;
 
-    @Transient
-    private List<String> rolesToAdd;
-    @Transient
+    @OneToMany
+    @JoinColumn(name = "roleId", referencedColumnName = "id")
     private Set<RoleDTO> roles;
-    @Transient
-    private List<MessageDTO> sent;
-    @Transient
-    private List<MessageDTO> received;
+
+    @OneToMany
+    @JoinColumn(name = "sender", referencedColumnName = "id")
+    private Set<MessageDTO> sent;
+
+    @OneToMany
+    @JoinColumn(name = "recipient", referencedColumnName = "id")
+    private Set<MessageDTO> received;
 
     public UserDTO() {
     }
@@ -105,11 +107,11 @@ public class UserDTO implements Identifiable {
         this.password = password;
     }
 
-    public List<MessageDTO> getReceived() {
+    public Set<MessageDTO> getReceived() {
         return received;
     }
 
-    public void setReceived(List<MessageDTO> received) {
+    public void setReceived(Set<MessageDTO> received) {
         this.received = received;
     }
 
@@ -121,20 +123,33 @@ public class UserDTO implements Identifiable {
         this.roles = roles;
     }
 
-    public List<String> getRolesToAdd() {
-        return rolesToAdd;
-    }
-
-    public void setRolesToAdd(List<String> rolesToAdd) {
-        this.rolesToAdd = rolesToAdd;
-    }
-
-    public List<MessageDTO> getSent() {
+    public Set<MessageDTO> getSent() {
         return sent;
     }
 
-    public void setSent(List<MessageDTO> sent) {
+    public void setSent(Set<MessageDTO> sent) {
         this.sent = sent;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserDTO)) return false;
+
+        UserDTO userDTO = (UserDTO) o;
+
+        if (getId() != userDTO.getId()) return false;
+        if (!getNickname().equals(userDTO.getNickname())) return false;
+        return getEmail().equals(userDTO.getEmail());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getNickname().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        return result;
     }
 }
 

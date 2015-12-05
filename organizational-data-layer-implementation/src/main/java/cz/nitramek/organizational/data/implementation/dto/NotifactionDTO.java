@@ -1,9 +1,18 @@
 package cz.nitramek.organizational.data.implementation.dto;
 
 
-public class NotifactionDTO {
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
+@Entity
+@DiscriminatorValue(value = "NOT")
+public class NotifactionDTO extends MessageDTO {
+
     private String triggeredValue;
-    private ItemDTO triggredItemDTO;
+
+    @Transient
+    private ItemDTO triggeredItemDTO;
 
     public String getTriggeredValue() {
         return triggeredValue;
@@ -13,11 +22,11 @@ public class NotifactionDTO {
         this.triggeredValue = triggeredValue;
     }
 
-    public ItemDTO getTriggredItemDTO() {
-        return triggredItemDTO;
+    public ItemDTO getTriggeredItemDTO() {
+        return triggeredItemDTO;
     }
 
-    public void setTriggredItemDTO(ItemDTO triggredItemDTO) {
-        this.triggredItemDTO = triggredItemDTO;
+    public void setTriggeredItemDTO(ItemDTO triggeredItemDTO) {
+        this.triggeredItemDTO = triggeredItemDTO;
     }
 }
