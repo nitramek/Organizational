@@ -4,7 +4,7 @@ import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
 
 public class Permission implements Identifiable {
-    enum Level {
+    public enum Level {
         GUEST, VISIBLE, ALL
     }
 

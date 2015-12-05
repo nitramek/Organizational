@@ -3,7 +3,6 @@ package cz.nitramek.organizational.domain.classes;
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
 import java.util.List;
-import java.util.Set;
 
 public class User implements Identifiable {
     private long id;
@@ -25,7 +24,7 @@ public class User implements Identifiable {
 
 
     private List<String> rolesToAdd;
-    private Set<Role> roles;
+    private List<Role> roles;
     private List<Message> sent;
     private List<Message> received;
 
@@ -101,11 +100,11 @@ public class User implements Identifiable {
         this.received = received;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
