@@ -1,8 +1,11 @@
 package cz.nitramek.organizational.data.implementation.mappers;
 
-import cz.nitramek.organizational.data.implementation.converters.Converters;
 import cz.nitramek.organizational.data.implementation.dto.UserDTO;
+import cz.nitramek.organizational.data.implementation.util.Converters;
+import cz.nitramek.organizational.data.mapper.RoleMapper;
 import cz.nitramek.organizational.data.mapper.UserMapper;
+import cz.nitramek.organizational.data.util.MapperCreationException;
+import cz.nitramek.organizational.data.util.MapperFactory;
 import cz.nitramek.organizational.data.util.MapperImplementation;
 import cz.nitramek.organizational.domain.classes.User;
 
@@ -36,20 +39,19 @@ public class UserMapperImpl implements UserMapper {
         UserDTO userDTO = Converters.createUser(user);
 
         this.em.persist(userDTO);
-        userDTO.getRoles().stream().forEach(
-                r -> {
-                    this.em.persist(r);
-                    r.getPermission().stream().forEach(permissionDTO -> {
-                        this.em.persist(permissionDTO);
-                    });
-                }
-                                           );
+        try {
+            RoleMapper roleMapper = MapperFactory.createMapper(RoleMapper.class);
+            userDTO.getRoles().stream().forEach(r -> roleMapper.update(Converters.createRole(r)));
+        } catch (MapperCreationException e) {
+            e.printStackTrace();
+        }
         return Converters.createUser(userDTO);
     }
 
     @Override
     public User update(User user) {
-        return Converters.createUser(this.em.merge(Converters.createUser(user)));
+
+        return this.insert(user);
     }
 
     @Override

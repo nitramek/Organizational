@@ -1,4 +1,4 @@
-package cz.nitramek.organizational.data.implementation.converters;
+package cz.nitramek.organizational.data.implementation.util;
 
 import cz.nitramek.organizational.data.implementation.dto.MessageDTO;
 import cz.nitramek.organizational.data.implementation.dto.PermissionDTO;

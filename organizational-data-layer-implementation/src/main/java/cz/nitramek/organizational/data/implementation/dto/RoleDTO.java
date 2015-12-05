@@ -8,6 +8,13 @@ import java.util.Set;
 
 @Entity(name = "Role")
 @Table(name = "Role")
+@NamedQueries(
+        {
+                @NamedQuery(name = "Role.selectByName", query = "SELECT r FROM Role r WHERE r.name = :roleName"),
+                @NamedQuery(name = "Role.selectAll", query = "SELECT r FROM Role r"),
+                @NamedQuery(name = "Role.selectOne", query = "SELECT r FROM Role r WHERE r.id = :id")
+        }
+)
 public class RoleDTO implements Identifiable {
 
     @Id
