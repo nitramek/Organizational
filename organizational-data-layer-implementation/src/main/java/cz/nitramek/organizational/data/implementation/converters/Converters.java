@@ -27,17 +27,17 @@ public class Converters {
         u.setRoles(
                 userDTO.getRoles().stream().
                         map(Converters::createRole).
-                        collect(Collectors.toCollection(ArrayList<Role>::new))
-        );
+                               collect(Collectors.toCollection(ArrayList<Role>::new))
+                  );
         u.setSent(
                 userDTO.getSent().stream().
                         map(Converters::createMessage).
-                        collect(Collectors.toCollection(ArrayList<Message>::new))
-        );
+                               collect(Collectors.toCollection(ArrayList<Message>::new))
+                 );
         u.setReceived(userDTO.getReceived().stream().
-                map(Converters::createMessage).
-                collect(Collectors.toCollection(ArrayList<Message>::new))
-        );
+                              map(Converters::createMessage).
+                                     collect(Collectors.toCollection(ArrayList<Message>::new))
+                     );
         return u;
     }
 
@@ -65,9 +65,9 @@ public class Converters {
         r.setDisplayName(roleDTO.getDisplayName());
         r.setPermissions(
                 roleDTO.getPermission().stream().
-                        map(Converters::createPermission).
-                        collect(Collectors.toCollection(ArrayList<Permission>::new))
-        );
+                        map(p -> Converters.createPermission(p)).
+                               collect(Collectors.toCollection(ArrayList<Permission>::new))
+                        );
         return r;
     }
 
@@ -79,8 +79,8 @@ public class Converters {
         r.setPermissions(
                 role.getPermissions().stream().
                         map(Converters::createPermission).
-                        collect(Collectors.toCollection(HashSet<PermissionDTO>::new))
-        );
+                            collect(Collectors.toCollection(HashSet<PermissionDTO>::new))
+                        );
         return r;
     }
 
@@ -109,20 +109,21 @@ public class Converters {
         u.setEmail(user.getEmail());
         u.setBirthday(user.getBirthday());
         u.setAdministrator(user.isAdministrator());
+
         u.setRoles(
                 user.getRoles().stream().
                         map(Converters::createRole).
-                        collect(Collectors.toCollection(HashSet<RoleDTO>::new))
-        );
+                            collect(Collectors.toCollection(HashSet<RoleDTO>::new))
+                  );
         u.setSent(
                 user.getSent().stream().
                         map(Converters::createMessage).
-                        collect(Collectors.toCollection(HashSet<MessageDTO>::new))
-        );
+                            collect(Collectors.toCollection(HashSet<MessageDTO>::new))
+                 );
         u.setReceived(user.getReceived().stream().
-                map(Converters::createMessage).
-                collect(Collectors.toCollection(HashSet<MessageDTO>::new))
-        );
+                              map(Converters::createMessage).
+                                  collect(Collectors.toCollection(HashSet<MessageDTO>::new))
+                     );
         return u;
     }
 }

@@ -25,16 +25,26 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public List<User> select() {
-        List<UserDTO> resultList = em.createQuery("SELECT u FROM User u", UserDTO.class).getResultList();
+        List<UserDTO> resultList = em.createNamedQuery("User.selectAll", UserDTO.class).getResultList();
 
         return resultList.stream().map(Converters::createUser).collect(Collectors.toCollection(ArrayList<User>::new));
     }
+
 
     @Override
     public User insert(User user) {
         UserDTO userDTO = Converters.createUser(user);
 
-        return Converters.createUser(this.em.merge(userDTO));
+        this.em.persist(userDTO);
+        userDTO.getRoles().stream().forEach(
+                r -> {
+                    this.em.persist(r);
+                    r.getPermission().stream().forEach(permissionDTO -> {
+                        this.em.persist(permissionDTO);
+                    });
+                }
+                                           );
+        return Converters.createUser(userDTO);
     }
 
     @Override
@@ -44,7 +54,9 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public User select(long id) {
-        return null;
+        return Converters.createUser(this.em.createNamedQuery("User.selectById", UserDTO.class)
+                                            .setParameter("id", id)
+                                            .getSingleResult());
     }
 
 

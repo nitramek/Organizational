@@ -5,6 +5,11 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/MySQLocal</jta-data-source>
         <class>cz.nitramek.organizational.data.implementation.dto.UserDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.RoleDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.MessageDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.BorrowRequestDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.CategoryDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.PermissionDTO</class>
         <properties>
 
             <property name="hibernate.default_schema" value="organizational"/>
