@@ -8,6 +8,13 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "message_typ")
 @Table(name = "Message")
+@NamedQueries({
+        @NamedQuery(name = "Message.selectByUser",
+                query = "SELECT m FROM MessageDTO m" +
+                        " WHERE COLUMN('sender', m) = :userId OR COLUMN('recipient', m) = :userId "),
+        @NamedQuery(name = "Message.selectAll", query = "SELECT m FROM MessageDTO m"),
+        @NamedQuery(name = "Message.selectOne", query = "SELECT m FROM MessageDTO m WHERE m.id = :id")
+})
 public class MessageDTO {
 
     @Id

@@ -5,6 +5,7 @@ import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
 import java.util.List;
 
+
 public class ItemTypeDTO implements Identifiable {
     private long id;
     private String name;
