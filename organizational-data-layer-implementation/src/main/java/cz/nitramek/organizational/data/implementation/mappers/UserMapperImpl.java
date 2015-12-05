@@ -2,10 +2,7 @@ package cz.nitramek.organizational.data.implementation.mappers;
 
 import cz.nitramek.organizational.data.implementation.dto.UserDTO;
 import cz.nitramek.organizational.data.implementation.util.Converters;
-import cz.nitramek.organizational.data.mapper.RoleMapper;
 import cz.nitramek.organizational.data.mapper.UserMapper;
-import cz.nitramek.organizational.data.util.MapperCreationException;
-import cz.nitramek.organizational.data.util.MapperFactory;
 import cz.nitramek.organizational.data.util.MapperImplementation;
 import cz.nitramek.organizational.domain.classes.User;
 
@@ -19,7 +16,6 @@ import java.util.stream.Collectors;
 @MapperImplementation(mapper = UserMapper.class)
 public class UserMapperImpl implements UserMapper {
 
-
     private EntityManager em;
 
     public UserMapperImpl() throws NamingException {
@@ -28,7 +24,8 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public List<User> select() {
-        List<UserDTO> resultList = em.createNamedQuery("User.selectAll", UserDTO.class).getResultList();
+        List<UserDTO> resultList = this.em.createNamedQuery("User.selectAll", UserDTO.class)
+                                          .getResultList();
 
         return resultList.stream().map(Converters::createUser).collect(Collectors.toCollection(ArrayList<User>::new));
     }
@@ -37,20 +34,18 @@ public class UserMapperImpl implements UserMapper {
     @Override
     public User insert(User user) {
         UserDTO userDTO = Converters.createUser(user);
-
         this.em.persist(userDTO);
-        try {
-            RoleMapper roleMapper = MapperFactory.createMapper(RoleMapper.class);
-            userDTO.getRoles().stream().forEach(r -> roleMapper.update(Converters.createRole(r)));
-        } catch (MapperCreationException e) {
-            e.printStackTrace();
-        }
+        userDTO.getRoles().stream().forEach(
+                roleDTO -> {
+                    this.em.persist(roleDTO);
+                    roleDTO.getPermission().forEach(this.em::persist);
+                }
+                                           );
         return Converters.createUser(userDTO);
     }
 
     @Override
     public User update(User user) {
-
         return this.insert(user);
     }
 

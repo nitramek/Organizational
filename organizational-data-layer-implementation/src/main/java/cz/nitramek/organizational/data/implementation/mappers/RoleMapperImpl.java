@@ -4,6 +4,7 @@ package cz.nitramek.organizational.data.implementation.mappers;
 import cz.nitramek.organizational.data.implementation.dto.RoleDTO;
 import cz.nitramek.organizational.data.implementation.util.Converters;
 import cz.nitramek.organizational.data.mapper.RoleMapper;
+import cz.nitramek.organizational.data.util.MapperImplementation;
 import cz.nitramek.organizational.domain.classes.Role;
 
 import javax.naming.InitialContext;
@@ -13,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@MapperImplementation(mapper = RoleMapper.class)
 public class RoleMapperImpl implements RoleMapper {
 
 
-    private final EntityManager em;
+    private EntityManager em;
 
     public RoleMapperImpl() throws NamingException {
         this.em = (EntityManager) new InitialContext().lookup("java:/org-em");
@@ -42,7 +44,8 @@ public class RoleMapperImpl implements RoleMapper {
     public Role insert(Role role) {
         RoleDTO roleDTO = Converters.createRole(role);
         this.em.persist(roleDTO);
-        roleDTO.getPermission().stream().forEach(this.em::persist);
+        roleDTO.getPermission().stream().forEach(em::persist);
+        roleDTO.getPermission().stream().forEach(em::detach);
         return Converters.createRole(roleDTO);
     }
 

@@ -6,14 +6,14 @@ import cz.nitramek.organizational.domain.service.UserService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named(value = "userView")
-@SessionScoped
+@RequestScoped
 public class UserViewBean implements Serializable {
     @EJB
     private UserService userService;
