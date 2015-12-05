@@ -2,6 +2,7 @@ package cz.nitramek.organizational.domain.classes;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,12 @@ public class Item implements Serializable {
 
     private List<Attribute<?>> attributes;
     private List<Category> categories;
+
+    public Item() {
+        attributes = new ArrayList<>();
+        categories = new ArrayList<>();
+        permissions = new ArrayList<>();
+    }
 
     public List<Attribute<?>> getAttributes() {
         return attributes;

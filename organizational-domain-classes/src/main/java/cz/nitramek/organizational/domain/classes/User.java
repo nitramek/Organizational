@@ -2,6 +2,7 @@ package cz.nitramek.organizational.domain.classes;
 
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Identifiable {
@@ -27,6 +28,13 @@ public class User implements Identifiable {
     private List<Role> roles;
     private List<Message> sent;
     private List<Message> received;
+
+    public User() {
+        rolesToAdd = new ArrayList<>();
+        roles = new ArrayList<>();
+        sent = new ArrayList<>();
+        received = new ArrayList<>();
+    }
 
     public boolean isAdministrator() {
         return administrator;

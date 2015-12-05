@@ -3,6 +3,7 @@ package cz.nitramek.organizational.domain.classes;
 
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemType implements Identifiable {
@@ -14,6 +15,7 @@ public class ItemType implements Identifiable {
 
     public ItemType(String name) {
         this.name = name;
+        attributeTypes = new ArrayList<>();
     }
 
     public List<AttributeType> getAttributeTypes() {

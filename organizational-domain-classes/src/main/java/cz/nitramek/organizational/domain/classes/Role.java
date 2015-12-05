@@ -3,6 +3,7 @@ package cz.nitramek.organizational.domain.classes;
 
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Role implements Identifiable {
@@ -12,6 +13,10 @@ public class Role implements Identifiable {
 
 
     private List<Permission> permissions;
+
+    public Role() {
+        permissions = new ArrayList<>();
+    }
 
     public List<Permission> getPermissions() {
         return permissions;
