@@ -1,6 +1,7 @@
 package cz.nitramek.organizational.data.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public final class MapperFactory {
@@ -20,7 +21,9 @@ public final class MapperFactory {
         Properties p = new Properties();
         try {
 
-            p.load(MapperFactory.class.getClassLoader().getResourceAsStream(PROPERTIES_PATH));
+            InputStream stream = MapperFactory.class.getClassLoader().getResource(PROPERTIES_PATH).openStream();
+            p.load(stream);
+            stream.close();
 
             String packageName = p.getProperty(PACKAGE);
             DataImplementation di = Class.forName(packageName + ".package-info").getAnnotation(DataImplementation.class);
@@ -37,7 +40,7 @@ public final class MapperFactory {
             }
 //            return (T) concreteFactoryClass.getMethod("createMapper", mapperClass.getClass()).invoke(null, mapperClass);
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             throw new MapperCreationException(e);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
