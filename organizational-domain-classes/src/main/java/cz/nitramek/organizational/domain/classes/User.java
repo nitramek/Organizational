@@ -123,5 +123,43 @@ public class User implements Identifiable {
     public void setSent(List<Message> sent) {
         this.sent = sent;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (getId() != user.getId()) return false;
+        return getNickname().equals(user.getNickname());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getNickname().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("User{");
+        sb.append("administrator=").append(administrator);
+        sb.append(", id=").append(id);
+        sb.append(", nickname='").append(nickname).append('\'');
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", birthday='").append(birthday).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", rolesToAdd=").append(rolesToAdd);
+        sb.append(", roles=").append(roles);
+        sb.append(", sent=").append(sent);
+        sb.append(", received=").append(received);
+        sb.append('}');
+        return sb.toString();
+    }
 }
 

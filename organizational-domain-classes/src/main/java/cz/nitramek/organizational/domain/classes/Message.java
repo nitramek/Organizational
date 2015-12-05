@@ -47,4 +47,34 @@ public class Message implements Identifiable {
     public void setText(String text) {
         this.text = text;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Message)) return false;
+
+        Message message = (Message) o;
+
+        if (getId() != message.getId()) return false;
+        return getSubject().equals(message.getSubject());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getSubject().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Message{");
+        sb.append("dateSend=").append(dateSend);
+        sb.append(", id=").append(id);
+        sb.append(", subject='").append(subject).append('\'');
+        sb.append(", text='").append(text).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

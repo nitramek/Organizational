@@ -100,4 +100,38 @@ public class NotificationSetting<T extends Comparable<T>> implements Identifiabl
     public void setWatchedAttribute(Attribute<T> watchedAttribute) {
         this.watchedAttribute = watchedAttribute;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NotificationSetting)) return false;
+
+        NotificationSetting<?> that = (NotificationSetting<?>) o;
+
+        if (getId() != that.getId()) return false;
+        return getName().equals(that.getName());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getName().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("NotificationSetting{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", triggerValue='").append(triggerValue).append('\'');
+        sb.append(", operation=").append(operation);
+        sb.append(", text='").append(text).append('\'');
+        sb.append(", watchedAttribute=").append(watchedAttribute);
+        sb.append(", user=").append(user);
+        sb.append('}');
+        return sb.toString();
+    }
 }

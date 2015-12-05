@@ -30,4 +30,32 @@ public class Permission implements Identifiable {
     public void setLevel(Level level) {
         this.level = level;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Permission)) return false;
+
+        Permission that = (Permission) o;
+
+        if (getId() != that.getId()) return false;
+        return getLevel() == that.getLevel();
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getLevel().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Permission{");
+        sb.append("id=").append(id);
+        sb.append(", level=").append(level);
+        sb.append('}');
+        return sb.toString();
+    }
 }

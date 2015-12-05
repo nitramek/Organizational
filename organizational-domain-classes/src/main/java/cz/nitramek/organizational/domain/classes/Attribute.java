@@ -45,4 +45,35 @@ public class Attribute<T> {
         return value;
     }
 
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Attribute{");
+        sb.append("id=").append(id);
+        sb.append(", strValue='").append(strValue).append('\'');
+        sb.append(", value=").append(value);
+        sb.append(", type=").append(type);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Attribute)) return false;
+
+        Attribute<?> attribute = (Attribute<?>) o;
+
+        if (getId() != attribute.getId()) return false;
+        if (!getStrValue().equals(attribute.getStrValue())) return false;
+        return getType().equals(attribute.getType());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getStrValue().hashCode();
+        result = 31 * result + getType().hashCode();
+        return result;
+    }
 }

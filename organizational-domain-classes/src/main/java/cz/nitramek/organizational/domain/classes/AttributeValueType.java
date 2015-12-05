@@ -69,5 +69,38 @@ public class AttributeValueType<T> implements Identifiable {
         this.constructMethod(this.methodName, this.convertingClass);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AttributeValueType)) return false;
 
+        AttributeValueType<?> that = (AttributeValueType<?>) o;
+
+        if (getId() != that.getId()) return false;
+        if (!getName().equals(that.getName())) return false;
+        if (!getMethodName().equals(that.getMethodName())) return false;
+        return getConvertingClass().equals(that.getConvertingClass());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getMethodName().hashCode();
+        result = 31 * result + getConvertingClass().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("AttributeValueType{");
+        sb.append("convertingClass=").append(convertingClass);
+        sb.append(", id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", methodName='").append(methodName).append('\'');
+        sb.append(", creatingMethod=").append(creatingMethod);
+        sb.append('}');
+        return sb.toString();
+    }
 }

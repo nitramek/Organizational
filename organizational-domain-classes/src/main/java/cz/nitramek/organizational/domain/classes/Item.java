@@ -91,4 +91,39 @@ public class Item implements Serializable {
     public void setType(ItemType type) {
         this.type = type;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item)) return false;
+
+        Item item = (Item) o;
+
+        if (getId() != item.getId()) return false;
+        return getName().equals(item.getName());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getName().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Item{");
+        sb.append("attributes=").append(attributes);
+        sb.append(", id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", dateAdded=").append(dateAdded);
+        sb.append(", dateChanged=").append(dateChanged);
+        sb.append(", borrowable=").append(borrowable);
+        sb.append(", permissions=").append(permissions);
+        sb.append(", type=").append(type);
+        sb.append(", categories=").append(categories);
+        sb.append('}');
+        return sb.toString();
+    }
 }
