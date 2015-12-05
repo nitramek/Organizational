@@ -7,9 +7,14 @@ import cz.nitramek.organizational.data.mapper.CategoryMapper;
 import cz.nitramek.organizational.data.util.MapperImplementation;
 import cz.nitramek.organizational.domain.classes.Category;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -18,18 +23,18 @@ public class CategoryMapperImpl implements CategoryMapper {
 
     private final Type collectionType;
     private Gson gson;
-    private static final String PATH = System.getProperty("organizational.dir.storage") + "/messages.json";
-    private final File store;
+    private static final String PATH = System.getProperty("organizational.dir.storage") + "/categories.json";
 
     private TreeMap<Long, Category> categoryMap;
+    private long nextId;
 
 
     public CategoryMapperImpl() {
         this.gson = new Gson();
-        this.store = new File(PATH);
-        this.categoryMap = this.getData();
         this.collectionType = new TypeToken<TreeMap<Long, Category>>() {
         }.getType();
+        this.categoryMap = this.getData();
+
     }
 
     @Override
@@ -38,13 +43,17 @@ public class CategoryMapperImpl implements CategoryMapper {
     }
 
     private TreeMap<Long, Category> getData() {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(store))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(PATH))) {
 //            StringBuilder sb = new StringBuilder();
 //            bufferedReader.lines().forEach(sb::append);
-            return this.gson.fromJson(bufferedReader, this.collectionType);
+            TreeMap<Long, Category> data = this.gson.fromJson(bufferedReader, this.collectionType);
+            this.nextId = Optional.ofNullable(data.lastEntry()).map(Map.Entry::getKey).orElse(0L);
+            this.nextId++;
+            return data;
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            this.nextId = 1;
+            this.save();
+            return new TreeMap<>();
         }
     }
 
@@ -58,7 +67,8 @@ public class CategoryMapperImpl implements CategoryMapper {
 
     @Override
     public Category insert(Category category) {
-        category.setId(this.categoryMap.lastEntry().getValue().getId());
+        category.setId(this.nextId);
+        this.nextId++;
         this.categoryMap.put(category.getId(), category);
         this.save();
         return category;
