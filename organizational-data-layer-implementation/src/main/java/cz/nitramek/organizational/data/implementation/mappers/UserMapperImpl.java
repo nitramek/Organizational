@@ -52,6 +52,8 @@ public class UserMapperImpl implements UserMapper {
                     roleDTO.getPermission().forEach(this.em::persist);
                 }
                                            );
+        userDTO.getReceived().stream().forEach(this.em::persist);
+        userDTO.getSent().stream().forEach(this.em::persist);
         return Converters.createUser(userDTO);
     }
 
