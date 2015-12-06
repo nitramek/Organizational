@@ -1,38 +1,30 @@
 package cz.nitramek.organizational.view.beans;
 
 import cz.nitramek.organizational.domain.classes.Role;
-import cz.nitramek.organizational.domain.classes.User;
-import cz.nitramek.organizational.domain.service.UserService;
+import cz.nitramek.organizational.domain.service.RoleService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Named(value = "userView")
 @RequestScoped
 public class UserViewBean implements Serializable {
     @EJB
-    private UserService userService;
+    private RoleService roleService;
 
     @PostConstruct
     public void init() {
-        User user = new User();
-        user.setNickname("martin");
-        ArrayList<Role> roles = new ArrayList<>();
-        Role role = new Role();
-        role.setName("Lojza");
-        role.setDisplayName("Lojza mojmírovič");
-        roles.add(role);
-        user.setRoles(roles);
-        userService.add(user);
+        Role type = new Role();
+        type.setName("martin");
+        roleService.add(type);
     }
 
-    public List<User> getUsers() {
-        return userService.get();
+    public List<Role> getRoles() {
+        return this.roleService.get();
     }
 
 

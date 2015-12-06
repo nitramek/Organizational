@@ -83,5 +83,20 @@
             <version>1.0.2.Final</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>cz.nitramek</groupId>
+            <artifactId>primefaces-flat</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>1.0.10</version>
+        </dependency>
     </dependencies>
 </project>

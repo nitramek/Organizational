@@ -7,6 +7,7 @@ import cz.nitramek.organizational.domain.classes.Item;
 import javax.annotation.PostConstruct;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -23,6 +24,14 @@ public class ItemService extends AbstractService<Item, ItemMapper> {
     }
 
     public List<Item> getItemsByOwner(long userId) {
-        return this.mapper.selectByOwner(userId);
+        List<Item> items = this.mapper.selectByOwner(userId);
+        if (items == null) {
+            items = new ArrayList<>(0);
+        }
+        return items;
     }
+//    public List<Item> getItems() {
+//        return this.mapper.se(userId);
+//    }
 }
+

@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world" />
-    <h:dataTable value="#{userView.users}"
-                 var="user">
-        <h:column>
-            <h:outputText value="#{user.id}" />
-        </h:column>
-        <h:column>
-            <h:outputText value="#{user.nickname}" />
-        </h:column>
-        <h:column>
-            <h:outputText value="#{user.firstName}" />
-        </h:column>
-        <h:column>
-            <h:outputText value="#{user.lastName}" />
-        </h:column>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        template="/templates/main.xhtml">
+    <h:outputText value="tralal" />
+    <ui:define name="content">
+        <p:dataTable value="#{itemView.items}"
+                     var="item">
+            <p:column>
+                <h:outputText value="#{item.id}" />
+            </p:column>
+            <p:column>
+                <h:outputText value="#{item.name}" />
+            </p:column>
+            <p:column>
+                <h:outputText value="#{item.category}" />
+            </p:column>
+            <p:column>
+                <h:outputText value="#{item.dateAdded}">
+                    <f:convertDateTime type="both" />
+                </h:outputText>
+            </p:column>
+            <p:column>
+                <h:outputText value="#{item.dateChanged}">
+                    <f:convertDateTime type="both" />
+                </h:outputText>
+            </p:column>
+            <p:column>
+                <h:outputText value="#{item.type.name}">
+                    <f:convertDateTime type="both" />
+                </h:outputText>
+            </p:column>
+            <p:column>
+                <h:outputText value="#{item.owner.nickname}">
+                    <f:convertDateTime type="both" />
+                </h:outputText>
+            </p:column>
+        </p:dataTable>
+    </ui:define>
 
-    </h:dataTable>
-</f:view>
-</html>
+</ui:composition>

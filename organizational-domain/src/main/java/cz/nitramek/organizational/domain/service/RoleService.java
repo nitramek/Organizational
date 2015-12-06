@@ -6,11 +6,12 @@ import cz.nitramek.organizational.data.util.MapperCreationException;
 import cz.nitramek.organizational.domain.classes.Role;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
-@Local
+@LocalBean
 public class RoleService extends AbstractService<Role, RoleMapper> {
 
     @PostConstruct
@@ -22,4 +23,11 @@ public class RoleService extends AbstractService<Role, RoleMapper> {
         }
     }
 
+    public List<Role> get() {
+        return this.mapper.select();
+    }
+
+    public Role getByName(String roleName) {
+        return this.mapper.select(roleName);
+    }
 }
