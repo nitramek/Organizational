@@ -4,6 +4,7 @@
                 RoleMapperImpl.class,
                 CategoryMapperImpl.class,
                 ItemTypeMapperImpl.class,
+                ItemMapperImpl.class,
                 AttributeValueTypeMapperImpl.class,
                 MessageMapperImpl.class
         }

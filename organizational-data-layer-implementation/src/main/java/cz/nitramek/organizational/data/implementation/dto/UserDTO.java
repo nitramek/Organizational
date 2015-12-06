@@ -34,8 +34,11 @@ public class UserDTO implements Identifiable {
 
     private boolean administrator;
 
-    @OneToMany
-    @JoinColumn(name = "roleId", referencedColumnName = "id")
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "roleId", referencedColumnName = "id")
+    )
     private Set<RoleDTO> roles;
 
     @OneToMany
