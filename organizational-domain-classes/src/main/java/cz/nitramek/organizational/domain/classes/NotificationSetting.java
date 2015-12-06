@@ -22,6 +22,16 @@ public class NotificationSetting implements Identifiable {
         this.watchedAttribute = watchedAttribute;
     }
 
+    public NotificationSetting(NotificationSetting notificationSetting) {
+        this.id = notificationSetting.getId();
+        this.name = notificationSetting.getName();
+        this.triggerValue = notificationSetting.getTriggerValue();
+        this.operation = notificationSetting.getOperation();
+        this.text = notificationSetting.getText();
+        this.watchedAttribute = notificationSetting.getWatchedAttribute();
+        this.user = notificationSetting.getUser();
+    }
+
     public boolean check() {
 
         Comparable watchedValue = (Comparable) watchedAttribute.getValue();

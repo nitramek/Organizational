@@ -12,7 +12,7 @@ public abstract class AbstractService<K, T extends Mapper<K>> implements Service
     private Class<K> objClass;
 
 
-    protected void init(Class<T> mapperClass, Class<K> objClass) throws MapperCreationException {
+    protected void init(Class<K> objClass, Class<T> mapperClass) throws MapperCreationException {
         this.mapper = MapperFactory.createMapper(mapperClass);
         this.objClass = objClass;
     }

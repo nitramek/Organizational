@@ -1,25 +1,29 @@
 package cz.nitramek.organizational.domain.service;
 
 
-import cz.nitramek.organizational.data.mapper.RoleMapper;
+import cz.nitramek.organizational.data.mapper.CategoryMapper;
 import cz.nitramek.organizational.data.util.MapperCreationException;
-import cz.nitramek.organizational.domain.classes.Role;
+import cz.nitramek.organizational.domain.classes.Category;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
 @Local
-public class RoleService extends AbstractService<Role, RoleMapper> {
+public class CategoryService extends AbstractService<Category, CategoryMapper> {
 
     @PostConstruct
     public void init() {
         try {
-            super.init(Role.class, RoleMapper.class);
+            super.init(Category.class, CategoryMapper.class);
         } catch (MapperCreationException e) {
             e.printStackTrace();
         }
     }
 
+    public List<Category> getAll() {
+        return this.mapper.select();
+    }
 }

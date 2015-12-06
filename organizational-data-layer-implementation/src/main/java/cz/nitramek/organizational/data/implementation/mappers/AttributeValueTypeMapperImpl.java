@@ -5,6 +5,9 @@ import cz.nitramek.organizational.data.mapper.AttributeValueTypeMapper;
 import cz.nitramek.organizational.data.util.MapperImplementation;
 import cz.nitramek.organizational.domain.classes.AttributeValueType;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @MapperImplementation(mapper = AttributeValueTypeMapper.class)
 public class AttributeValueTypeMapperImpl implements AttributeValueTypeMapper {
 
@@ -34,5 +37,10 @@ public class AttributeValueTypeMapperImpl implements AttributeValueTypeMapper {
     @Override
     public AttributeValueType select(long id) {
         return this.storage.get(id);
+    }
+
+    @Override
+    public List<AttributeValueType> select() {
+        return this.storage.get().stream().collect(Collectors.toList());
     }
 }

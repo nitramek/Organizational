@@ -5,7 +5,6 @@ import cz.nitramek.organizational.data.implementation.util.Converters;
 import cz.nitramek.organizational.data.mapper.NotificationSettingMapper;
 import cz.nitramek.organizational.data.util.MapperImplementation;
 import cz.nitramek.organizational.domain.classes.NotificationSetting;
-import cz.nitramek.organizational.domain.classes.User;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -24,10 +23,10 @@ public class NotificationSettingMapperImpl implements NotificationSettingMapper 
     }
 
     @Override
-    public List<NotificationSetting> select(
-            User user) {
+    public List<NotificationSetting> selectByUser(
+            long userId) {
         return this.em.createNamedQuery("Item.selectByOwner", NotificationSettingDTO.class)
-                      .setParameter("userId", user.getId())
+                      .setParameter("userId", userId)
                       .getResultList()
                       .stream()
                       .map(
@@ -56,9 +55,4 @@ public class NotificationSettingMapperImpl implements NotificationSettingMapper 
                        .getSingleResult());
     }
 
-
-    @Override
-    public List<NotificationSetting> selectActive() {
-        return null;
-    }
 }

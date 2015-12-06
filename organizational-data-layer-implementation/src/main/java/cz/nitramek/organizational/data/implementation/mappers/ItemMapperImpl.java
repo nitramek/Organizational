@@ -5,7 +5,6 @@ import cz.nitramek.organizational.data.implementation.util.Converters;
 import cz.nitramek.organizational.data.mapper.ItemMapper;
 import cz.nitramek.organizational.data.util.MapperImplementation;
 import cz.nitramek.organizational.domain.classes.Item;
-import cz.nitramek.organizational.domain.classes.User;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -23,9 +22,9 @@ public class ItemMapperImpl implements ItemMapper {
     }
 
     @Override
-    public List<Item> select(
-            User user) {
-        return this.em.createNamedQuery("Item.selectByOwner", ItemDTO.class).setParameter("userId", user)
+    public List<Item> selectByOwner(
+            long userId) {
+        return this.em.createNamedQuery("Item.selectByOwner", ItemDTO.class).setParameter("userId", userId)
                       .getResultList().stream()
                       .map(Converters::convert)
                       .collect(Collectors.toList());

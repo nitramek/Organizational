@@ -24,6 +24,12 @@ public class CompositeNotificationSetting extends NotificationSetting {
         super(operation, name, triggerValue, watchedAttribute);
     }
 
+    public CompositeNotificationSetting(
+            NotificationSetting first, CompositeOperation compositeOperation) {
+        super(first);
+        this.compositeOperation = compositeOperation;
+    }
+
     @Override
     public boolean check() {
         if (this.compositeOperation.equals(CompositeOperation.AND)) {

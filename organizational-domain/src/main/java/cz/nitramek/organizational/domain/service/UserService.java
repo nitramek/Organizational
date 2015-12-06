@@ -17,7 +17,7 @@ public class UserService extends AbstractService<User, UserMapper> {
     @PostConstruct
     public void init() {
         try {
-            super.init(UserMapper.class, User.class);
+            super.init(User.class, UserMapper.class);
         } catch (MapperCreationException e) {
             e.printStackTrace();
         }
