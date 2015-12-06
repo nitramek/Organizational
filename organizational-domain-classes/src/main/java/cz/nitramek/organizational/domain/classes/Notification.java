@@ -5,6 +5,9 @@ public class Notification extends Message {
     private String triggeredValue;
     private Item triggredItem;
 
+    public Notification() {
+    }
+
     public Notification(String subject) {
         super(subject);
     }

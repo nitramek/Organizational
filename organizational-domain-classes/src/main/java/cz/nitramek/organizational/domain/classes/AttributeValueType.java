@@ -16,6 +16,9 @@ public class AttributeValueType implements Identifiable {
 
     private Method creatingMethod;
 
+    public AttributeValueType() {
+    }
+
     public AttributeValueType(String methodName, Class<?> convertingClass) throws NoSuchMethodException {
         this.constructMethod(methodName, convertingClass);
         this.methodName = methodName;

@@ -11,7 +11,7 @@ public class Role implements Identifiable {
     private String name;
     private String displayName;
 
-
+    
     private List<Permission> permissions;
 
     public Role() {

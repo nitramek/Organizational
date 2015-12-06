@@ -4,20 +4,16 @@ package cz.nitramek.organizational.domain.classes;
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
 public class NotificationSetting implements Identifiable {
-    public enum Operation {
-        EQ, LT, GT
-    }
-
     private long id;
     private String name;
     private String triggerValue;
     private Operation operation;
     private String text;
-
     private Attribute watchedAttribute;
-
-
     private User user;
+
+    public NotificationSetting() {
+    }
 
     public NotificationSetting(Operation operation, String name, String triggerValue, Attribute watchedAttribute) {
         this.operation = operation;
@@ -25,7 +21,6 @@ public class NotificationSetting implements Identifiable {
         this.triggerValue = triggerValue;
         this.watchedAttribute = watchedAttribute;
     }
-
 
     public boolean check() {
 
@@ -101,7 +96,6 @@ public class NotificationSetting implements Identifiable {
         this.watchedAttribute = watchedAttribute;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -133,5 +127,9 @@ public class NotificationSetting implements Identifiable {
         sb.append(", user=").append(user);
         sb.append('}');
         return sb.toString();
+    }
+
+    public enum Operation {
+        EQ, LT, GT
     }
 }

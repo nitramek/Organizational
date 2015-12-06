@@ -12,6 +12,8 @@ public class ItemType implements Identifiable {
 
     private List<AttributeType> attributeTypes;
 
+    public ItemType() {
+    }
 
     public ItemType(String name) {
         this.name = name;

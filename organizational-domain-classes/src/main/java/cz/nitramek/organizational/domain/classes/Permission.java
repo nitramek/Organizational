@@ -4,12 +4,11 @@ import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
 
 public class Permission implements Identifiable {
-    public enum Level {
-        GUEST, VISIBLE, ALL
-    }
-
     private long id;
     private Level level;
+
+    public Permission() {
+    }
 
     public Permission(Level level) {
         this.level = level;
@@ -57,5 +56,9 @@ public class Permission implements Identifiable {
         sb.append(", level=").append(level);
         sb.append('}');
         return sb.toString();
+    }
+
+    public enum Level {
+        GUEST, VISIBLE, ALL
     }
 }

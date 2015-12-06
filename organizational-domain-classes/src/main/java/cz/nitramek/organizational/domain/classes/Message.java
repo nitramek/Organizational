@@ -15,6 +15,9 @@ public class Message implements Identifiable {
         this.subject = subject;
     }
 
+    public Message() {
+    }
+
     public Date getDateSend() {
         return dateSend;
     }

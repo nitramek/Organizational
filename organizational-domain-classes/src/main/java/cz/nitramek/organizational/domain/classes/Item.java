@@ -20,7 +20,12 @@ public class Item implements Serializable {
 
     private List<Attribute> attributes;
     private Category category;
+    private User owner;
 
+    public Item() {
+        attributes = new ArrayList<>();
+        permissions = new ArrayList<>();
+    }
 
     public User getOwner() {
         return owner;
@@ -28,13 +33,6 @@ public class Item implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
-    }
-
-    private User owner;
-
-    public Item() {
-        attributes = new ArrayList<>();
-        permissions = new ArrayList<>();
     }
 
     public List<Attribute> getAttributes() {

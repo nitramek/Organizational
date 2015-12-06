@@ -3,14 +3,11 @@ package cz.nitramek.organizational.domain.classes;
 
 public class CompositeNotificationSetting extends NotificationSetting {
 
-    public enum CompositeOperation {
-        AND, OR
-    }
-
     private CompositeOperation compositeOperation;
-
     private NotificationSetting nextNotificationSetting;
 
+    public CompositeNotificationSetting() {
+    }
 
     public CompositeNotificationSetting(
             Operation operation, String name, String triggerValue, Attribute watchedAttribute,
@@ -18,6 +15,13 @@ public class CompositeNotificationSetting extends NotificationSetting {
         super(operation, name, triggerValue, watchedAttribute);
         this.compositeOperation = compositeOperation;
         this.nextNotificationSetting = nextNotificationSetting;
+    }
+
+
+    public CompositeNotificationSetting(
+            Operation operation, String name, String triggerValue,
+            Attribute watchedAttribute) {
+        super(operation, name, triggerValue, watchedAttribute);
     }
 
     @Override
@@ -46,7 +50,6 @@ public class CompositeNotificationSetting extends NotificationSetting {
         this.nextNotificationSetting = nextNotificationSetting;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,5 +76,9 @@ public class CompositeNotificationSetting extends NotificationSetting {
         sb.append(", nextNotificationSetting=").append(nextNotificationSetting);
         sb.append('}');
         return sb.toString();
+    }
+
+    public enum CompositeOperation {
+        AND, OR
     }
 }

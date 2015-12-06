@@ -10,6 +10,9 @@ public class AttributeType implements Identifiable {
 
     private AttributeValueType type;
 
+    public AttributeType() {
+    }
+
     public AttributeType(boolean mandatory, String name, AttributeValueType type) {
         this.mandatory = mandatory;
         this.name = name;

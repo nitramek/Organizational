@@ -7,6 +7,9 @@ public class Category implements Identifiable {
     private long id;
     private String name;
 
+    public Category() {
+    }
+
     public long getId() {
         return id;
     }

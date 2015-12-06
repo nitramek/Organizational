@@ -8,6 +8,8 @@ public class Attribute {
 
     private AttributeType type;
 
+    public Attribute() {
+    }
 
     public Attribute(String strValue, AttributeType type) {
         this.strValue = strValue;
