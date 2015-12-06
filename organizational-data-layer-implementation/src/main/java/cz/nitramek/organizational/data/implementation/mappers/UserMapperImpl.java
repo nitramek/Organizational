@@ -10,6 +10,7 @@ import cz.nitramek.organizational.domain.classes.User;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,9 +34,12 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public User select(String login) {
-        return Converters.convert(this.em.createNamedQuery("User.selectByLogin", UserDTO.class)
-                                         .setParameter("login", login)
-                                         .getSingleResult());
+        TypedQuery<UserDTO> query = this.em.createNamedQuery("User.selectByLogin", UserDTO.class)
+                                           .setParameter("login", login);
+        if (query.getResultList().size() == 0) {
+            return null;
+        }
+        return Converters.convert(query.getSingleResult());
     }
 
 

@@ -10,6 +10,7 @@ import cz.nitramek.organizational.domain.classes.Role;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,9 +28,14 @@ public class RoleMapperImpl implements RoleMapper {
     @Override
     public Role select(String roleName) {
 
-        return Converters.convert(this.em.createNamedQuery("Role.selectByName", RoleDTO.class)
-                                         .setParameter("roleName", roleName)
-                                         .getSingleResult());
+        TypedQuery<RoleDTO> searchQuery = this.em.createNamedQuery("Role.selectByName", RoleDTO.class)
+                                                 .setParameter("roleName", roleName);
+        if (searchQuery.getResultList().size() == 0) {
+            return null;
+        }
+        RoleDTO foundROle = searchQuery.getSingleResult();
+
+        return Converters.convert(foundROle);
     }
 
     @Override
