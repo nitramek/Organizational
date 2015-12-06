@@ -17,14 +17,14 @@ public class ItemDTO implements Serializable {
     private List<PermissionDTO> permissionDTOs;
     private ItemTypeDTO type;
 
-    private List<AttributeDTO<?>> attributeDTOs;
+    private List<AttributeDTO> attributeDTOs;
     private List<CategoryDTO> categories;
 
-    public List<AttributeDTO<?>> getAttributeDTOs() {
+    public List<AttributeDTO> getAttributeDTOs() {
         return attributeDTOs;
     }
 
-    public void setAttributeDTOs(List<AttributeDTO<?>> attributeDTOs) {
+    public void setAttributeDTOs(List<AttributeDTO> attributeDTOs) {
         this.attributeDTOs = attributeDTOs;
     }
 

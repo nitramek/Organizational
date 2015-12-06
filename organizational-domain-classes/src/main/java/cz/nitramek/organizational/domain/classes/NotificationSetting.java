@@ -3,7 +3,7 @@ package cz.nitramek.organizational.domain.classes;
 
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
-public class NotificationSetting<T extends Comparable<T>> implements Identifiable {
+public class NotificationSetting implements Identifiable {
     enum Operation {
         EQ, LT, GT
     }
@@ -14,12 +14,12 @@ public class NotificationSetting<T extends Comparable<T>> implements Identifiabl
     private Operation operation;
     private String text;
 
-    private Attribute<T> watchedAttribute;
+    private Attribute watchedAttribute;
 
 
     private User user;
 
-    public NotificationSetting(Operation operation, String name, String triggerValue, Attribute<T> watchedAttribute) {
+    public NotificationSetting(Operation operation, String name, String triggerValue, Attribute watchedAttribute) {
         this.operation = operation;
         this.name = name;
         this.triggerValue = triggerValue;
@@ -29,8 +29,8 @@ public class NotificationSetting<T extends Comparable<T>> implements Identifiabl
 
     public boolean check() {
 
-        T watchedValue = watchedAttribute.getValue();
-        T secondvalue = watchedAttribute.getType().getType().convert(this.triggerValue);
+        Comparable watchedValue = (Comparable) watchedAttribute.getValue();
+        Comparable secondvalue = (Comparable) watchedAttribute.getType().getType().convert(this.triggerValue);
         int compared = watchedValue.compareTo(secondvalue);
         switch (this.operation) {
             case EQ:
@@ -93,11 +93,11 @@ public class NotificationSetting<T extends Comparable<T>> implements Identifiabl
         this.user = user;
     }
 
-    public Attribute<T> getWatchedAttribute() {
+    public Attribute getWatchedAttribute() {
         return watchedAttribute;
     }
 
-    public void setWatchedAttribute(Attribute<T> watchedAttribute) {
+    public void setWatchedAttribute(Attribute watchedAttribute) {
         this.watchedAttribute = watchedAttribute;
     }
 
@@ -107,7 +107,7 @@ public class NotificationSetting<T extends Comparable<T>> implements Identifiabl
         if (this == o) return true;
         if (!(o instanceof NotificationSetting)) return false;
 
-        NotificationSetting<?> that = (NotificationSetting<?>) o;
+        NotificationSetting that = (NotificationSetting) o;
 
         if (getId() != that.getId()) return false;
         return getName().equals(that.getName());

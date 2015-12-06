@@ -1,20 +1,20 @@
 package cz.nitramek.organizational.domain.classes;
 
 
-public class CompositeNotificationSetting<T extends Comparable<T>> extends NotificationSetting<T> {
+public class CompositeNotificationSetting extends NotificationSetting {
 
-    enum CompositeOperation {
+    public enum CompositeOperation {
         AND, OR
     }
 
     private CompositeOperation compositeOperation;
 
-    private NotificationSetting<T> nextNotificationSetting;
+    private NotificationSetting nextNotificationSetting;
 
 
     public CompositeNotificationSetting(
-            Operation operation, String name, String triggerValue, Attribute<T> watchedAttribute,
-            CompositeOperation compositeOperation, NotificationSetting<T> nextNotificationSetting) {
+            Operation operation, String name, String triggerValue, Attribute watchedAttribute,
+            CompositeOperation compositeOperation, NotificationSetting nextNotificationSetting) {
         super(operation, name, triggerValue, watchedAttribute);
         this.compositeOperation = compositeOperation;
         this.nextNotificationSetting = nextNotificationSetting;
@@ -38,11 +38,11 @@ public class CompositeNotificationSetting<T extends Comparable<T>> extends Notif
         this.compositeOperation = compositeOperation;
     }
 
-    public NotificationSetting<T> getNextNotificationSetting() {
+    public NotificationSetting getNextNotificationSetting() {
         return nextNotificationSetting;
     }
 
-    public void setNextNotificationSetting(NotificationSetting<T> nextNotificationSetting) {
+    public void setNextNotificationSetting(NotificationSetting nextNotificationSetting) {
         this.nextNotificationSetting = nextNotificationSetting;
     }
 
@@ -52,7 +52,7 @@ public class CompositeNotificationSetting<T extends Comparable<T>> extends Notif
         if (this == o) return true;
         if (!(o instanceof CompositeNotificationSetting)) return false;
 
-        CompositeNotificationSetting<?> that = (CompositeNotificationSetting<?>) o;
+        CompositeNotificationSetting that = (CompositeNotificationSetting) o;
 
         if (getCompositeOperation() != that.getCompositeOperation()) return false;
         return getNextNotificationSetting().equals(that.getNextNotificationSetting()) && super.equals(o);

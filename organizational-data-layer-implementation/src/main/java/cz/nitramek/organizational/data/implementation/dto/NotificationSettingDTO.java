@@ -3,7 +3,7 @@ package cz.nitramek.organizational.data.implementation.dto;
 
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
-public class NotificationSettingDTO<T extends Comparable<T>> implements Identifiable {
+public class NotificationSettingDTO implements Identifiable {
     enum Operation {
         EQ, LT, GT
     }
@@ -14,36 +14,19 @@ public class NotificationSettingDTO<T extends Comparable<T>> implements Identifi
     private Operation operation;
     private String text;
 
-    private AttributeDTO<T> watchedAttributeDTO;
+    private AttributeDTO watchedAttributeDTO;
 
 
     private UserDTO userDTO;
 
-    public NotificationSettingDTO(Operation operation, String name, String triggerValue, AttributeDTO<T> watchedAttributeDTO) {
+    public NotificationSettingDTO(
+            Operation operation, String name, String triggerValue, AttributeDTO watchedAttributeDTO) {
         this.operation = operation;
         this.name = name;
         this.triggerValue = triggerValue;
         this.watchedAttributeDTO = watchedAttributeDTO;
     }
 
-
-    public boolean check() {
-
-        T watchedValue = watchedAttributeDTO.getValue();
-        T secondvalue = watchedAttributeDTO.getType().getType().convert(this.triggerValue);
-        int compared = watchedValue.compareTo(secondvalue);
-        switch (this.operation) {
-            case EQ:
-                return compared == 0;
-            case LT:
-                return compared < 1;
-            case GT:
-                return compared > 1;
-            default:
-                return false;
-
-        }
-    }
 
     public long getId() {
         return id;
@@ -93,11 +76,11 @@ public class NotificationSettingDTO<T extends Comparable<T>> implements Identifi
         this.userDTO = userDTO;
     }
 
-    public AttributeDTO<T> getWatchedAttributeDTO() {
+    public AttributeDTO getWatchedAttributeDTO() {
         return watchedAttributeDTO;
     }
 
-    public void setWatchedAttributeDTO(AttributeDTO<T> watchedAttributeDTO) {
+    public void setWatchedAttributeDTO(AttributeDTO watchedAttributeDTO) {
         this.watchedAttributeDTO = watchedAttributeDTO;
     }
 }

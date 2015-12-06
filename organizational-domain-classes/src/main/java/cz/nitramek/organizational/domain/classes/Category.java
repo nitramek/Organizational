@@ -1,7 +1,9 @@
 package cz.nitramek.organizational.domain.classes;
 
 
-public class Category {
+import cz.nitramek.organizational.domain.interafaces.Identifiable;
+
+public class Category implements Identifiable {
     private long id;
     private String name;
 

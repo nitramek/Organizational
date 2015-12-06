@@ -18,7 +18,7 @@ public class Item implements Serializable {
     private List<Permission> permissions;
     private ItemType type;
 
-    private List<Attribute<?>> attributes;
+    private List<Attribute> attributes;
     private List<Category> categories;
 
     public Item() {
@@ -27,11 +27,11 @@ public class Item implements Serializable {
         permissions = new ArrayList<>();
     }
 
-    public List<Attribute<?>> getAttributes() {
+    public List<Attribute> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(List<Attribute<?>> attributes) {
+    public void setAttributes(List<Attribute> attributes) {
         this.attributes = attributes;
     }
 
