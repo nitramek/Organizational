@@ -4,7 +4,8 @@
                 RoleMapperImpl.class,
                 CategoryMapperImpl.class,
                 ItemTypeMapperImpl.class,
-                AttributeValueTypeMapperImpl.class
+                AttributeValueTypeMapperImpl.class,
+                MessageMapperImpl.class
         }
 )
 package cz.nitramek.organizational.data.implementation.mappers;

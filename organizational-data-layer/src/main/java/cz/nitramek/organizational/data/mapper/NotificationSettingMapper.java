@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Handles composite notifications as well.
  */
-public interface NotificationSettingMapper extends Mapper<NotificationSetting<?>> {
+public interface NotificationSettingMapper extends Mapper<NotificationSetting> {
     List<NotificationSetting> select(User user);
 
     List<NotificationSetting> selectActive();

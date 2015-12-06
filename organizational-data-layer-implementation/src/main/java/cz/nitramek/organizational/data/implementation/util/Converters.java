@@ -37,6 +37,18 @@ public class Converters {
 
     public static Message convert(MessageDTO messageDTO) {
         Message m = new Message(messageDTO.getSubject());
+        if (messageDTO instanceof BorrowRequestDTO) {
+            BorrowRequestDTO brDTO = (BorrowRequestDTO) messageDTO;
+            m = new BorrowRequest(brDTO.getSubject(), Converters.convert(brDTO.getRequestedItemDTO()));
+        }
+        if (messageDTO instanceof NotificationDTO) {
+            NotificationDTO nDTO = (NotificationDTO) messageDTO;
+            Notification n = new Notification(messageDTO.getSubject());
+            n.setTriggredItem(Converters.convert(nDTO.getTriggeredItemDTO()));
+            n.setTriggeredValue(nDTO.getTriggeredValue());
+            m = n;
+        }
+
         m.setId(messageDTO.getId());
         m.setDateSend(messageDTO.getDateSend());
         m.setText(messageDTO.getText());
@@ -45,6 +57,19 @@ public class Converters {
 
     public static MessageDTO convert(Message message) {
         MessageDTO m = new MessageDTO();
+        if (message instanceof BorrowRequest) {
+            BorrowRequestDTO brDTO = new BorrowRequestDTO();
+            BorrowRequest br = (BorrowRequest) message;
+            brDTO.setRequestedItemDTO(Converters.convert(br.getRequestedItem()));
+            m = brDTO;
+        }
+        if (message instanceof Notification) {
+            NotificationDTO nDTO = new NotificationDTO();
+            Notification n = (Notification) message;
+            nDTO.setTriggeredValue(nDTO.getTriggeredValue());
+            nDTO.setTriggeredItemDTO(Converters.convert(n.getTriggredItem()));
+            m = nDTO;
+        }
         m.setSubject(message.getSubject());
         m.setId(message.getId());
         m.setDateSend(message.getDateSend());
@@ -218,7 +243,68 @@ public class Converters {
         i.setOwner(Converters.convert(item.getOwner()));
         i.setPermissionDTOs(item.getPermissions().stream()
                                 .map(Converters::convert).collect(Collectors.toList()));
+        i.setAttributeDTOs(item.getAttributes().stream()
+                               .map(Converters::convert).collect(Collectors.toList()));
         i.setCategoryId(item.getCategory().getId());
         return i;
     }
+
+
+    public static NotificationSetting convert(NotificationSettingDTO notificationSettingDTO) {
+        NotificationSetting ns = new NotificationSetting(
+                notificationSettingDTO.getOperation(),
+                notificationSettingDTO.getName(),
+                notificationSettingDTO.getTriggerValue(),
+                Converters.convert(notificationSettingDTO.getWatchedAttributeDTO())
+        );
+        if (notificationSettingDTO instanceof CompositeNotificationSettingDTO) {
+            CompositeNotificationSettingDTO cnsDTO = (CompositeNotificationSettingDTO) notificationSettingDTO;
+            CompositeNotificationSetting cns = new CompositeNotificationSetting(
+                    ns.getOperation(),
+                    ns.getName(),
+                    ns.getTriggerValue(),
+                    ns.getWatchedAttribute(),
+                    cnsDTO.getCompositeOperation(),
+                    Converters.convert(cnsDTO.getNextNotificationSettingDTO())
+            );
+            ns = cns;
+        }
+
+        return ns;
+    }
+
+
+    public static NotificationSettingDTO convert(NotificationSetting notificationSetting) {
+        NotificationSettingDTO ns = new NotificationSettingDTO();
+        if (notificationSetting instanceof CompositeNotificationSetting) {
+            CompositeNotificationSetting cns = (CompositeNotificationSetting) notificationSetting;
+            CompositeNotificationSettingDTO cnsDTO = new CompositeNotificationSettingDTO();
+            cnsDTO.setCompositeOperation(cns.getCompositeOperation());
+            cnsDTO.setNextNotificationSettingDTO(Converters.convert(cns.getNextNotificationSetting()));
+        }
+        ns.setId(notificationSetting.getId());
+        ns.setName(notificationSetting.getName());
+        ns.setOperation(notificationSetting.getOperation());
+        ns.setText(notificationSetting.getText());
+        ns.setTriggerValue(notificationSetting.getTriggerValue());
+        ns.setWatchedAttributeDTO(Converters.convert(notificationSetting.getWatchedAttribute()));
+        ns.setOwner(Converters.convert(notificationSetting.getUser()));
+        return ns;
+    }
+
+    private static AttributeDTO convert(Attribute attribute) {
+        AttributeDTO aDTO = new AttributeDTO();
+        aDTO.setId(attribute.getId());
+        aDTO.setStrValue(attribute.getStrValue());
+        aDTO.setType(Converters.convert(attribute.getType()));
+
+        return aDTO;
+    }
+
+    private static Attribute convert(AttributeDTO attributeDTO) {
+        Attribute a = new Attribute(attributeDTO.getStrValue(), Converters.convert(attributeDTO.getType()));
+        a.setId(attributeDTO.getId());
+        return a;
+    }
+
 }

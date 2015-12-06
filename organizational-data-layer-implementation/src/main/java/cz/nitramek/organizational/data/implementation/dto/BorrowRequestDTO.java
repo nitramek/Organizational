@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 public class BorrowRequestDTO extends MessageDTO {
 
     @ManyToOne
-    @JoinColumn(name = "reqItemID")
+    @JoinColumn(name = "reqItemId")
     private ItemDTO requestedItemDTO;
 
     public ItemDTO getRequestedItemDTO() {

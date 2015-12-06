@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @DiscriminatorValue(value = "NOT")
-public class NotifactionDTO extends MessageDTO {
+public class NotificationDTO extends MessageDTO {
 
     private String triggeredValue;
 

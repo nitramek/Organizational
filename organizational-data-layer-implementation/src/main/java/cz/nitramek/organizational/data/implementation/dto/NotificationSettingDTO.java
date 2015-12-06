@@ -12,6 +12,10 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 @DiscriminatorValue(value = "NS")
+@NamedQueries(value = {
+        @NamedQuery(name = "NotificationSetting.selectByUser", query = "SELECT ns FROM NotificationSetting ns WHERE ns.owner.id = :id"),
+        @NamedQuery(name = "NotificationSetting.selectById", query = "SELECT ns FROM NotificationSetting ns WHERE ns.id = :id")
+})
 public class NotificationSettingDTO implements Identifiable {
 
     @Id
