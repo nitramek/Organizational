@@ -21,6 +21,17 @@ public class Item implements Serializable {
     private List<Attribute> attributes;
     private List<Category> categories;
 
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    private User owner;
+
     public Item() {
         attributes = new ArrayList<>();
         categories = new ArrayList<>();

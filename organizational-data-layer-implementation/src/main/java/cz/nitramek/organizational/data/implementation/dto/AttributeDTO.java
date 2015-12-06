@@ -1,11 +1,21 @@
 package cz.nitramek.organizational.data.implementation.dto;
 
+import javax.persistence.*;
 
+@Entity(name = "Attribute")
+@Table(name = "Attribute")
 public class AttributeDTO {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String strValue;
+
+    @Transient
     private Object value;
 
+    @ManyToOne
+    @JoinColumn(name = "typeId")
     private AttributeTypeDTO type;
 
 

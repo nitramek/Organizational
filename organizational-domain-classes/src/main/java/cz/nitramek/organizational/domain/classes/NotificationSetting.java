@@ -4,7 +4,7 @@ package cz.nitramek.organizational.domain.classes;
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
 public class NotificationSetting implements Identifiable {
-    enum Operation {
+    public enum Operation {
         EQ, LT, GT
     }
 

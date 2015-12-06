@@ -1,26 +1,42 @@
 package cz.nitramek.organizational.data.implementation.dto;
 
 
+import cz.nitramek.organizational.domain.classes.NotificationSetting;
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
-public class NotificationSettingDTO implements Identifiable {
-    enum Operation {
-        EQ, LT, GT
-    }
+import javax.persistence.*;
 
+
+@Entity(name = "NotificationSetting")
+@Table(name = "NotificationSetting")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
+@DiscriminatorValue(value = "NS")
+public class NotificationSettingDTO implements Identifiable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String triggerValue;
-    private Operation operation;
+    private NotificationSetting.Operation operation;
     private String text;
 
+    @ManyToOne
+    @JoinColumn(name = "watchedAttrId")
     private AttributeDTO watchedAttributeDTO;
 
 
-    private UserDTO userDTO;
+    @ManyToOne
+    @JoinColumn(name = "ownerId")
+    private UserDTO owner;
+
+    public NotificationSettingDTO() {
+    }
 
     public NotificationSettingDTO(
-            Operation operation, String name, String triggerValue, AttributeDTO watchedAttributeDTO) {
+            NotificationSetting.Operation operation, String name, String triggerValue,
+            AttributeDTO watchedAttributeDTO) {
         this.operation = operation;
         this.name = name;
         this.triggerValue = triggerValue;
@@ -44,11 +60,11 @@ public class NotificationSettingDTO implements Identifiable {
         this.name = name;
     }
 
-    public Operation getOperation() {
+    public NotificationSetting.Operation getOperation() {
         return operation;
     }
 
-    public void setOperation(Operation operation) {
+    public void setOperation(NotificationSetting.Operation operation) {
         this.operation = operation;
     }
 
@@ -68,12 +84,12 @@ public class NotificationSettingDTO implements Identifiable {
         this.triggerValue = triggerValue;
     }
 
-    public UserDTO getUserDTO() {
-        return userDTO;
+    public UserDTO getOwner() {
+        return owner;
     }
 
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
+    public void setOwner(UserDTO userDTO) {
+        this.owner = userDTO;
     }
 
     public AttributeDTO getWatchedAttributeDTO() {

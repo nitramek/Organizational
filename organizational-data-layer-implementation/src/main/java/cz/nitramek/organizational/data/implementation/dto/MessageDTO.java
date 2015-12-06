@@ -7,6 +7,7 @@ import java.util.Date;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "message_typ")
+@DiscriminatorValue(value = "MSG")
 @Table(name = "Message")
 @NamedQueries({
         @NamedQuery(name = "Message.selectByUser",

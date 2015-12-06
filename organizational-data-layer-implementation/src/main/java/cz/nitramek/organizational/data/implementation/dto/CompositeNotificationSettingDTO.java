@@ -2,6 +2,7 @@ package cz.nitramek.organizational.data.implementation.dto;
 
 
 import cz.nitramek.organizational.domain.classes.CompositeNotificationSetting;
+import cz.nitramek.organizational.domain.classes.NotificationSetting;
 
 public class CompositeNotificationSettingDTO extends NotificationSettingDTO {
 
@@ -10,9 +11,12 @@ public class CompositeNotificationSettingDTO extends NotificationSettingDTO {
 
     private NotificationSettingDTO nextNotificationSettingDTO;
 
+    public CompositeNotificationSettingDTO() {
+        super();
+    }
 
     public CompositeNotificationSettingDTO(
-            Operation operation, String name, String triggerValue, AttributeDTO watchedAttributeDTO,
+            NotificationSetting.Operation operation, String name, String triggerValue, AttributeDTO watchedAttributeDTO,
             CompositeNotificationSetting.CompositeOperation compositeOperation,
             NotificationSettingDTO nextNotificationSettingDTO) {
         super(operation, name, triggerValue, watchedAttributeDTO);
