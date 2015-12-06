@@ -9,7 +9,9 @@ import java.util.Set;
 @Table(name = "User")
 @NamedQueries(value = {
         @NamedQuery(name = "User.selectAll", query = "SELECT u FROM User u"),
-        @NamedQuery(name = "User.selectById", query = "SELECT u FROM User u WHERE u.id = :id")
+        @NamedQuery(name = "User.selectById", query = "SELECT u FROM User u WHERE u.id = :id"),
+        @NamedQuery(name = "User.selectByLogin", query = "SELECT u FROM User u WHERE u.email = :login OR u.nickname = :login")
+
 })
 public class UserDTO implements Identifiable {
 

@@ -31,6 +31,13 @@ public class UserMapperImpl implements UserMapper {
         return resultList.stream().map(Converters::convert).collect(Collectors.toCollection(ArrayList<User>::new));
     }
 
+    @Override
+    public User select(String login) {
+        return Converters.convert(this.em.createNamedQuery("User.selectByLogin", UserDTO.class)
+                                         .setParameter("login", login)
+                                         .getSingleResult());
+    }
+
 
     @Override
     public User insert(User user) {
