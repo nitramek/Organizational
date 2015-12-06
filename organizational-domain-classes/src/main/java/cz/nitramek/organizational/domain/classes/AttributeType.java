@@ -3,14 +3,14 @@ package cz.nitramek.organizational.domain.classes;
 
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
-public class AttributeType<T> implements Identifiable {
+public class AttributeType implements Identifiable {
     private long id;
     private String name;
     private boolean mandatory;
 
-    private AttributeValueType<T> type;
+    private AttributeValueType type;
 
-    public AttributeType(boolean mandatory, String name, AttributeValueType<T> type) {
+    public AttributeType(boolean mandatory, String name, AttributeValueType type) {
         this.mandatory = mandatory;
         this.name = name;
         this.type = type;
@@ -41,11 +41,11 @@ public class AttributeType<T> implements Identifiable {
         this.name = name;
     }
 
-    public AttributeValueType<T> getType() {
+    public AttributeValueType getType() {
         return type;
     }
 
-    public void setType(AttributeValueType<T> type) {
+    public void setType(AttributeValueType type) {
         this.type = type;
     }
 
@@ -54,7 +54,7 @@ public class AttributeType<T> implements Identifiable {
         if (this == o) return true;
         if (!(o instanceof AttributeType)) return false;
 
-        AttributeType<?> that = (AttributeType<?>) o;
+        AttributeType that = (AttributeType) o;
 
         if (getId() != that.getId()) return false;
         if (isMandatory() != that.isMandatory()) return false;

@@ -3,26 +3,40 @@ package cz.nitramek.organizational.data.implementation.dto;
 
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
+import javax.persistence.*;
 import java.util.List;
 
-
+@Entity(name = "ItemType")
+@Table(name = "ItemType")
+@NamedQueries(
+        {
+                @NamedQuery(name = "ItemType.selectById", query = "SELECT it FROM ItemType it WHERE it.id = :id ")
+        }
+)
 public class ItemTypeDTO implements Identifiable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
 
-    private List<AttributeTypeDTO> attributeTypeDTOs;
 
+    @OneToMany
+    @JoinColumn(name = "itemTypeId", referencedColumnName = "id")
+    private List<AttributeTypeDTO> attributeTypes;
+
+    public ItemTypeDTO() {
+    }
 
     public ItemTypeDTO(String name) {
         this.name = name;
     }
 
-    public List<AttributeTypeDTO> getAttributeTypeDTOs() {
-        return attributeTypeDTOs;
+    public List<AttributeTypeDTO> getAttributeTypes() {
+        return attributeTypes;
     }
 
-    public void setAttributeTypeDTOs(List<AttributeTypeDTO> attributeTypeDTOs) {
-        this.attributeTypeDTOs = attributeTypeDTOs;
+    public void setAttributeTypes(List<AttributeTypeDTO> attributeTypes) {
+        this.attributeTypes = attributeTypes;
     }
 
 

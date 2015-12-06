@@ -6,29 +6,29 @@ import cz.nitramek.organizational.domain.interafaces.Identifiable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class AttributeValueType<T> implements Identifiable {
+public class AttributeValueType implements Identifiable {
     private long id;
     private String name;
 
     private String methodName;
-    private Class<T> convertingClass;
+    private Class<?> convertingClass;
 
 
     private Method creatingMethod;
 
-    public AttributeValueType(String methodName, Class<T> convertingClass) throws NoSuchMethodException {
+    public AttributeValueType(String methodName, Class<?> convertingClass) throws NoSuchMethodException {
         this.constructMethod(methodName, convertingClass);
         this.methodName = methodName;
         this.convertingClass = convertingClass;
     }
 
-    private void constructMethod(String methodName, Class<T> convertingClass) throws NoSuchMethodException {
+    private void constructMethod(String methodName, Class<?> convertingClass) throws NoSuchMethodException {
         this.creatingMethod = convertingClass.getMethod(methodName, String.class);
     }
 
-    public T convert(String value) {
+    public Object convert(String value) {
         try {
-            return (T) this.creatingMethod.invoke(value);
+            return this.creatingMethod.invoke(value);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,7 @@ public class AttributeValueType<T> implements Identifiable {
         return convertingClass;
     }
 
-    public void setConvertingClass(Class<T> convertingClass) throws NoSuchMethodException {
+    public void setConvertingClass(Class<?> convertingClass) throws NoSuchMethodException {
         this.convertingClass = convertingClass;
         this.constructMethod(this.methodName, this.convertingClass);
     }
@@ -74,7 +74,7 @@ public class AttributeValueType<T> implements Identifiable {
         if (this == o) return true;
         if (!(o instanceof AttributeValueType)) return false;
 
-        AttributeValueType<?> that = (AttributeValueType<?>) o;
+        AttributeValueType that = (AttributeValueType) o;
 
         if (getId() != that.getId()) return false;
         if (!getName().equals(that.getName())) return false;

@@ -1,15 +1,15 @@
 package cz.nitramek.organizational.domain.classes;
 
 
-public class Attribute<T> {
+public class Attribute {
     private long id;
     private String strValue;
-    private T value;
+    private Object value;
 
-    private AttributeType<T> type;
+    private AttributeType type;
 
 
-    public Attribute(String strValue, AttributeType<T> type) {
+    public Attribute(String strValue, AttributeType type) {
         this.strValue = strValue;
         this.type = type;
     }
@@ -31,17 +31,17 @@ public class Attribute<T> {
         this.value = this.type.getType().convert(this.strValue);
     }
 
-    public AttributeType<T> getType() {
+    public AttributeType getType() {
         return type;
     }
 
-    public void setType(AttributeType<T> type) {
+    public void setType(AttributeType type) {
         this.type = type;
         this.value = this.type.getType().convert(this.strValue);
 
     }
 
-    public T getValue() {
+    public Object getValue() {
         return value;
     }
 
@@ -61,7 +61,7 @@ public class Attribute<T> {
         if (this == o) return true;
         if (!(o instanceof Attribute)) return false;
 
-        Attribute<?> attribute = (Attribute<?>) o;
+        Attribute attribute = (Attribute) o;
 
         if (getId() != attribute.getId()) return false;
         if (!getStrValue().equals(attribute.getStrValue())) return false;

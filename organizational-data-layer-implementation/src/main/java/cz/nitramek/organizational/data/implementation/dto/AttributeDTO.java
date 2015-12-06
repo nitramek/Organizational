@@ -1,15 +1,15 @@
 package cz.nitramek.organizational.data.implementation.dto;
 
 
-public class AttributeDTO<T> {
+public class AttributeDTO {
     private long id;
     private String strValue;
-    private T value;
+    private Object value;
 
-    private AttributeTypeDTO<T> type;
+    private AttributeTypeDTO type;
 
 
-    public AttributeDTO(String strValue, AttributeTypeDTO<T> type) {
+    public AttributeDTO(String strValue, AttributeTypeDTO type) {
         this.strValue = strValue;
         this.type = type;
     }
@@ -34,17 +34,17 @@ public class AttributeDTO<T> {
         this.value = this.type.getType().convert(this.strValue);
     }
 
-    public AttributeTypeDTO<T> getType() {
+    public AttributeTypeDTO getType() {
         return type;
     }
 
-    public void setType(AttributeTypeDTO<T> type) {
+    public void setType(AttributeTypeDTO type) {
         this.type = type;
         this.value = this.type.getType().convert(this.strValue);
 
     }
 
-    public T getValue() {
+    public Object getValue() {
         return value;
     }
 

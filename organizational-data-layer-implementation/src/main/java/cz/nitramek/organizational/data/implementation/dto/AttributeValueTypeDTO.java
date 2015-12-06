@@ -6,30 +6,32 @@ import cz.nitramek.organizational.domain.interafaces.Identifiable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class AttributeValueTypeDTO<T> implements Identifiable {
+public class AttributeValueTypeDTO implements Identifiable {
     private long id;
     private String name;
 
     private String methodName;
-    private Class<T> convertingClass;
+    private Class<?> convertingClass;
 
 
     private Method creatingMethod;
 
-    public AttributeValueTypeDTO(String methodName, Class<T> convertingClass) throws NoSuchMethodException {
+    public AttributeValueTypeDTO() {
+    }
+
+    public AttributeValueTypeDTO(String methodName, Class<?> convertingClass) throws NoSuchMethodException {
         this.constructMethod(methodName, convertingClass);
         this.methodName = methodName;
         this.convertingClass = convertingClass;
     }
 
-    private void constructMethod(String methodName, Class<T> convertingClass) throws NoSuchMethodException {
+    private void constructMethod(String methodName, Class<?> convertingClass) throws NoSuchMethodException {
         this.creatingMethod = convertingClass.getMethod(methodName, String.class);
     }
 
-    @SuppressWarnings("unchecked")
-    public T convert(String value) {
+    public Object convert(String value) {
         try {
-            return (T) this.creatingMethod.invoke(value);
+            return this.creatingMethod.invoke(value);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -65,7 +67,7 @@ public class AttributeValueTypeDTO<T> implements Identifiable {
         return convertingClass;
     }
 
-    public void setConvertingClass(Class<T> convertingClass) throws NoSuchMethodException {
+    public void setConvertingClass(Class<?> convertingClass) throws NoSuchMethodException {
         this.convertingClass = convertingClass;
         this.constructMethod(this.methodName, this.convertingClass);
     }

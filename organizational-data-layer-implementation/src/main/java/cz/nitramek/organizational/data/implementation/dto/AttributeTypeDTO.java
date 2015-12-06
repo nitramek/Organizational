@@ -3,15 +3,27 @@ package cz.nitramek.organizational.data.implementation.dto;
 
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
-public class AttributeTypeDTO<T> implements Identifiable {
+import javax.persistence.*;
+
+
+@Entity(name = "AttributeType")
+@Table(name = "AttributeType")
+public class AttributeTypeDTO implements Identifiable {
+
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
     private boolean mandatory;
 
-    private AttributeValueTypeDTO<T> type;
+    @Transient
+    private AttributeValueTypeDTO type;
 
 
-    public AttributeTypeDTO(boolean mandatory, String name, AttributeValueTypeDTO<T> type) {
+    public AttributeTypeDTO() {
+    }
+
+    public AttributeTypeDTO(boolean mandatory, String name, AttributeValueTypeDTO type) {
         this.mandatory = mandatory;
         this.name = name;
         this.type = type;
@@ -42,11 +54,11 @@ public class AttributeTypeDTO<T> implements Identifiable {
         this.name = name;
     }
 
-    public AttributeValueTypeDTO<T> getType() {
+    public AttributeValueTypeDTO getType() {
         return type;
     }
 
-    public void setType(AttributeValueTypeDTO<T> type) {
+    public void setType(AttributeValueTypeDTO type) {
         this.type = type;
     }
 }
