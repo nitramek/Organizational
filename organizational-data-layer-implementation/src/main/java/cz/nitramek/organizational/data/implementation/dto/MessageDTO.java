@@ -12,7 +12,7 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(name = "Message.selectByUser",
                 query = "SELECT m FROM MessageDTO m" +
-                        " WHERE COLUMN('sender', m) = :userId OR COLUMN('recipient', m) = :userId "),
+                        " WHERE sender = :userId OR recipient  = :userId "),
         @NamedQuery(name = "Message.selectAll", query = "SELECT m FROM MessageDTO m"),
         @NamedQuery(name = "Message.selectOne", query = "SELECT m FROM MessageDTO m WHERE m.id = :id")
 })

@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "Item")
 @NamedQueries(
         {
-                @NamedQuery(name = "Item.selectByOwner", query = "SELECT i FROM Item i WHERE COLUMN('ownerId', i) = :userId"),
+                @NamedQuery(name = "Item.selectByOwner", query = "SELECT i FROM Item i WHERE ownerId = :userId"),
                 @NamedQuery(name = "Item.selectById", query = "SELECT i FROM Item i WHERE i.id = :id")
         }
 )
