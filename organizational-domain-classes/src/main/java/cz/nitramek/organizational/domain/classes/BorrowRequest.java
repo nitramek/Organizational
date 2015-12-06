@@ -4,6 +4,9 @@ package cz.nitramek.organizational.domain.classes;
 public class BorrowRequest extends Message {
     private Item requestedItem;
 
+    public BorrowRequest() {
+    }
+
     public BorrowRequest(String subject) {
         super(subject);
     }
