@@ -34,14 +34,17 @@ public class ItemMapperImpl implements ItemMapper {
     public Item insert(Item item) {
         ItemDTO iDTO = Converters.convert(item);
         this.em.persist(iDTO);
-        iDTO.getAttributeDTOs().stream().forEach(this.em::persist);
+        iDTO.setAttributeDTOs(iDTO.getAttributeDTOs().stream().map(this.em::merge).collect(Collectors.toList()));
 
         return Converters.convert(iDTO);
     }
 
     @Override
     public Item update(Item item) {
-        return this.insert(item);
+        ItemDTO iDTO = Converters.convert(item);
+        iDTO = this.em.merge(iDTO);
+        iDTO.setAttributeDTOs(iDTO.getAttributeDTOs().stream().map(this.em::merge).collect(Collectors.toList()));
+        return Converters.convert(iDTO);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package cz.nitramek.organizational.data.implementation.mappers;
 
+import cz.nitramek.organizational.data.implementation.dto.PermissionDTO;
 import cz.nitramek.organizational.data.implementation.dto.RoleDTO;
 import cz.nitramek.organizational.data.implementation.dto.UserDTO;
 import cz.nitramek.organizational.data.implementation.util.Converters;
@@ -12,6 +13,7 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,24 +49,20 @@ public class UserMapperImpl implements UserMapper {
     public User insert(User user) {
 
         UserDTO userDTO = Converters.convert(user);
-
-        List<RoleDTO> rolesToAdd = user.getRolesToAdd().stream()
-                                       .map(
-                                               rName -> this.em.createNamedQuery("Role.selectByName", RoleDTO.class)
-                                                               .setParameter("roleName", rName)
-                                                               .getSingleResult()
-                                           )
-                                       .collect(Collectors.toCollection(ArrayList<RoleDTO>::new));
-        userDTO.getRoles().addAll(rolesToAdd);
         this.em.persist(userDTO);
-        userDTO.getRoles().stream().forEach(
+        userDTO.setRoles(userDTO.getRoles().stream().map(
                 roleDTO -> {
-                    this.em.persist(roleDTO);
-                    roleDTO.getPermission().forEach(this.em::persist);
-                }
-                                           );
-        userDTO.getReceived().stream().forEach(this.em::persist);
-        userDTO.getSent().stream().forEach(this.em::persist);
+
+                    RoleDTO merge = this.em.merge(roleDTO);
+                    roleDTO.getPermission()
+                           .stream()
+                           .map(this.em::merge)
+                           .collect(Collectors.toCollection(HashSet<PermissionDTO>::new));
+
+                    return merge;
+                }).collect(Collectors.toSet()));
+        userDTO.setReceived(userDTO.getReceived().stream().map(this.em::merge).collect(Collectors.toSet()));
+        userDTO.setSent(userDTO.getSent().stream().map(this.em::merge).collect(Collectors.toSet()));
         return Converters.convert(userDTO);
     }
 

@@ -9,6 +9,7 @@ import cz.nitramek.organizational.domain.classes.ItemType;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import java.util.stream.Collectors;
 
 
 @MapperImplementation(mapper = ItemTypeMapper.class)
@@ -24,15 +25,20 @@ public class ItemTypeMapperImpl implements ItemTypeMapper {
     public ItemType insert(
             ItemType itemType) {
         ItemTypeDTO itDTO = Converters.convert(itemType);
-        itemType.getAttributeTypes()
-                .stream()
-                .forEach(attributeType -> this.em.persist(Converters.convert(attributeType)));
+        this.em.persist(itDTO);
+        itDTO.setAttributeTypes(itDTO.getAttributeTypes().stream()
+                                     .map(this.em::merge)
+                                     .collect(Collectors.toList()));
         return Converters.convert(itDTO);
     }
 
     @Override
     public ItemType update(ItemType itemType) {
-        return this.insert(itemType);
+        ItemTypeDTO itDTO = Converters.convert(itemType);
+        itDTO.setAttributeTypes(itDTO.getAttributeTypes().stream()
+                                     .map(this.em::merge)
+                                     .collect(Collectors.toList()));
+        return Converters.convert(itDTO);
     }
 
     @Override

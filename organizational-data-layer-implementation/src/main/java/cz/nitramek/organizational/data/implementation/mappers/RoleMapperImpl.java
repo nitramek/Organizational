@@ -1,6 +1,7 @@
 package cz.nitramek.organizational.data.implementation.mappers;
 
 
+import cz.nitramek.organizational.data.implementation.dto.PermissionDTO;
 import cz.nitramek.organizational.data.implementation.dto.RoleDTO;
 import cz.nitramek.organizational.data.implementation.util.Converters;
 import cz.nitramek.organizational.data.mapper.RoleMapper;
@@ -12,6 +13,7 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,14 +52,23 @@ public class RoleMapperImpl implements RoleMapper {
     public Role insert(Role role) {
         RoleDTO roleDTO = Converters.convert(role);
         this.em.persist(roleDTO);
-        roleDTO.getPermission().stream().forEach(em::persist);
-        roleDTO.getPermission().stream().forEach(em::detach);
+        roleDTO.setPermissions(roleDTO.getPermission().stream()
+                                      .map(this.em::merge)
+                                      .collect(Collectors.toCollection(HashSet<PermissionDTO>::new)));
         return Converters.convert(roleDTO);
     }
 
     @Override
     public Role update(Role role) {
-        return this.insert(role);
+        RoleDTO roleDTO = Converters.convert(role);
+        roleDTO = this.em.merge(roleDTO);
+        roleDTO.setPermissions(roleDTO.getPermission().stream()
+                                      .map(this.em::merge)
+                                      .collect(Collectors.toCollection(HashSet<PermissionDTO>::new)));
+        roleDTO.setPermissions(roleDTO.getPermission().stream()
+                                      .map(this.em::merge)
+                                      .collect(Collectors.toCollection(HashSet<PermissionDTO>::new)));
+        return Converters.convert(roleDTO);
     }
 
     @Override

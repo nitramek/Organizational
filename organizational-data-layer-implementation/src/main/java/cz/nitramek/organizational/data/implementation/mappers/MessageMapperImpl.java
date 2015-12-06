@@ -45,7 +45,11 @@ public class MessageMapperImpl implements MessageMapper {
 
     @Override
     public Message update(Message message) {
-        return this.insert(message);
+        MessageDTO mDTO = Converters.convert(message);
+
+        mDTO = this.em.merge(mDTO);
+
+        return Converters.convert(mDTO);
     }
 
     @Override

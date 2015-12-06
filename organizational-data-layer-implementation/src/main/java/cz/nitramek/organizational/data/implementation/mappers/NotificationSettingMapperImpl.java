@@ -44,7 +44,9 @@ public class NotificationSettingMapperImpl implements NotificationSettingMapper 
 
     @Override
     public NotificationSetting update(NotificationSetting notificationSetting) {
-        return this.insert(notificationSetting);
+        NotificationSettingDTO nsDTO = Converters.convert(notificationSetting);
+        nsDTO = this.em.merge(nsDTO);
+        return Converters.convert(nsDTO);
     }
 
     @Override
