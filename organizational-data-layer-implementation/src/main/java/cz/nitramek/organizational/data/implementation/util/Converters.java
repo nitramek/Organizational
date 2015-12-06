@@ -1,20 +1,14 @@
 package cz.nitramek.organizational.data.implementation.util;
 
-import cz.nitramek.organizational.data.implementation.dto.MessageDTO;
-import cz.nitramek.organizational.data.implementation.dto.PermissionDTO;
-import cz.nitramek.organizational.data.implementation.dto.RoleDTO;
-import cz.nitramek.organizational.data.implementation.dto.UserDTO;
-import cz.nitramek.organizational.domain.classes.Message;
-import cz.nitramek.organizational.domain.classes.Permission;
-import cz.nitramek.organizational.domain.classes.Role;
-import cz.nitramek.organizational.domain.classes.User;
+import cz.nitramek.organizational.data.implementation.dto.*;
+import cz.nitramek.organizational.domain.classes.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class Converters {
-    public static User createUser(UserDTO userDTO) {
+    public static User convert(UserDTO userDTO) {
         User u = new User();
         u.setId(userDTO.getId());
         u.setNickname(userDTO.getNickname());
@@ -26,22 +20,22 @@ public class Converters {
         u.setAdministrator(userDTO.isAdministrator());
         u.setRoles(
                 userDTO.getRoles().stream().
-                        map(Converters::createRole).
+                        map(Converters::convert).
                                collect(Collectors.toCollection(ArrayList<Role>::new))
                   );
         u.setSent(
                 userDTO.getSent().stream().
-                        map(Converters::createMessage).
+                        map(Converters::convert).
                                collect(Collectors.toCollection(ArrayList<Message>::new))
                  );
         u.setReceived(userDTO.getReceived().stream().
-                              map(Converters::createMessage).
+                              map(Converters::convert).
                                      collect(Collectors.toCollection(ArrayList<Message>::new))
                      );
         return u;
     }
 
-    public static Message createMessage(MessageDTO messageDTO) {
+    public static Message convert(MessageDTO messageDTO) {
         Message m = new Message(messageDTO.getSubject());
         m.setId(messageDTO.getId());
         m.setDateSend(messageDTO.getDateSend());
@@ -49,7 +43,7 @@ public class Converters {
         return m;
     }
 
-    public static MessageDTO createMessage(Message message) {
+    public static MessageDTO convert(Message message) {
         MessageDTO m = new MessageDTO();
         m.setSubject(message.getSubject());
         m.setId(message.getId());
@@ -58,33 +52,33 @@ public class Converters {
         return m;
     }
 
-    public static Role createRole(RoleDTO roleDTO) {
+    public static Role convert(RoleDTO roleDTO) {
         Role r = new Role();
         r.setId(roleDTO.getId());
         r.setName(roleDTO.getName());
         r.setDisplayName(roleDTO.getDisplayName());
         r.setPermissions(
                 roleDTO.getPermission().stream().
-                        map(p -> Converters.createPermission(p)).
+                        map(Converters::convert).
                                collect(Collectors.toCollection(ArrayList<Permission>::new))
                         );
         return r;
     }
 
-    public static RoleDTO createRole(Role role) {
+    public static RoleDTO convert(Role role) {
         RoleDTO r = new RoleDTO();
         r.setId(role.getId());
         r.setName(role.getName());
         r.setDisplayName(role.getDisplayName());
         r.setPermissions(
                 role.getPermissions().stream().
-                        map(Converters::createPermission).
+                        map(Converters::convert).
                             collect(Collectors.toCollection(HashSet<PermissionDTO>::new))
                         );
         return r;
     }
 
-    private static PermissionDTO createPermission(Permission permission) {
+    private static PermissionDTO convert(Permission permission) {
         PermissionDTO p = new PermissionDTO();
         p.setId(permission.getId());
         p.setLevel(permission.getLevel());
@@ -92,14 +86,14 @@ public class Converters {
     }
 
 
-    private static Permission createPermission(PermissionDTO permissionDTO) {
+    private static Permission convert(PermissionDTO permissionDTO) {
         Permission p = new Permission(permissionDTO.getLevel());
         p.setId(permissionDTO.getId());
         p.setLevel(permissionDTO.getLevel());
         return p;
     }
 
-    public static UserDTO createUser(User user) {
+    public static UserDTO convert(User user) {
         UserDTO u = new UserDTO();
         u.setId(user.getId());
         u.setNickname(user.getNickname());
@@ -112,18 +106,91 @@ public class Converters {
 
         u.setRoles(
                 user.getRoles().stream().
-                        map(Converters::createRole).
+                        map(Converters::convert).
                             collect(Collectors.toCollection(HashSet<RoleDTO>::new))
                   );
         u.setSent(
                 user.getSent().stream().
-                        map(Converters::createMessage).
+                        map(Converters::convert).
                             collect(Collectors.toCollection(HashSet<MessageDTO>::new))
                  );
         u.setReceived(user.getReceived().stream().
-                              map(Converters::createMessage).
+                              map(Converters::convert).
                                   collect(Collectors.toCollection(HashSet<MessageDTO>::new))
                      );
         return u;
     }
+
+    public static ItemType convert(ItemTypeDTO itemTypeDTO) {
+        ItemType i = new ItemType(itemTypeDTO.getName());
+        i.setId(itemTypeDTO.getId());
+        i.setAttributeTypes(
+                itemTypeDTO.getAttributeTypes().stream().
+                        map(Converters::convert).
+                                   collect(Collectors.toCollection(ArrayList<AttributeType>::new))
+                           );
+        return i;
+
+    }
+
+    public static AttributeType convert(AttributeTypeDTO attributeTypeDTO) {
+        AttributeType at = new AttributeType(
+                attributeTypeDTO.isMandatory(),
+                attributeTypeDTO.getName(),
+                Converters.convert(attributeTypeDTO.getType())
+        );
+        at.setId(attributeTypeDTO.getId());
+        return at;
+    }
+
+    public static AttributeValueType convert(AttributeValueTypeDTO type) {
+        try {
+            AttributeValueType avt = new AttributeValueType(type.getMethodName(), type.getConvertingClass());
+            avt.setId(type.getId());
+            avt.setName(type.getName());
+            return avt;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ItemTypeDTO convert(ItemType itemType) {
+        ItemTypeDTO i = new ItemTypeDTO();
+        i.setName(itemType.getName());
+        i.setId(itemType.getId());
+        i.setAttributeTypes(
+                itemType.getAttributeTypes().stream().
+                        map(Converters::convert).
+                                collect(Collectors.toCollection(ArrayList<AttributeTypeDTO>::new))
+                           );
+        return i;
+
+    }
+
+    public static AttributeTypeDTO convert(AttributeType attributeType) {
+        AttributeTypeDTO at = new AttributeTypeDTO();
+        at.setId(attributeType.getId());
+        at.setName(attributeType.getName());
+        at.setMandatory(attributeType.isMandatory());
+        at.setType(Converters.convert(attributeType.getType()));
+        return at;
+    }
+
+    public static AttributeValueTypeDTO convert(AttributeValueType type) {
+
+        try {
+            AttributeValueTypeDTO avt = new AttributeValueTypeDTO();
+            avt.setId(type.getId());
+            avt.setName(type.getName());
+            avt.setConvertingClass(type.getConvertingClass());
+            avt.setMethodName(type.getMethodName());
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 }

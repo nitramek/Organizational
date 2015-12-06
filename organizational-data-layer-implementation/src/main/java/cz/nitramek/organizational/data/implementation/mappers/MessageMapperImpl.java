@@ -30,17 +30,17 @@ public class MessageMapperImpl implements MessageMapper {
                       .setParameter("userId", user.getId())
                       .getResultList()
                       .stream()
-                      .map(Converters::createMessage)
+                      .map(Converters::convert)
                       .collect(Collectors.toCollection(ArrayList<Message>::new));
     }
 
     @Override
     public Message insert(Message message) {
-        MessageDTO mDTO = Converters.createMessage(message);
+        MessageDTO mDTO = Converters.convert(message);
 
         this.em.persist(mDTO);
 
-        return Converters.createMessage(mDTO);
+        return Converters.convert(mDTO);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MessageMapperImpl implements MessageMapper {
 
     @Override
     public Message select(long id) {
-        return Converters.createMessage(this.em.createNamedQuery("Message.selectOne", MessageDTO.class)
-                                               .getSingleResult());
+        return Converters.convert(this.em.createNamedQuery("Message.selectOne", MessageDTO.class)
+                                         .getSingleResult());
     }
 }
