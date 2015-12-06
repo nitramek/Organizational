@@ -6,10 +6,16 @@
         <jta-data-source>java:/MySQLocal</jta-data-source>
         <class>cz.nitramek.organizational.data.implementation.dto.UserDTO</class>
         <class>cz.nitramek.organizational.data.implementation.dto.RoleDTO</class>
-        <class>cz.nitramek.organizational.data.implementation.dto.MessageDTO</class>
-        <class>cz.nitramek.organizational.data.implementation.dto.BorrowRequestDTO</class>
-        <class>cz.nitramek.organizational.data.implementation.dto.CategoryDTO</class>
         <class>cz.nitramek.organizational.data.implementation.dto.PermissionDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.NotificationSettingDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.NotificationDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.MessageDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.ItemTypeDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.ItemDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.CompositeNotificationSettingDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.BorrowRequestDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.AttributeDTO</class>
+        <class>cz.nitramek.organizational.data.implementation.dto.AttributeTypeDTO</class>
         <properties>
 
             <property name="hibernate.default_schema" value="organizational"/>
