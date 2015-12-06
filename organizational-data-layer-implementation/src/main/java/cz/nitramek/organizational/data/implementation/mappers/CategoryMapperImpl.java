@@ -7,10 +7,7 @@ import cz.nitramek.organizational.data.mapper.CategoryMapper;
 import cz.nitramek.organizational.data.util.MapperImplementation;
 import cz.nitramek.organizational.domain.classes.Category;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +49,13 @@ public class CategoryMapperImpl implements CategoryMapper {
             return data;
         } catch (IOException e) {
             this.nextId = 1;
+
+            File file = new File(PATH);
+            try {
+                file.createNewFile();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             this.save();
             return new TreeMap<>();
         }
