@@ -19,7 +19,7 @@ public class Item implements Serializable {
     private ItemType type;
 
     private List<Attribute> attributes;
-    private List<Category> categories;
+    private Category category;
 
 
     public User getOwner() {
@@ -34,7 +34,6 @@ public class Item implements Serializable {
 
     public Item() {
         attributes = new ArrayList<>();
-        categories = new ArrayList<>();
         permissions = new ArrayList<>();
     }
 
@@ -54,12 +53,12 @@ public class Item implements Serializable {
         this.borrowable = borrowable;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Date getDateAdded() {
@@ -140,7 +139,7 @@ public class Item implements Serializable {
         sb.append(", borrowable=").append(borrowable);
         sb.append(", permissions=").append(permissions);
         sb.append(", type=").append(type);
-        sb.append(", categories=").append(categories);
+        sb.append(", category=").append(category);
         sb.append('}');
         return sb.toString();
     }

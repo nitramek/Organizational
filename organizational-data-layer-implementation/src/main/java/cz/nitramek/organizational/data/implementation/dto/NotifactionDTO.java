@@ -3,7 +3,8 @@ package cz.nitramek.organizational.data.implementation.dto;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @DiscriminatorValue(value = "NOT")
@@ -11,7 +12,8 @@ public class NotifactionDTO extends MessageDTO {
 
     private String triggeredValue;
 
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "trgItemDto")
     private ItemDTO triggeredItemDTO;
 
     public String getTriggeredValue() {

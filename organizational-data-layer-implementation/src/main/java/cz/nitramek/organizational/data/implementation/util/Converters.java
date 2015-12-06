@@ -193,4 +193,32 @@ public class Converters {
     }
 
 
+    public static Item convert(ItemDTO itemDTO) {
+        Item i = new Item();
+        i.setId(itemDTO.getId());
+        i.setName(itemDTO.getName());
+        i.setBorrowable(itemDTO.isBorrowable());
+        i.setDateAdded(itemDTO.getDateAdded());
+        i.setDateChanged(itemDTO.getDateChanged());
+        i.setType(Converters.convert(itemDTO.getType()));
+        i.setOwner(Converters.convert(itemDTO.getOwner()));
+        i.setPermissions(itemDTO.getPermissionDTOs().stream()
+                                .map(Converters::convert).collect(Collectors.toList()));
+        return i;
+    }
+
+    public static ItemDTO convert(Item item) {
+        ItemDTO i = new ItemDTO();
+        i.setId(item.getId());
+        i.setName(item.getName());
+        i.setBorrowable(item.isBorrowable());
+        i.setDateAdded(item.getDateAdded());
+        i.setDateChanged(item.getDateChanged());
+        i.setType(Converters.convert(item.getType()));
+        i.setOwner(Converters.convert(item.getOwner()));
+        i.setPermissionDTOs(item.getPermissions().stream()
+                                .map(Converters::convert).collect(Collectors.toList()));
+        i.setCategoryId(item.getCategory().getId());
+        return i;
+    }
 }

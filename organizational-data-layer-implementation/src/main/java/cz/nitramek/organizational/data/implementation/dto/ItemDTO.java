@@ -9,14 +9,22 @@ import java.util.List;
 
 @Entity(name = "Item")
 @Table(name = "Item")
+@NamedQueries(
+        {
+                @NamedQuery(name = "Item.selectByOwner", query = "SELECT i FROM Item i WHERE COLUMN('ownerId', i) = :userId"),
+                @NamedQuery(name = "Item.selectById", query = "SELECT i FROM Item i WHERE i.id = :id")
+        }
+)
 public class ItemDTO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateAdded;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateChanged;
 
     private boolean borrowable;
@@ -38,9 +46,16 @@ public class ItemDTO implements Serializable {
     @JoinColumn(name = "itemId", referencedColumnName = "id")
     private List<AttributeDTO> attributeDTOs;
 
-    @Transient
-    private List<CategoryDTO> categories;
 
+    private Long categoryId;
+
+    public UserDTO getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserDTO owner) {
+        this.owner = owner;
+    }
 
     public List<AttributeDTO> getAttributeDTOs() {
         return attributeDTOs;
@@ -58,12 +73,12 @@ public class ItemDTO implements Serializable {
         this.borrowable = borrowable;
     }
 
-    public List<CategoryDTO> getCategories() {
-        return categories;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategories(List<CategoryDTO> categories) {
-        this.categories = categories;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Date getDateAdded() {
