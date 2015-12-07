@@ -3,28 +3,11 @@ package cz.nitramek.organizational.domain.classes;
 
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Role implements Identifiable {
     private long id;
     private String name;
     private String displayName;
 
-    
-    private List<Permission> permissions;
-
-    public Role() {
-        permissions = new ArrayList<>();
-    }
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
-    }
 
     public String getDisplayName() {
         return displayName;
@@ -75,7 +58,6 @@ public class Role implements Identifiable {
         sb.append("displayName='").append(displayName).append('\'');
         sb.append(", id=").append(id);
         sb.append(", name='").append(name).append('\'');
-        sb.append(", permissions=").append(permissions);
         sb.append('}');
         return sb.toString();
     }

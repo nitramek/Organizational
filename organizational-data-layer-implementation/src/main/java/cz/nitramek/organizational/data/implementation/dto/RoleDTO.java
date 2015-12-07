@@ -4,7 +4,6 @@ package cz.nitramek.organizational.data.implementation.dto;
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity(name = "Role")
 @Table(name = "Role")
@@ -23,19 +22,19 @@ public class RoleDTO implements Identifiable {
     private String name;
     private String displayName;
 
-    @ManyToMany
-    @JoinTable(name = "Role_Permission",
-            joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "permisisonId", referencedColumnName = "id")})
-    private Set<PermissionDTO> permissionDTOs;
+//    @ManyToMany
+//    @JoinTable(name = "Role_Permission",
+//            joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "permisisonId", referencedColumnName = "id")})
+//    private Set<PermissionDTO> permissionDTOs;
 
-    public Set<PermissionDTO> getPermission() {
-        return permissionDTOs;
-    }
-
-    public void setPermissions(Set<PermissionDTO> permissionDTOs) {
-        this.permissionDTOs = permissionDTOs;
-    }
+//    public Set<PermissionDTO> getPermission() {
+//        return permissionDTOs;
+//    }
+//
+//    public void setPermissions(Set<PermissionDTO> permissionDTOs) {
+//        this.permissionDTOs = permissionDTOs;
+//    }
 
     public String getDisplayName() {
         return displayName;

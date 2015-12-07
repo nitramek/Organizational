@@ -96,11 +96,6 @@ public class Converters {
             r.setId(roleDTO.getId());
             r.setName(roleDTO.getName());
             r.setDisplayName(roleDTO.getDisplayName());
-            r.setPermissions(
-                    roleDTO.getPermission().stream().
-                            map(Converters::convert).
-                                   collect(Collectors.toCollection(ArrayList<Permission>::new))
-                            );
         }
         return r;
     }
@@ -112,11 +107,6 @@ public class Converters {
             r.setId(role.getId());
             r.setName(role.getName());
             r.setDisplayName(role.getDisplayName());
-            r.setPermissions(
-                    role.getPermissions().stream().
-                            map(Converters::convert).
-                                collect(Collectors.toCollection(HashSet<PermissionDTO>::new))
-                            );
         }
         return r;
     }
@@ -127,6 +117,7 @@ public class Converters {
             p = new PermissionDTO();
             p.setId(permission.getId());
             p.setLevel(permission.getLevel());
+            p.setRole(Converters.convert(permission.getRole()));
         }
         return p;
     }
@@ -138,6 +129,7 @@ public class Converters {
             p = new Permission(permissionDTO.getLevel());
             p.setId(permissionDTO.getId());
             p.setLevel(permissionDTO.getLevel());
+            p.setRole(Converters.convert(permissionDTO.getRole()));
         }
         return p;
     }

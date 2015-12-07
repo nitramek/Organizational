@@ -7,7 +7,18 @@ public class Permission implements Identifiable {
     private long id;
     private Level level;
 
+    private Role role;
+
     public Permission() {
+    }
+
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Permission(Level level) {
@@ -59,6 +70,13 @@ public class Permission implements Identifiable {
     }
 
     public enum Level {
-        GUEST, VISIBLE, ALL
+        GUEST(0), VISIBLE(1), ALL(2);
+
+        private int level;
+
+        Level(int level) {
+            this.level = level;
+        }
+
     }
 }

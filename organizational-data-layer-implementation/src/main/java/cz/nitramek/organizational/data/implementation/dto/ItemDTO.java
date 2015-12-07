@@ -12,9 +12,28 @@ import java.util.List;
 @NamedQueries(
         {
                 @NamedQuery(name = "Item.selectByOwner", query = "SELECT i FROM Item i WHERE ownerId = :userId"),
-                @NamedQuery(name = "Item.selectById", query = "SELECT i FROM Item i WHERE i.id = :id")
+                @NamedQuery(name = "Item.selectById", query = "SELECT i FROM Item i WHERE i.id = :id"),
         }
 )
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "Item.selectPermitted", query = "SELECT *\n" +
+                "FROM organizational.Item i\n" +
+                "WHERE i.ownerId = ? OR i.id IN (\n" +
+                "  SELECT p.item\n" +
+                "  FROM organizational.Permission p JOIN organizational.role_permission rp ON (p.id = rp.permisisonId)\n" +
+                "    JOIN organizational.role r ON (rp.roleId = r.id)\n" +
+                "    JOIN organizational.user_role ur ON (ur.userId = ?)\n" +
+                "  WHERE p.level > 0\n" +
+                ")", resultClass = ItemDTO.class),
+        @NamedNativeQuery(name = "Item.selectByRole", query = "SELECT *\n" +
+                "FROM organizational.Item i\n" +
+                "WHERE i.id IN (\n" +
+                "  SELECT p.item\n" +
+                "  FROM organizational.Permission p JOIN organizational.role_permission rp ON (p.id = rp.permisisonId)\n" +
+                "    JOIN organizational.role r ON (rp.roleId = ?)\n" +
+                "  WHERE p.level > 0\n" +
+                ")", resultClass = ItemDTO.class)
+})
 public class ItemDTO implements Serializable {
 
     @Id
@@ -33,7 +52,7 @@ public class ItemDTO implements Serializable {
     @JoinColumn(name = "ownerId")
     private UserDTO owner;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "item", referencedColumnName = "id")
     private List<PermissionDTO> permissionDTOs;
 
@@ -42,7 +61,7 @@ public class ItemDTO implements Serializable {
     private ItemTypeDTO type;
 
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "itemId", referencedColumnName = "id")
     private List<AttributeDTO> attributeDTOs;
 

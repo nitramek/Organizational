@@ -10,4 +10,8 @@ import java.util.List;
  */
 public interface ItemMapper extends Mapper<Item> {
     List<Item> selectByOwner(long userId);
+
+    List<Item> selectPermitted(long userId);
+
+    List<Item> selectByRole(long roleId);
 }
