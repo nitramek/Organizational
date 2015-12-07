@@ -26,20 +26,16 @@ public class ItemTypeMapperImpl implements ItemTypeMapper {
     public ItemType insert(
             ItemType itemType) {
         ItemTypeDTO itDTO = Converters.convert(itemType);
-        this.em.persist(itDTO);
-        itDTO.setAttributeTypes(itDTO.getAttributeTypes().stream()
-                                     .map(this.em::merge)
-                                     .collect(Collectors.toList()));
-        return Converters.convert(itDTO);
+        return Converters.convert(this.em.merge(itDTO));
     }
 
     @Override
     public ItemType update(ItemType itemType) {
+        if (itemType.getId() == 0) {
+            return this.insert(itemType);
+        }
         ItemTypeDTO itDTO = Converters.convert(itemType);
-        itDTO.setAttributeTypes(itDTO.getAttributeTypes().stream()
-                                     .map(this.em::merge)
-                                     .collect(Collectors.toList()));
-        return Converters.convert(itDTO);
+        return Converters.convert(this.em.merge(itDTO));
     }
 
     @Override

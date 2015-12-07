@@ -20,7 +20,7 @@ public class ItemTypeDTO implements Identifiable {
     private String name;
 
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "itemTypeId", referencedColumnName = "id")
     private List<AttributeTypeDTO> attributeTypes;
 

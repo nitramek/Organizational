@@ -1,6 +1,9 @@
 package cz.nitramek.organizational.data.implementation.util;
 
 import cz.nitramek.organizational.data.implementation.dto.*;
+import cz.nitramek.organizational.data.mapper.AttributeValueTypeMapper;
+import cz.nitramek.organizational.data.util.MapperCreationException;
+import cz.nitramek.organizational.data.util.MapperFactory;
 import cz.nitramek.organizational.domain.classes.*;
 
 import java.util.ArrayList;
@@ -188,12 +191,16 @@ public class Converters {
     public static AttributeType convert(AttributeTypeDTO attributeTypeDTO) {
         AttributeType at = null;
         if (attributeTypeDTO != null) {
-            at = new AttributeType(
-                    attributeTypeDTO.isMandatory(),
-                    attributeTypeDTO.getName(),
-                    Converters.convert(attributeTypeDTO.getType())
-            );
-            at.setId(attributeTypeDTO.getId());
+            try {
+                at = new AttributeType(
+                        attributeTypeDTO.isMandatory(),
+                        attributeTypeDTO.getName(),
+                        MapperFactory.createMapper(AttributeValueTypeMapper.class).select(attributeTypeDTO.getId())
+                );
+                at.setId(attributeTypeDTO.getId());
+            } catch (MapperCreationException e) {
+                e.printStackTrace();
+            }
         }
         return at;
     }
@@ -235,7 +242,7 @@ public class Converters {
             at.setId(attributeType.getId());
             at.setName(attributeType.getName());
             at.setMandatory(attributeType.isMandatory());
-            at.setType(Converters.convert(attributeType.getType()));
+            at.setAvtId(attributeType.getType().getId());
         }
         return at;
     }

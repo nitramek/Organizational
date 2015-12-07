@@ -33,9 +33,11 @@ public class ItemTypeDetailViewBean implements Serializable {
      */
     private List<AttributeValueType> avts;
     private AttributeValueType selectedAvt;
+    private int index;
 
     @PostConstruct
     public void init() {
+        this.index = -1;
         this.avts = this.attributeValueTypeService.getAll();
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
                                                                       .getExternalContext()
@@ -45,6 +47,7 @@ public class ItemTypeDetailViewBean implements Serializable {
                 .map(p -> this.itemTypeService.get(Long.parseLong(p))
                     ).ifPresent(this::setItemType);
         if (this.itemType == null) this.itemType = this.itemTypeService.create();
+        if (this.attribute == null) this.attribute = new AttributeType();
         if (this.avts == null) this.avts = new ArrayList<>(0);
     }
 
@@ -65,10 +68,16 @@ public class ItemTypeDetailViewBean implements Serializable {
 
     public void addAttribute() {
         this.attribute = this.itemTypeService.createAttribute();
+        this.index = -1;
     }
 
     public void saveAttribute() {
-        this.itemType.getAttributeTypes().add(this.attribute);
+        if (this.index < 0) {
+            this.itemType.getAttributeTypes().add(this.attribute);
+        } else {
+            this.itemType.getAttributeTypes().set(this.index, this.attribute);
+        }
+
     }
 
     public void newItemType() {
@@ -77,7 +86,7 @@ public class ItemTypeDetailViewBean implements Serializable {
 
 
     public String save() {
-        this.itemTypeService.add(itemType);
+        this.itemTypeService.update(itemType);
         return NavigationRules.ITEM_TYPES;
     }
 
@@ -87,9 +96,26 @@ public class ItemTypeDetailViewBean implements Serializable {
 
     public void setAttribute(AttributeType attribute) {
         this.attribute = attribute;
+        int index = 0;
+        for (AttributeType at : this.itemType.getAttributeTypes()) {
+            if (at.equals(this.attribute)) {
+                this.index = index;
+                break;
+            }
+            index++;
+        }
     }
 
     public List<AttributeValueType> getAvts() {
         return avts;
+    }
+
+    public AttributeValueTypeService getAttributeValueTypeService() {
+        return attributeValueTypeService;
+    }
+
+    public void setAttributeValueTypeService(
+            AttributeValueTypeService attributeValueTypeService) {
+        this.attributeValueTypeService = attributeValueTypeService;
     }
 }

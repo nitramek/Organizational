@@ -12,6 +12,7 @@
                   ajax="false" />
 
         <h:form id="itemTypeForm">
+            <p:messages autoUpdate="true" />
             <p:panelGrid layout="grid"
                          columns="1">
                 <h:outputLabel value="#{i18n['orga-name']}">
@@ -31,17 +32,21 @@
                     </p:column>
                     <p:column>
                         <p:commandButton value="#{i18n['orga-edit']}"
-                                         actionListener="#{itemTypeDetailView.setAttribute(at)}"
-                                         update="@widgetVar(atDlg)"
-                                         onsuccess="PF('atDlg').show()"
+                                         action="#{itemTypeDetailView.setAttribute(at)}"
+                                         update="@form"
+                                         oncomplete="PF('atDlg').show()"
                         />
                     </p:column>
                 </p:dataTable>
 
 
                 <p:commandButton value="#{i18n['orga-attributeType-add']}"
-                                 onsuccess="PF('atDlg').show()"
+                                 update="@form"
+                                 oncomplete="PF('atDlg').show()"
                                  actionListener="#{itemTypeDetailView.addAttribute}" />
+                <p:commandButton value="#{i18n['orga-save']}"
+                                 action="#{itemTypeDetailView.save}"
+                                 ajax="false" />
             </p:panelGrid>
             <p:dialog id="attributeTypeDlg"
                       widgetVar="atDlg">
@@ -52,20 +57,26 @@
                     </h:outputLabel>
 
                     <h:outputLabel value="#{i18n['orga-attributeType-mandatory']}">
-                        <p:selectBooleanCheckbox value="#{itemTypeDetailView.attribute.mandatory}" />
+                        <p:selectBooleanButton offLabel="Ne"
+                                               onLabel="Ano"
+                                               value="#{itemTypeDetailView.attribute.mandatory}" />
                     </h:outputLabel>
 
                     <h:outputLabel value="#{i18n['orga-attributeType-type']}">
-                        <p:selectOneMenu value="#{itemTypeDetailView.attribute.type}">
+                        <p:selectOneMenu value="#{itemTypeDetailView.attribute.type}"
+                                         converter="#{avtConverter}">
                             <f:selectItems value="#{itemTypeDetailView.avts}"
                                            var="avt"
-                                           itemLabel="#{avt.name}" />
+                                           itemLabel="#{avt.name}"
+                                           itemValue="#{avt}" />
                         </p:selectOneMenu>
                     </h:outputLabel>
 
                     <p:commandButton action="#{itemTypeDetailView.saveAttribute}"
                                      onsuccess="PF('atDlg').hide()"
-                                     value="#{i18n['orga-save']}" />
+                                     value="#{i18n['orga-save']}"
+                                     update="@form"
+                    />
                 </p:panelGrid>
             </p:dialog>
         </h:form>

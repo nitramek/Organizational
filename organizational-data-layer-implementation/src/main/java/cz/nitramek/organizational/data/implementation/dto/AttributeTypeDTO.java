@@ -20,6 +20,9 @@ public class AttributeTypeDTO implements Identifiable {
     private AttributeValueTypeDTO type;
 
 
+    private long avtId;
+
+
     public AttributeTypeDTO() {
     }
 
@@ -54,11 +57,11 @@ public class AttributeTypeDTO implements Identifiable {
         this.name = name;
     }
 
-    public AttributeValueTypeDTO getType() {
-        return type;
+    public long getAvtId() {
+        return avtId;
     }
 
-    public void setType(AttributeValueTypeDTO type) {
-        this.type = type;
+    public void setAvtId(long avtId) {
+        this.avtId = avtId;
     }
 }
