@@ -13,6 +13,7 @@ public class ItemType implements Identifiable {
     private List<AttributeType> attributeTypes;
 
     public ItemType() {
+        attributeTypes = new ArrayList<>();
     }
 
     public ItemType(String name) {

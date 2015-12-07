@@ -2,13 +2,10 @@ package cz.nitramek.organizational.data.implementation.util;
 
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonWriter;
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
 import java.io.*;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -19,14 +16,13 @@ public class JsonStorage<T extends Identifiable> {
     private TreeMap<Long, T> dataMap;
     private long nextId;
 
+
     private String path;
 
-    public JsonStorage(String path) {
-        this.gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT)
-                                     .excludeFieldsWithoutExposeAnnotation()
-                                     .create();
-        this.collectionType = new TypeToken<TreeMap<Long, T>>() {
-        }.getType();
+    public JsonStorage(String path, Gson gson, Type type) {
+        this.gson = gson;
+        this.collectionType = type;
+
         this.path = path;
         this.dataMap = this.getData();
         this.save();
@@ -64,6 +60,7 @@ public class JsonStorage<T extends Identifiable> {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(this.path))) {
 //            StringBuilder sb = new StringBuilder();
 //            bufferedReader.lines().forEach(sb::append);
+
             TreeMap<Long, T> data = this.gson.fromJson(bufferedReader, this.collectionType);
             this.nextId = Optional.ofNullable(data.lastEntry()).map(Map.Entry::getKey).orElse(0L);
             this.nextId++;
