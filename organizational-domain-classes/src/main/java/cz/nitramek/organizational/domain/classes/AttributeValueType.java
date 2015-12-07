@@ -30,9 +30,11 @@ public class AttributeValueType implements Identifiable {
     }
 
     public Object convert(String value) {
+
         try {
-            return this.creatingMethod.invoke(value);
-        } catch (IllegalAccessException | InvocationTargetException e) {
+            this.constructMethod(this.methodName, this.convertingClass);
+            return this.creatingMethod.invoke(null, value);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }
         return null;
@@ -52,7 +54,6 @@ public class AttributeValueType implements Identifiable {
 
     public void setMethodName(String methodName) throws NoSuchMethodException {
         this.methodName = methodName;
-        this.constructMethod(this.methodName, this.convertingClass);
     }
 
     public String getName() {
@@ -69,7 +70,6 @@ public class AttributeValueType implements Identifiable {
 
     public void setConvertingClass(Class<?> convertingClass) throws NoSuchMethodException {
         this.convertingClass = convertingClass;
-        this.constructMethod(this.methodName, this.convertingClass);
     }
 
     @Override

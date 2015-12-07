@@ -8,22 +8,31 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head />
 <f:view>
-    <p:layout fullPage="true">
-        <p:layoutUnit position="north">
-            <p:graphicImage url="#{resource['primefaces-flat:images/ui-bg_diagonal-maze_0_000000_10x10.png']}" />
-            <p:menubar model="">
-                <p:menuitem value="#{i18n['orga-home']}"
-                            outcome="index.xhtml" />
-            </p:menubar>
-        </p:layoutUnit>
-        <p:layoutUnit position="center">
-            <ui:insert name="content">
+    <h:form id="navigation">
+        <p:menubar>
+            <p:menuitem value="#{i18n['orga-home']}"
+                        outcome="/pages/items.xhtml" />
+            <p:menuitem value="#{i18n['orga-itemtype']}"
+                        rendered="#{sessionBacking.administrator}"
+                        outcome="/pages/itemTypes.xhtml"
+                        id="itemType" />
+            <p:menuitem value="#{i18n['orga-login']}"
+                        rendered="#{!sessionBacking.logged}"
+                        id="loginButton" />
+            <p:menuitem value="#{i18n['orga-logout']}"
+                        rendered="#{sessionBacking.logged}"
+                        action="#{sessionBacking.logout}" />
+        </p:menubar>
+        <p:overlayPanel for="loginButton"
+                        hideEffect="fade">
+            <ui:decorate template="/fragments/login.xhtml" />
+        </p:overlayPanel>
+    </h:form>
 
-            </ui:insert>
-        </p:layoutUnit>
-        <p:layoutUnit position="bottom">
-            <h:outputText value="#{i18n['rights-reserved']}" />
-        </p:layoutUnit>
-    </p:layout>
+    <ui:insert name="content">
+
+    </ui:insert>
+
+    <h:outputText value="#{i18n['rights-reserved']}" />
 </f:view>
 </html>

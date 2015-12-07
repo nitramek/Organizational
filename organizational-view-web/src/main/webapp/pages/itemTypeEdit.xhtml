@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        template="/templates/main.xhtml">
+    <ui:define name="content">
+        <p:button outcome="/pages/itemTypes"
+                  value="#{i18n['orga-back']}"
+                  ajax="false" />
+
+        <h:form id="itemTypeForm">
+            <p:panelGrid layout="grid"
+                         columns="1">
+                <h:outputLabel value="#{i18n['orga-name']}">
+                    <p:inputText value="#{itemTypeDetailView.itemType.name}" />
+                </h:outputLabel>
+
+                <p:dataTable value="#{itemTypeDetailView.itemType.attributeTypes}"
+                             var="at">
+                    <p:column>
+                        <h:outputText value="#{at.name}" />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{at.mandatory}" />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{at.type.name}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="#{i18n['orga-edit']}"
+                                         actionListener="#{itemTypeDetailView.setAttribute(at)}"
+                                         update="@widgetVar(atDlg)"
+                                         onsuccess="PF('atDlg').show()"
+                        />
+                    </p:column>
+                </p:dataTable>
+
+
+                <p:commandButton value="#{i18n['orga-attributeType-add']}"
+                                 onsuccess="PF('atDlg').show()"
+                                 actionListener="#{itemTypeDetailView.addAttribute}" />
+            </p:panelGrid>
+            <p:dialog id="attributeTypeDlg"
+                      widgetVar="atDlg">
+                <p:panelGrid columns="1"
+                             layout="grid">
+                    <h:outputLabel value="#{i18n['orga-name']}">
+                        <p:inputText value="#{itemTypeDetailView.attribute.name}" />
+                    </h:outputLabel>
+
+                    <h:outputLabel value="#{i18n['orga-attributeType-mandatory']}">
+                        <p:selectBooleanCheckbox value="#{itemTypeDetailView.attribute.mandatory}" />
+                    </h:outputLabel>
+
+                    <h:outputLabel value="#{i18n['orga-attributeType-type']}">
+                        <p:selectOneMenu value="#{itemTypeDetailView.attribute.type}">
+                            <f:selectItems value="#{itemTypeDetailView.avts}"
+                                           var="avt"
+                                           itemLabel="#{avt.name}" />
+                        </p:selectOneMenu>
+                    </h:outputLabel>
+
+                    <p:commandButton action="#{itemTypeDetailView.saveAttribute}"
+                                     onsuccess="PF('atDlg').hide()"
+                                     value="#{i18n['orga-save']}" />
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

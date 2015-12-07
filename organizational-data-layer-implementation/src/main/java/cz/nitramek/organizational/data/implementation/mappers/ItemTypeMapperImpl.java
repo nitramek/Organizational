@@ -9,6 +9,7 @@ import cz.nitramek.organizational.domain.classes.ItemType;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -46,5 +47,15 @@ public class ItemTypeMapperImpl implements ItemTypeMapper {
         return Converters.convert(this.em.createNamedQuery("ItemType.selectById", ItemTypeDTO.class)
                                          .setParameter("id", id)
                                          .getSingleResult());
+    }
+
+    @Override
+    public List<ItemType> select() {
+        return this.em.createQuery("SELECT it FROM ItemType it", ItemTypeDTO.class)
+                      .getResultList()
+                      .stream()
+                      .map(Converters::convert)
+                      .collect(
+                              Collectors.toList());
     }
 }

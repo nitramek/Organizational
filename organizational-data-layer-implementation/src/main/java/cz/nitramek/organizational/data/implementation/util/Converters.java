@@ -249,6 +249,7 @@ public class Converters {
                 avt.setName(type.getName());
                 avt.setConvertingClass(type.getConvertingClass());
                 avt.setMethodName(type.getMethodName());
+                return avt;
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }

@@ -2,16 +2,15 @@ package cz.nitramek.organizational.data.implementation.util;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonWriter;
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
 import java.io.*;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
+import java.util.*;
 
 public class JsonStorage<T extends Identifiable> {
     private final Type collectionType;
@@ -23,11 +22,14 @@ public class JsonStorage<T extends Identifiable> {
     private String path;
 
     public JsonStorage(String path) {
-        this.gson = new Gson();
+        this.gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT)
+                                     .excludeFieldsWithoutExposeAnnotation()
+                                     .create();
         this.collectionType = new TypeToken<TreeMap<Long, T>>() {
         }.getType();
         this.path = path;
         this.dataMap = this.getData();
+        this.save();
 
     }
 
@@ -74,13 +76,13 @@ public class JsonStorage<T extends Identifiable> {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            this.save();
             return new TreeMap<>();
         }
     }
 
-    public Collection<T> get() {
-        return this.dataMap.values();
+    public List<T> get() {
+        Collection<T> values = this.dataMap.values();
+        return new ArrayList<>(values);
     }
 
 }

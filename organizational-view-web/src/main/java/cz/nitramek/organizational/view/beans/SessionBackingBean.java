@@ -26,4 +26,13 @@ public class SessionBackingBean implements Serializable {
         this.loggedUser = this.userService.auth(name, password);
         return NavigationRules.SELF;
     }
+
+    public String logout() {
+        this.loggedUser = null;
+        return NavigationRules.SELF;
+    }
+
+    public boolean isAdministrator() {
+        return this.isLogged() && this.loggedUser.isAdministrator();
+    }
 }

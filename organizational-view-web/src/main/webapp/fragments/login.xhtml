@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+    <ui:fragment rendered="#{!sessionBacking.logged}">
+        <p:panelGrid columns="1"
+                     layout="grid">
+            <h:outputLabel value="#{i18n['orga-login']}">
+                <p:inputText value="#{loginView.login}" />
+            </h:outputLabel>
+
+            <h:outputLabel value="#{i18n['orga-passwrd']}">
+                <p:inputText value="#{loginView.password}" />
+            </h:outputLabel>
+            <p:commandButton ajax="false"
+                             value="#{i18n['orga-login']}"
+                             action="#{loginView.login}" />
+        </p:panelGrid>
+    </ui:fragment>
+</ui:composition>

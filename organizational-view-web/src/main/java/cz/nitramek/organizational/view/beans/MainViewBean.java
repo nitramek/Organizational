@@ -1,7 +1,9 @@
 package cz.nitramek.organizational.view.beans;
 
+import cz.nitramek.organizational.domain.classes.AttributeValueType;
 import cz.nitramek.organizational.domain.classes.Role;
 import cz.nitramek.organizational.domain.classes.User;
+import cz.nitramek.organizational.domain.service.AttributeValueTypeService;
 import cz.nitramek.organizational.domain.service.RoleService;
 import cz.nitramek.organizational.domain.service.UserService;
 
@@ -26,6 +28,9 @@ public class MainViewBean implements Serializable {
 
     @EJB
     private UserService userService;
+
+    @EJB
+    private AttributeValueTypeService avtService;
 
     private Role guest;
 
@@ -58,13 +63,16 @@ public class MainViewBean implements Serializable {
 
             if (this.userService.getByLogin(init.getProperty("administrator.password")) == null) {
                 User admin = this.userService.create();
-                admin.getRolesToAdd().add("administrator");
+//                admin.getRolesToAdd().add("administrator");
+                admin.setAdministrator(true);
                 admin.setNickname(init.getProperty("administrattor.login"));
                 admin.setPassword(init.getProperty("administrator.password"));
                 this.userService.add(admin);
             }
-
-        } catch (IOException e) {
+            AttributeValueType avt = new AttributeValueType("parseInt", Integer.class);
+            avt.setName("Integer");
+            this.avtService.add(avt);
+        } catch (IOException | NoSuchMethodException e) {
             e.printStackTrace();
         }
 //        if(this.userService.getByLogin(""))

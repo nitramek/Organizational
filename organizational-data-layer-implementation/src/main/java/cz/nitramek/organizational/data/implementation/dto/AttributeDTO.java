@@ -11,9 +11,6 @@ public class AttributeDTO {
     private long id;
     private String strValue;
 
-    @Transient
-    private Object value;
-
     @ManyToOne
     @JoinColumn(name = "typeId")
     private AttributeTypeDTO type;
@@ -41,7 +38,6 @@ public class AttributeDTO {
 
     public void setStrValue(String strValue) {
         this.strValue = strValue;
-        this.value = this.type.getType().convert(this.strValue);
     }
 
     public AttributeTypeDTO getType() {
@@ -50,12 +46,8 @@ public class AttributeDTO {
 
     public void setType(AttributeTypeDTO type) {
         this.type = type;
-        this.value = this.type.getType().convert(this.strValue);
 
     }
 
-    public Object getValue() {
-        return value;
-    }
 
 }

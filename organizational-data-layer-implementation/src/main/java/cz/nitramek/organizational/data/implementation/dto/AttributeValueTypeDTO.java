@@ -1,20 +1,30 @@
 package cz.nitramek.organizational.data.implementation.dto;
 
 
+import com.google.gson.annotations.Expose;
 import cz.nitramek.organizational.domain.interafaces.Identifiable;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class AttributeValueTypeDTO implements Identifiable {
+
+    @Expose
     private long id;
+
+    @Expose
     private String name;
 
+    @Expose
     private String methodName;
-    private Class<?> convertingClass;
 
 
-    private Method creatingMethod;
+    private transient Class<?> convertingClass;
+
+    @Expose
+    private String convertingClassName;
+
+
+    private transient Method creatingMethod;
 
     public AttributeValueTypeDTO() {
     }
@@ -22,21 +32,14 @@ public class AttributeValueTypeDTO implements Identifiable {
     public AttributeValueTypeDTO(String methodName, Class<?> convertingClass) throws NoSuchMethodException {
         this.constructMethod(methodName, convertingClass);
         this.methodName = methodName;
-        this.convertingClass = convertingClass;
+        setConvertingClass(convertingClass);
+
     }
 
     private void constructMethod(String methodName, Class<?> convertingClass) throws NoSuchMethodException {
         this.creatingMethod = convertingClass.getMethod(methodName, String.class);
     }
 
-    public Object convert(String value) {
-        try {
-            return this.creatingMethod.invoke(value);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public long getId() {
         return this.id;
@@ -52,7 +55,6 @@ public class AttributeValueTypeDTO implements Identifiable {
 
     public void setMethodName(String methodName) throws NoSuchMethodException {
         this.methodName = methodName;
-        this.constructMethod(this.methodName, this.convertingClass);
     }
 
     public String getName() {
@@ -69,8 +71,19 @@ public class AttributeValueTypeDTO implements Identifiable {
 
     public void setConvertingClass(Class<?> convertingClass) throws NoSuchMethodException {
         this.convertingClass = convertingClass;
-        this.constructMethod(this.methodName, this.convertingClass);
+        this.convertingClassName = convertingClass.getName();
     }
 
+    public String getConvertingClassName() {
+        return convertingClassName;
+    }
 
+    public void setConvertingClassName(String convertingClassName) {
+        this.convertingClassName = convertingClassName;
+        try {
+            setConvertingClass(Class.forName(convertingClassName));
+        } catch (NoSuchMethodException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
