@@ -20,8 +20,8 @@ import java.util.List;
                 "FROM organizational.Item i\n" +
                 "WHERE i.ownerId = ? OR i.id IN (\n" +
                 "  SELECT p.item\n" +
-                "  FROM organizational.Permission p JOIN organizational.role_permission rp ON (p.id = rp.permisisonId)\n" +
-                "    JOIN organizational.role r ON (rp.roleId = r.id)\n" +
+                "  FROM organizational.Permission p\n" +
+                "    JOIN organizational.role r ON (p.roleId = r.id)\n" +
                 "    JOIN organizational.user_role ur ON (ur.userId = ?)\n" +
                 "  WHERE p.level > 0\n" +
                 ")", resultClass = ItemDTO.class),

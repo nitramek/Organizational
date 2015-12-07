@@ -30,4 +30,5 @@ public class RoleService extends AbstractService<Role, RoleMapper> {
     public Role getByName(String roleName) {
         return this.mapper.select(roleName);
     }
+
 }

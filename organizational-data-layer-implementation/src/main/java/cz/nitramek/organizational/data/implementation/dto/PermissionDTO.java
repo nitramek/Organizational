@@ -7,23 +7,23 @@ import javax.persistence.*;
 
 @Entity(name = "Permission")
 @Table(name = "Permission")
-@NamedQuery(name = "Permission.selectHighest", query = "SELECT p\n" +
-        "FROM Permission p \n" +
-        "WHERE item = :itemId AND EXISTS (\n" +
-        "    SELECT pp\n" +
-        "    FROM Permission PP \n" +
-        "    WHERE p.level >= pp.level AND\n" +
-        "     item = :itemId AND\n" +
-        "     p.roleId.id IN (\n" +
-        "        SELECT r.id \n" +
-        "        FROM Role r \n" +
-        "        WHERE r.id IN(\n" +
-        "            SELECT ur.id \n" +
-        "            FROM User u join fetch u.roles ur\n" +
-        "            WHERE u.id = :userId\n" +
-        "        )\n" +
-        "    ) \n" +
-        ")")
+//@NamedQuery(name = "Permission.selectHighest", query = "SELECT p\n" +
+//        "FROM Permission p \n" +
+//        "WHERE item = :itemId AND EXISTS (\n" +
+//        "    SELECT pp\n" +
+//        "    FROM Permission PP \n" +
+//        "    WHERE p.level >= pp.level AND\n" +
+////        "     item = :itemId AND\n" +
+//        "     p.roleId.id IN (\n" +
+//        "        SELECT r.id \n" +
+//        "        FROM Role r \n" +
+//        "        WHERE r.id IN(\n" +
+//        "            SELECT ur.id \n" +
+//        "            FROM User u join fetch u.roles ur\n" +
+//        "            WHERE u.id = :userId\n" +
+//        "        )\n" +
+//        "    ) \n" +
+//        ")")
 public class PermissionDTO implements Identifiable {
 
     @Id

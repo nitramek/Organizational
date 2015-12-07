@@ -28,15 +28,6 @@ public class Converters {
                             map(Converters::convert).
                                    collect(Collectors.toCollection(ArrayList<Role>::new))
                       );
-            u.setSent(
-                    userDTO.getSent().stream().
-                            map(Converters::convert).
-                                   collect(Collectors.toCollection(ArrayList<Message>::new))
-                     );
-            u.setReceived(userDTO.getReceived().stream().
-                                  map(Converters::convert).
-                                         collect(Collectors.toCollection(ArrayList<Message>::new))
-                         );
         }
         return u;
     }
@@ -60,6 +51,8 @@ public class Converters {
             m.setId(messageDTO.getId());
             m.setDateSend(messageDTO.getDateSend());
             m.setText(messageDTO.getText());
+            m.setSender(Converters.convert(messageDTO.getSender()));
+            m.setRecipient(Converters.convert(messageDTO.getRecipient()));
         }
         return m;
     }
@@ -85,6 +78,8 @@ public class Converters {
             m.setId(message.getId());
             m.setDateSend(message.getDateSend());
             m.setText(message.getText());
+            m.setSender(Converters.convert(message.getSender()));
+            m.setRecipient(Converters.convert(message.getRecipient()));
         }
         return m;
     }
@@ -152,18 +147,10 @@ public class Converters {
                             map(Converters::convert).
                                 collect(Collectors.toCollection(HashSet<RoleDTO>::new))
                       );
-            u.setSent(
-                    user.getSent().stream().
-                            map(Converters::convert).
-                                collect(Collectors.toCollection(HashSet<MessageDTO>::new))
-                     );
-            u.setReceived(user.getReceived().stream().
-                                  map(Converters::convert).
-                                      collect(Collectors.toCollection(HashSet<MessageDTO>::new))
-                         );
         }
         return u;
     }
+
 
     public static ItemType convert(ItemTypeDTO itemTypeDTO) {
         ItemType i = null;
@@ -290,7 +277,8 @@ public class Converters {
                                     .map(Converters::convert).collect(Collectors.toList()));
             i.setAttributeDTOs(item.getAttributes().stream()
                                    .map(Converters::convert).collect(Collectors.toList()));
-            i.setCategoryId(item.getCategory().getId());
+            Category category = item.getCategory();
+            i.setCategoryId(category.getId());
         }
         return i;
     }

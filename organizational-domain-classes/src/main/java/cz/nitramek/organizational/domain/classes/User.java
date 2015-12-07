@@ -26,14 +26,12 @@ public class User implements Identifiable {
 
     private List<String> rolesToAdd;
     private List<Role> roles;
-    private List<Message> sent;
-    private List<Message> received;
 
     public User() {
         rolesToAdd = new ArrayList<>();
         roles = new ArrayList<>();
-        sent = new ArrayList<>();
-        received = new ArrayList<>();
+//        sent = new ArrayList<>();
+//        received = new ArrayList<>();
     }
 
     public boolean isAdministrator() {
@@ -100,14 +98,6 @@ public class User implements Identifiable {
         this.password = password;
     }
 
-    public List<Message> getReceived() {
-        return received;
-    }
-
-    public void setReceived(List<Message> received) {
-        this.received = received;
-    }
-
     public List<Role> getRoles() {
         return roles;
     }
@@ -124,13 +114,6 @@ public class User implements Identifiable {
         this.rolesToAdd = rolesToAdd;
     }
 
-    public List<Message> getSent() {
-        return sent;
-    }
-
-    public void setSent(List<Message> sent) {
-        this.sent = sent;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -164,8 +147,6 @@ public class User implements Identifiable {
         sb.append(", email='").append(email).append('\'');
         sb.append(", rolesToAdd=").append(rolesToAdd);
         sb.append(", roles=").append(roles);
-        sb.append(", sent=").append(sent);
-        sb.append(", received=").append(received);
         sb.append('}');
         return sb.toString();
     }

@@ -39,6 +39,12 @@
                     <f:convertDateTime type="both" />
                 </h:outputText>
             </p:column>
+            <p:column rendered="#{item.borrowable}">
+                <p:button outcome="/pages/sendMessage.xhtml">
+                    <f:param name="itemId"
+                             value="#{item.id}" />
+                </p:button>
+            </p:column>
         </p:dataTable>
     </ui:define>
 

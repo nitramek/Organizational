@@ -1,7 +1,5 @@
 package cz.nitramek.organizational.data.implementation.mappers;
 
-import cz.nitramek.organizational.data.implementation.dto.PermissionDTO;
-import cz.nitramek.organizational.data.implementation.dto.RoleDTO;
 import cz.nitramek.organizational.data.implementation.dto.UserDTO;
 import cz.nitramek.organizational.data.implementation.util.Converters;
 import cz.nitramek.organizational.data.mapper.UserMapper;
@@ -13,7 +11,6 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,19 +47,6 @@ public class UserMapperImpl implements UserMapper {
 
         UserDTO userDTO = Converters.convert(user);
         this.em.persist(userDTO);
-        userDTO.setRoles(userDTO.getRoles().stream().map(
-                roleDTO -> {
-
-                    RoleDTO merge = this.em.merge(roleDTO);
-                    roleDTO.getPermission()
-                           .stream()
-                           .map(this.em::merge)
-                           .collect(Collectors.toCollection(HashSet<PermissionDTO>::new));
-
-                    return merge;
-                }).collect(Collectors.toSet()));
-        userDTO.setReceived(userDTO.getReceived().stream().map(this.em::merge).collect(Collectors.toSet()));
-        userDTO.setSent(userDTO.getSent().stream().map(this.em::merge).collect(Collectors.toSet()));
         return Converters.convert(userDTO);
     }
 

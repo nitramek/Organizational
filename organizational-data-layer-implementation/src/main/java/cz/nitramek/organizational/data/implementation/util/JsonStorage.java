@@ -37,7 +37,7 @@ public class JsonStorage<T extends Identifiable> {
     }
 
     public void save() {
-        try (JsonWriter writer = new JsonWriter(new FileWriter(path))) {
+        try (JsonWriter writer = new JsonWriter(new FileWriter(path, false))) {
             this.gson.toJson(this.dataMap, this.collectionType, writer);
         } catch (IOException e) {
             e.printStackTrace();

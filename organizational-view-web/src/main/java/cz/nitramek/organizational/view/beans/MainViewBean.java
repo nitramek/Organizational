@@ -63,7 +63,8 @@ public class MainViewBean implements Serializable {
 
             if (this.userService.getByLogin(init.getProperty("administrator.password")) == null) {
                 User admin = this.userService.create();
-//                admin.getRolesToAdd().add("administrator");
+                admin.getRolesToAdd().add("administrator");
+                admin.getRolesToAdd().add("guest");
                 admin.setAdministrator(true);
                 admin.setNickname(init.getProperty("administrattor.login"));
                 admin.setPassword(init.getProperty("administrator.password"));

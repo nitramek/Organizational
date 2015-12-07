@@ -35,4 +35,8 @@ public class SessionBackingBean implements Serializable {
     public boolean isAdministrator() {
         return this.isLogged() && this.loggedUser.isAdministrator();
     }
+
+    public User getLoggedUser() {
+        return loggedUser;
+    }
 }

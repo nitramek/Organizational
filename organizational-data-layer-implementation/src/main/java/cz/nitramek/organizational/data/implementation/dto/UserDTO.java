@@ -41,13 +41,13 @@ public class UserDTO implements Identifiable {
     )
     private Set<RoleDTO> roles;
 
-    @OneToMany
-    @JoinColumn(name = "sender", referencedColumnName = "id")
-    private Set<MessageDTO> sent;
-
-    @OneToMany
-    @JoinColumn(name = "recipient", referencedColumnName = "id")
-    private Set<MessageDTO> received;
+//    @OneToMany
+//    @JoinColumn(name = "sender", referencedColumnName = "id")
+//    private Set<MessageDTO> sent;
+//
+//    @OneToMany
+//    @JoinColumn(name = "recipient", referencedColumnName = "id")
+//    private Set<MessageDTO> received;
 
     public UserDTO() {
     }
@@ -116,13 +116,6 @@ public class UserDTO implements Identifiable {
         this.password = password;
     }
 
-    public Set<MessageDTO> getReceived() {
-        return received;
-    }
-
-    public void setReceived(Set<MessageDTO> received) {
-        this.received = received;
-    }
 
     public Set<RoleDTO> getRoles() {
         return roles;
@@ -132,13 +125,6 @@ public class UserDTO implements Identifiable {
         this.roles = roles;
     }
 
-    public Set<MessageDTO> getSent() {
-        return sent;
-    }
-
-    public void setSent(Set<MessageDTO> sent) {
-        this.sent = sent;
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -22,6 +22,10 @@
             <p:menuitem value="#{i18n['orga-logout']}"
                         rendered="#{sessionBacking.logged}"
                         action="#{sessionBacking.logout}" />
+            <p:menuitem value="#{i18n['orga-item-new']}"
+                        rendered="#{sessionBacking.logged}"
+                        outcome="/pages/itemEdit.xhtml" />
+
         </p:menubar>
         <p:overlayPanel for="loginButton"
                         hideEffect="fade">

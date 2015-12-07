@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:h="http://java.sun.com/jsf/html"
+        template="/templates/main.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <p:panelGrid columns="1">
+                <h:outputLabel value="#{i18n['orga-msg-recipient']}">
+                    <p:inputText value="#{messageDetail.current.recipient.email}"
+                                 disabled="#{messageDetail.request or messageDetail.notification}" />
+                </h:outputLabel>
+                <h:outputLabel value="#{i18n['orga-msg-sender']}">
+                    <p:inputText value="#{messageDetail.current.recipient.email}"
+                                 disabled="#{messageDetail.request or messageDetail.notification}" />
+                </h:outputLabel>
+                <h:outputLabel value="#{i18n['orga-msg-subject']}">
+                    <p:inputText value="#{messageDetail.current.subject}"
+                                 disabled="#{messageDetail.request or messageDetail.notification}" />
+                </h:outputLabel>
+                <h:outputLabel value="#{i18n['orga-msg-text']}">
+                    <p:inputTextarea value="#{messageDetail.current.text}" />
+                </h:outputLabel>
+                <h:outputLabel value="#{i18n['orga-msg-item']}">
+                    <p:inputTextarea value="#{messageDetail.requestItem.name}" />
+                </h:outputLabel>
+                <p:commandButton value="#{i18n['orga-msg-send']}"
+                                 action="#{messageDetail.send}"
+                                 ajax="false" />
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

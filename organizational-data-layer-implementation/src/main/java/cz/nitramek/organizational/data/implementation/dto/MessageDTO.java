@@ -28,6 +28,31 @@ public class MessageDTO {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateSend;
 
+    @ManyToOne
+    @JoinColumn(name = "sender")
+    private UserDTO sender;
+
+    @ManyToOne
+    @JoinColumn(name = "recipient")
+    private UserDTO recipient;
+
+
+    public UserDTO getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(UserDTO recipient) {
+        this.recipient = recipient;
+    }
+
+    public UserDTO getSender() {
+        return sender;
+    }
+
+    public void setSender(UserDTO sender) {
+        this.sender = sender;
+    }
+
     public Date getDateSend() {
         return dateSend;
     }

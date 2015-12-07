@@ -11,6 +11,26 @@ public class Message implements Identifiable {
     private String text;
     private Date dateSend;
 
+
+    private User recipient;
+    private User sender;
+
+    public User getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(User recipient) {
+        this.recipient = recipient;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
     public Message(String subject) {
         this.subject = subject;
     }

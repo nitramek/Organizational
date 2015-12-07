@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        template="/templates/main.xhtml">
+    <h:outputText value="tralal" />
+    <ui:define name="content">
+        <h:form id="editItemForm">
+            <p:messages autoUpdate="true" />
+            <p:panelGrid>
+                <h:outputLabel value="#{i18n['orga-item-name']}">
+                    <p:inputText value="#{itemDetailView.item.name}" />
+                </h:outputLabel>
+
+                <h:outputLabel value="#{i18n['orga-item-borrowable']}">
+                    <p:selectBooleanButton offLabel="Ne"
+                                           onLabel="Ano"
+                                           value="#{itemDetailView.item.borrowable}" />
+                </h:outputLabel>
+                <h:outputLabel value="#{i18n['orga-item-itemType']}">
+                    <p:selectOneMenu value="#{itemDetailView.item.type}"
+                                     converter="#{itemTypeConverter}">
+                        <p:ajax listener="#{itemDetailView.onItemTypeSelect}"
+                                update="@form" />
+                        <f:selectItems value="#{itemDetailView.itemTypes}"
+                                       var="it"
+                                       itemLabel="#{it.name}"
+                                       itemValue="#{it}">
+                        </f:selectItems>
+                    </p:selectOneMenu>
+                </h:outputLabel>
+            </p:panelGrid>
+            <p:panelGrid>
+                <ui:repeat value="#{itemDetailView.item.attributes}"
+                           var="attribute">
+                    <h:outputLabel value="#{attribute.type.name}">
+                        <p:inputText value="#{attribute.strValue}" />
+                    </h:outputLabel>
+                </ui:repeat>
+            </p:panelGrid>
+            <p:commandButton ajax="false"
+                             action="#{itemDetailView.save}"
+                             value="#{i18n['orga-save']}" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>
