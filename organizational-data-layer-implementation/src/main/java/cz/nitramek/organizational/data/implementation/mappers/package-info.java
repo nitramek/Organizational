@@ -6,7 +6,8 @@
                 ItemTypeMapperImpl.class,
                 ItemMapperImpl.class,
                 AttributeValueTypeMapperImpl.class,
-                MessageMapperImpl.class
+                MessageMapperImpl.class,
+                NotificationSettingMapperImpl.class
         }
 )
 package cz.nitramek.organizational.data.implementation.mappers;
