@@ -278,7 +278,8 @@ public class Converters {
             i.setAttributeDTOs(item.getAttributes().stream()
                                    .map(Converters::convert).collect(Collectors.toList()));
             Category category = item.getCategory();
-            i.setCategoryId(category.getId());
+            if (category != null)
+                i.setCategoryId(category.getId());
         }
         return i;
     }

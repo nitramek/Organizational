@@ -60,6 +60,7 @@ public class ItemDetailViewBean implements Serializable {
     public String save() {
         this.item.setDateAdded(new Date());
         this.item.setDateChanged(new Date());
+        this.item.setOwner(this.ssb.getLoggedUser());
         this.itemService.add(item);
 
         return NavigationRules.HOME;

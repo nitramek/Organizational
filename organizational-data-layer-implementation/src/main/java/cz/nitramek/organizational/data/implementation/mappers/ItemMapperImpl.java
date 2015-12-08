@@ -35,7 +35,7 @@ public class ItemMapperImpl implements ItemMapper {
     @Override
     public Item insert(Item item) {
         ItemDTO iDTO = Converters.convert(item);
-        this.em.persist(iDTO);
+        this.em.merge(iDTO);
         return Converters.convert(iDTO);
     }
 
