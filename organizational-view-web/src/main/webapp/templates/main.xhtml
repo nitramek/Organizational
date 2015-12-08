@@ -6,7 +6,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head />
+<h:head>
+    <h:outputStylesheet library="css"
+                        value="main.css" />
+</h:head>
 <f:view encoding="UTF-8">
     <h:form id="navigation">
         <p:menubar>
@@ -19,15 +22,18 @@
             <p:menuitem value="#{i18n['orga-login']}"
                         rendered="#{!sessionBacking.logged}"
                         id="loginButton" />
-            <p:menuitem value="#{i18n['orga-logout']}"
-                        rendered="#{sessionBacking.logged}"
-                        action="#{sessionBacking.logout}" />
+
             <p:menuitem value="#{i18n['orga-item-new']}"
                         rendered="#{sessionBacking.logged}"
                         outcome="/pages/detail/itemEdit.xhtml" />
             <p:menuitem value="#{i18n['orga-notifications']}"
                         rendered="#{sessionBacking.logged}"
                         outcome="/pages/notificationsSetting.xhtml" />
+
+            <p:menuitem value="#{i18n['orga-logout']}"
+                        rendered="#{sessionBacking.logged}"
+                        action="#{sessionBacking.logout}"
+                        ajax="false" />
 
         </p:menubar>
         <p:overlayPanel for="loginButton"
@@ -40,6 +46,7 @@
 
     </ui:insert>
 
-    <h:outputText value="#{i18n['rights-reserved']}" />
+    <h:outputText value="#{i18n['rights-reserved']}"
+                  id="footer" />
 </f:view>
 </html>
