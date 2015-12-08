@@ -11,8 +11,9 @@
                 <p:inputText value="#{loginView.login}" />
             </h:outputLabel>
 
-            <h:outputLabel value="#{i18n['orga-passwrd']}">
-                <p:inputText value="#{loginView.password}" />
+            <h:outputLabel value="#{i18n['orga-password']}">
+                <p:inputText value="#{loginView.password}"
+                             type="password" />
             </h:outputLabel>
             <p:commandButton ajax="false"
                              value="#{i18n['orga-login']}"
