@@ -27,7 +27,8 @@ public class LoggedFilter implements Filter {
         HttpServletRequest httpReq = (HttpServletRequest) req;
         HttpServletResponse httResp = (HttpServletResponse) resp;
         ;
-        if (this.ssb.isLogged() || httpReq.getServletPath().equals(NavigationRules.HOME)) {
+        if (this.ssb.isLogged() || httpReq.getServletPath().equals(NavigationRules.HOME) || httpReq.getServletPath()
+                                                                                                   .contains("rest")) {
             chain.doFilter(req, resp);
         } else {
 
