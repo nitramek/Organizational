@@ -59,8 +59,10 @@ public class MessageDetailView implements Serializable {
     public void createRequest(Item item) {
         BorrowRequest borrowRequest = this.msgService.createBorrowRequest();
         borrowRequest.setRequestedItem(item);
-        this.current.setRecipient(item.getOwner());
-        this.current.setSubject(String.format("Požadavek na půjčku: %s", item.getName()));
+        borrowRequest.setRecipient(item.getOwner());
+        borrowRequest.setSubject(String.format("Požadavek na půjčku: %s", item.getName()));
+        this.current = borrowRequest;
+
     }
 
     public boolean isNotification() {
