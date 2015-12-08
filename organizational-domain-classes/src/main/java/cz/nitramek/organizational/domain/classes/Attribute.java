@@ -44,7 +44,7 @@ public class Attribute {
     }
 
     public Object getValue() {
-        return value;
+        return this.type.getType().convert(this.strValue);
     }
 
     @Override

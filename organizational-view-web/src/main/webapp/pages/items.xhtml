@@ -40,7 +40,8 @@
                 </h:outputText>
             </p:column>
             <p:column rendered="#{item.borrowable}">
-                <p:button outcome="/pages/sendMessage.xhtml">
+                <p:button outcome="/pages/sendMessage.xhtml"
+                          value="#{i18n['orga-borrowReq']}">
                     <f:param name="itemId"
                              value="#{item.id}" />
                 </p:button>

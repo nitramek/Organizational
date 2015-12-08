@@ -25,7 +25,7 @@ public class NotificationSettingMapperImpl implements NotificationSettingMapper 
     @Override
     public List<NotificationSetting> selectByUser(
             long userId) {
-        return this.em.createNamedQuery("Item.selectByOwner", NotificationSettingDTO.class)
+        return this.em.createNamedQuery("NotificationSetting.selectByUser", NotificationSettingDTO.class)
                       .setParameter("userId", userId)
                       .getResultList()
                       .stream()

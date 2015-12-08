@@ -13,7 +13,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "type")
 @DiscriminatorValue(value = "NS")
 @NamedQueries(value = {
-        @NamedQuery(name = "NotificationSetting.selectByUser", query = "SELECT ns FROM NotificationSetting ns WHERE ns.owner.id = :id"),
+        @NamedQuery(name = "NotificationSetting.selectByUser", query = "SELECT ns FROM NotificationSetting ns WHERE ns.owner.id = :userId"),
         @NamedQuery(name = "NotificationSetting.selectById", query = "SELECT ns FROM NotificationSetting ns WHERE ns.id = :id")
 })
 public class NotificationSettingDTO implements Identifiable {
@@ -23,15 +23,17 @@ public class NotificationSettingDTO implements Identifiable {
     private long id;
     private String name;
     private String triggerValue;
+
+    @Enumerated(value = EnumType.STRING)
     private NotificationSetting.Operation operation;
     private String text;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "watchedAttrId")
     private AttributeDTO watchedAttributeDTO;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ownerId")
     private UserDTO owner;
 

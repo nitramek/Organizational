@@ -20,7 +20,7 @@ public class NotificationSettingService extends AbstractService<NotificationSett
         try {
             this.init(NotificationSetting.class, NotificationSettingMapper.class);
         } catch (MapperCreationException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -28,7 +28,7 @@ public class NotificationSettingService extends AbstractService<NotificationSett
             NotificationSetting first, NotificationSetting second,
             CompositeNotificationSetting.CompositeOperation compositeOperation) {
         return new CompositeNotificationSetting(
-                first,
+                first, second,
                 compositeOperation
         );
     }

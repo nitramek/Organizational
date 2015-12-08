@@ -7,6 +7,7 @@
         template="/templates/main.xhtml">
     <ui:define name="content">
         <h:form>
+            <p:messages autoUpdate="true" />
             <p:panelGrid columns="1">
                 <h:outputLabel value="#{i18n['orga-msg-recipient']}">
                     <p:inputText value="#{messageDetail.current.recipient.email}"
@@ -23,8 +24,10 @@
                 <h:outputLabel value="#{i18n['orga-msg-text']}">
                     <p:inputTextarea value="#{messageDetail.current.text}" />
                 </h:outputLabel>
-                <h:outputLabel value="#{i18n['orga-msg-item']}">
-                    <p:inputTextarea value="#{messageDetail.requestItem.name}" />
+                <h:outputLabel value="#{i18n['orga-msg-item']}"
+                               rendered="#{messageDetail.request}">
+                    <p:inputTextarea value="#{messageDetail.requestItem.name}"
+                                     disabled="true" />
                 </h:outputLabel>
                 <p:commandButton value="#{i18n['orga-msg-send']}"
                                  action="#{messageDetail.send}"

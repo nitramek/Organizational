@@ -24,7 +24,10 @@
                         action="#{sessionBacking.logout}" />
             <p:menuitem value="#{i18n['orga-item-new']}"
                         rendered="#{sessionBacking.logged}"
-                        outcome="/pages/itemEdit.xhtml" />
+                        outcome="/pages/detail/itemEdit.xhtml" />
+            <p:menuitem value="#{i18n['orga-notifications']}"
+                        rendered="#{sessionBacking.logged}"
+                        outcome="/pages/notificationsSetting.xhtml" />
 
         </p:menubar>
         <p:overlayPanel for="loginButton"

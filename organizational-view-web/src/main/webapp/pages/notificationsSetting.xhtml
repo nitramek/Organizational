@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        template="/templates/main.xhtml">
+
+    <ui:define name="content">
+        <h:form id="notificationsSettingsId">
+            <p:dataTable value="#{notificationSettingsView.notificationSettings}"
+                         var="ns">
+                <p:column>
+                    <h:outputText value="#{ns.name}" />
+                </p:column>
+                <p:column>
+                    <p:button value="#{i18n['orga-ns-edit']}"
+                              outcome="/pages/detail/notificationEdit.xhtml">
+                        <f:param name="nsId"
+                                 value="#{ns.id}" />
+                    </p:button>
+                </p:column>
+                <p:column>
+                    <p:button value="#{i18n['orga-ns-edit']}"
+                              outcome="/pages/detail/notificationEdit.xhtml">
+                        <f:param name="nsId"
+                                 value="#{ns.id}" />
+                    </p:button>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="#{ns.check()}"
+                                     rendered="#{sessionBacking.administrator}" />
+                </p:column>
+            </p:dataTable>
+            <p:button value="#{i18n['orga-ns-add']}"
+                      outcome="/pages/detail/notificationEdit.xhtml" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>

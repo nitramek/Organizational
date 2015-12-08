@@ -258,6 +258,8 @@ public class Converters {
             i.setOwner(Converters.convert(itemDTO.getOwner()));
             i.setPermissions(itemDTO.getPermissionDTOs().stream()
                                     .map(Converters::convert).collect(Collectors.toList()));
+            i.setAttributes(itemDTO.getAttributeDTOs().stream()
+                                   .map(Converters::convert).collect(Collectors.toList()));
         }
         return i;
     }
@@ -306,6 +308,7 @@ public class Converters {
                 );
                 ns = cns;
             }
+            ns.setId(notificationSettingDTO.getId());
         }
 
         return ns;
@@ -321,6 +324,7 @@ public class Converters {
                 CompositeNotificationSettingDTO cnsDTO = new CompositeNotificationSettingDTO();
                 cnsDTO.setCompositeOperation(cns.getCompositeOperation());
                 cnsDTO.setNextNotificationSettingDTO(Converters.convert(cns.getNextNotificationSetting()));
+                ns = cnsDTO;
             }
             ns.setId(notificationSetting.getId());
             ns.setName(notificationSetting.getName());

@@ -48,11 +48,11 @@ public class ItemDTO implements Serializable {
 
     private boolean borrowable;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ownerId")
     private UserDTO owner;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "item", referencedColumnName = "id")
     private List<PermissionDTO> permissionDTOs;
 
@@ -61,7 +61,7 @@ public class ItemDTO implements Serializable {
     private ItemTypeDTO type;
 
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "itemId", referencedColumnName = "id")
     private List<AttributeDTO> attributeDTOs;
 

@@ -6,8 +6,6 @@ public class CompositeNotificationSetting extends NotificationSetting {
     private CompositeOperation compositeOperation;
     private NotificationSetting nextNotificationSetting;
 
-    public CompositeNotificationSetting() {
-    }
 
     public CompositeNotificationSetting(
             Operation operation, String name, String triggerValue, Attribute watchedAttribute,
@@ -25,8 +23,9 @@ public class CompositeNotificationSetting extends NotificationSetting {
     }
 
     public CompositeNotificationSetting(
-            NotificationSetting first, CompositeOperation compositeOperation) {
+            NotificationSetting first, NotificationSetting second, CompositeOperation compositeOperation) {
         super(first);
+        this.nextNotificationSetting = second;
         this.compositeOperation = compositeOperation;
     }
 

@@ -4,11 +4,18 @@ package cz.nitramek.organizational.data.implementation.dto;
 import cz.nitramek.organizational.domain.classes.CompositeNotificationSetting;
 import cz.nitramek.organizational.domain.classes.NotificationSetting;
 
+import javax.persistence.*;
+
+@Entity
+@DiscriminatorValue(value = "CNS")
 public class CompositeNotificationSettingDTO extends NotificationSettingDTO {
 
 
+    @Enumerated(value = EnumType.STRING)
     private CompositeNotificationSetting.CompositeOperation compositeOperation;
 
+    @ManyToOne
+    @JoinColumn(name = "nextNotificationId")
     private NotificationSettingDTO nextNotificationSettingDTO;
 
     public CompositeNotificationSettingDTO() {

@@ -18,14 +18,14 @@
                 </p:column>
                 <p:column>
                     <p:button ajax="false"
-                              outcome="/pages/itemTypeEdit.xhtml"
+                              outcome="/pages/detail/itemTypeEdit.xhtml"
                               value="#{i18n['orga-edit']}">
                         <f:param name="itemType"
                                  value="#{item.id}" />
                     </p:button>
                 </p:column>
             </p:dataTable>
-            <p:button outcome="/pages/itemTypeEdit.xhtml"
+            <p:button outcome="/pages/detail/itemTypeEdit.xhtml"
                       value="#{i18n['orga-itemtype-add']}" />
         </h:form>
     </ui:define>
