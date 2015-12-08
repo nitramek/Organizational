@@ -8,7 +8,7 @@
             <default-locale>cs</default-locale>
         </locale-config>
         <resource-bundle>
-            <base-name>language</base-name>
+            <base-name>cz.nitramek.organizational.view.utils.I18n</base-name>
             <var>i18n</var>
         </resource-bundle>
 
