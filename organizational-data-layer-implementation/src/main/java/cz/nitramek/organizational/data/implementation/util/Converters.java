@@ -174,7 +174,7 @@ public class Converters {
                 at = new AttributeType(
                         attributeTypeDTO.isMandatory(),
                         attributeTypeDTO.getName(),
-                        MapperFactory.createMapper(AttributeValueTypeMapper.class).select(attributeTypeDTO.getId())
+                        MapperFactory.createMapper(AttributeValueTypeMapper.class).select(attributeTypeDTO.getAvtId())
                 );
                 at.setId(attributeTypeDTO.getId());
             } catch (MapperCreationException e) {
