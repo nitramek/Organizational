@@ -41,9 +41,9 @@ public class NotificationSetting implements Identifiable {
             case EQ:
                 return compared == 0;
             case LT:
-                return compared < 1;
+                return compared < 0;
             case GT:
-                return compared > 1;
+                return compared > 0;
             default:
                 return false;
 
