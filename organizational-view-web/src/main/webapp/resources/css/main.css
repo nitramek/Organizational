@@ -1,7 +1,26 @@
-#footer {
-    clear: both;
-    position: relative;
-    z-index: 10;
-    height: 3em;
-    margin-top: -3em;
+body, html {
+    background-color: #34495E;
+    color: #FFF;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+#wrapper {
+    min-height: 100%;
+    height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+    height: 100%;
+    margin: 0 auto -60px; /* the bottom margin is the negative value of the footer's height */
+    width: 80%;
+    padding-top: 2%;
+}
+
+#footer, .push {
+    height: 60px; /* .push must be the same height as .footer */
+    text-align: center;
+
+}
+
+.imageWrapper {
+    text-align: center;
 }

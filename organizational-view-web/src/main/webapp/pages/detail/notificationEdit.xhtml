@@ -9,65 +9,64 @@
     <ui:define name="content">
         <h:form id="notificationEdit">
             <p:messages autoUpdate="true" />
-            <p:panelGrid columns="1">
-                <h:outputLabel value="#{i18n['orga-ns-name']}">
-                    <p:inputText value="#{notificationView.ns.name}" />
-                </h:outputLabel>
+            <p:panelGrid columns="2">
+                <h:outputLabel value="#{i18n['orga-ns-name']}" />
+                <p:inputText value="#{notificationView.ns.name}" />
 
-                <h:outputLabel value="#{i18n['orga-ns-triggerValue']}">
-                    <p:inputText value="#{notificationView.ns.triggerValue}" />
-                </h:outputLabel>
-                <h:outputLabel value="#{i18n['orga-ns-operation']}">
-                    <h:selectOneMenu value="#{notificationView.ns.operation}">
-                        <f:selectItems value="#{notificationView.operations}"
-                                       var="operation"
-                                       itemValue="#{operation}" />
-                    </h:selectOneMenu>
-                </h:outputLabel>
+                <h:outputLabel value="#{i18n['orga-ns-triggerValue']}" />
+                <p:inputText value="#{notificationView.ns.triggerValue}" />
 
-                <h:outputLabel value="#{i18n['orga-ns-item']}">
-                    <p:selectOneMenu value="#{notificationView.selectedItem}"
-                                     converter="#{itemConverter}">
-                        <p:ajax update="#{p:component('ns-attribute')}" />
-                        <f:selectItems value="#{notificationView.items}"
-                                       var="item"
-                                       itemValue="#{item}"
-                                       itemDescription="#{item.name}" />
-                    </p:selectOneMenu>
-                </h:outputLabel>
-                <h:outputLabel value="#{i18n['orga-ns-attribute']}">
-                    <p:selectOneMenu value="#{notificationView.selectedAttributeId}"
-                                     id="ns-attribute">
-                        <f:selectItems value="#{notificationView.attributes}"
-                                       var="attribute"
-                                       itemValue="#{attribute.id}"
-                                       itemLabel="#{attribute.type.name}" />
-                    </p:selectOneMenu>
-                </h:outputLabel>
+
+                <h:outputLabel value="#{i18n['orga-ns-operation']}" />
+
+                <h:selectOneMenu value="#{notificationView.ns.operation}">
+                    <f:selectItems value="#{notificationView.operations}"
+                                   var="operation"
+                                   itemValue="#{operation}"
+                                   itemLabel="#{i18n['orga-ns-operation-' += operation]}" />
+                </h:selectOneMenu>
+
+                <h:outputLabel value="#{i18n['orga-ns-item']}" />
+                <p:selectOneMenu value="#{notificationView.selectedItem}"
+                                 converter="#{itemConverter}">
+                    <p:ajax update="#{p:component('ns-attribute')}" />
+                    <f:selectItems value="#{notificationView.items}"
+                                   var="item"
+                                   itemValue="#{item}"
+                                   itemLabel="#{item.name}" />
+                </p:selectOneMenu>
+
+                <h:outputLabel value="#{i18n['orga-ns-attribute']}" />
+
+                <p:selectOneMenu value="#{notificationView.selectedAttributeId}"
+                                 id="ns-attribute">
+                    <f:selectItems value="#{notificationView.attributes}"
+                                   var="attribute"
+                                   itemValue="#{attribute.id}"
+                                   itemLabel="#{attribute.type.name}" />
+                </p:selectOneMenu>
             </p:panelGrid>
+
+            <h:outputText value="#{i18n['orga-ns-composite']}" />
             <p:panelGrid id="composite"
-                         columns="1">
-                <h:outputText value="#{i18n['orga-ns-composite']}" />
+                         columns="2">
 
 
-                <h:outputLabel value="#{i18n['orga-ns-composite-other']}"
-                >
-                    <p:selectOneMenu value="#{notificationView.second}"
-                                     converter="#{notificationConverter}">
-                        <f:selectItems value="#{notificationView.otherNotificationSettings}"
-                                       var="otherNotification"
-                                       itemValue="#{otherNotification}"
-                                       itemLabel="#{otherNotification.name}" />
-                    </p:selectOneMenu>
-                </h:outputLabel>
+                <h:outputLabel value="#{i18n['orga-ns-composite-other']}" />
+                <p:selectOneMenu value="#{notificationView.second}"
+                                 converter="#{notificationConverter}">
+                    <f:selectItems value="#{notificationView.otherNotificationSettings}"
+                                   var="otherNotification"
+                                   itemValue="#{otherNotification}"
+                                   itemLabel="#{otherNotification.name}" />
+                </p:selectOneMenu>
 
-                <h:outputLabel value="#{i18n['orga-ns-composite-operation']}">
-                    <h:selectOneMenu value="#{notificationView.compositeOperation}">
-                        <f:selectItems value="#{notificationView.compositeOperations}"
-                                       var="compositeOperation"
-                                       itemValue="#{compositeOperation}" />
-                    </h:selectOneMenu>
-                </h:outputLabel>
+                <h:outputLabel value="#{i18n['orga-ns-composite-operation']}" />
+                <h:selectOneMenu value="#{notificationView.compositeOperation}">
+                    <f:selectItems value="#{notificationView.compositeOperations}"
+                                   var="compositeOperation"
+                                   itemValue="#{compositeOperation}" />
+                </h:selectOneMenu>
 
                 <p:fragment>
                     <p:commandButton value="#{i18n['orga-ns-compose']}"

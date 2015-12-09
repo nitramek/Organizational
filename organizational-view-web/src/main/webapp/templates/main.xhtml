@@ -8,45 +8,52 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
     <h:outputStylesheet library="css"
-                        value="main.css" />
+                        name="main.css" />
 </h:head>
 <f:view encoding="UTF-8">
-    <h:form id="navigation">
-        <p:menubar>
-            <p:menuitem value="#{i18n['orga-home']}"
-                        outcome="/pages/items.xhtml" />
-            <p:menuitem value="#{i18n['orga-itemtype']}"
-                        rendered="#{sessionBacking.administrator}"
-                        outcome="/pages/itemTypes.xhtml"
-                        id="itemType" />
-            <p:menuitem value="#{i18n['orga-login']}"
-                        rendered="#{!sessionBacking.logged}"
-                        id="loginButton" />
+    <div id="wrapper">
+        <div class="imageWrapper">
+            <h:graphicImage url="#{resource['images/logo_orga.png']}" />
+        </div>
+        <h:form id="navigation">
+            <p:menubar>
+                <p:menuitem value="#{i18n['orga-home']}"
+                            outcome="/pages/items.xhtml" />
+                <p:menuitem value="#{i18n['orga-itemtype']}"
+                            rendered="#{sessionBacking.administrator}"
+                            outcome="/pages/itemTypes.xhtml"
+                            id="itemType" />
+                <p:menuitem value="#{i18n['orga-login']}"
+                            rendered="#{!sessionBacking.logged}"
+                            id="loginButton" />
 
-            <p:menuitem value="#{i18n['orga-item-new']}"
-                        rendered="#{sessionBacking.logged}"
-                        outcome="/pages/detail/itemEdit.xhtml" />
-            <p:menuitem value="#{i18n['orga-notifications']}"
-                        rendered="#{sessionBacking.logged}"
-                        outcome="/pages/notificationsSetting.xhtml" />
+                <p:menuitem value="#{i18n['orga-item-new']}"
+                            rendered="#{sessionBacking.logged}"
+                            outcome="/pages/detail/itemEdit.xhtml" />
+                <p:menuitem value="#{i18n['orga-notifications']}"
+                            rendered="#{sessionBacking.logged}"
+                            outcome="/pages/notificationsSetting.xhtml" />
 
-            <p:menuitem value="#{i18n['orga-logout']}"
-                        rendered="#{sessionBacking.logged}"
-                        action="#{sessionBacking.logout}"
-                        ajax="false" />
+                <p:menuitem value="#{i18n['orga-logout']}"
+                            rendered="#{sessionBacking.logged}"
+                            action="#{sessionBacking.logout}"
+                            ajax="false" />
 
-        </p:menubar>
-        <p:overlayPanel for="loginButton"
-                        hideEffect="fade">
-            <ui:decorate template="/fragments/login.xhtml" />
-        </p:overlayPanel>
-    </h:form>
+            </p:menubar>
+            <p:overlayPanel for="loginButton"
+                            hideEffect="fade">
+                <ui:decorate template="/fragments/login.xhtml" />
+            </p:overlayPanel>
+        </h:form>
 
-    <ui:insert name="content">
+        <ui:insert name="content">
 
-    </ui:insert>
+        </ui:insert>
 
+        <div class="push"></div>
+    </div>
     <h:outputText value="#{i18n['rights-reserved']}"
-                  id="footer" />
+                  id="footer"
+                  style="display: block;" />
 </f:view>
 </html>

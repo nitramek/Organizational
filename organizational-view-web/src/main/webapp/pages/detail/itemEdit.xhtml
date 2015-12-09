@@ -10,35 +10,42 @@
     <ui:define name="content">
         <h:form id="editItemForm">
             <p:messages autoUpdate="true" />
-            <p:panelGrid>
+            <p:panelGrid columns="2">
                 <h:outputLabel value="#{i18n['orga-item-name']}">
-                    <p:inputText value="#{itemDetailView.item.name}" />
+
                 </h:outputLabel>
+                <p:inputText value="#{itemDetailView.item.name}" />
 
                 <h:outputLabel value="#{i18n['orga-item-borrowable']}">
-                    <p:selectBooleanButton offLabel="Ne"
-                                           onLabel="Ano"
-                                           value="#{itemDetailView.item.borrowable}" />
+
                 </h:outputLabel>
+                <p:selectBooleanButton offLabel="Ne"
+                                       onLabel="Ano"
+                                       value="#{itemDetailView.item.borrowable}" />
+
                 <h:outputLabel value="#{i18n['orga-item-itemType']}">
-                    <p:selectOneMenu value="#{itemDetailView.item.type}"
-                                     converter="#{itemTypeConverter}">
-                        <p:ajax listener="#{itemDetailView.onItemTypeSelect}"
-                                update="@form" />
-                        <f:selectItems value="#{itemDetailView.itemTypes}"
-                                       var="it"
-                                       itemLabel="#{it.name}"
-                                       itemValue="#{it}">
-                        </f:selectItems>
-                    </p:selectOneMenu>
+
                 </h:outputLabel>
+
+                <p:selectOneMenu value="#{itemDetailView.item.type}"
+                                 converter="#{itemTypeConverter}">
+                    <p:ajax listener="#{itemDetailView.onItemTypeSelect}"
+                            update="@form" />
+                    <f:selectItems value="#{itemDetailView.itemTypes}"
+                                   var="it"
+                                   itemLabel="#{it.name}"
+                                   itemValue="#{it}">
+                    </f:selectItems>
+                </p:selectOneMenu>
+
             </p:panelGrid>
-            <p:panelGrid>
+            <p:panelGrid columns="2">
                 <ui:repeat value="#{itemDetailView.item.attributes}"
                            var="attribute">
                     <h:outputLabel value="#{attribute.type.name}">
-                        <p:inputText value="#{attribute.strValue}" />
                     </h:outputLabel>
+
+                    <p:inputText value="#{attribute.strValue}" />
                 </ui:repeat>
             </p:panelGrid>
             <p:commandButton ajax="false"
